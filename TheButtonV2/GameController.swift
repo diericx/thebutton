@@ -22,11 +22,8 @@ class GameController: UIViewController, PNObjectEventListener {
         appDelegate.client.addListener(self)
         
         //Update wallet text
-        if appDelegate.userData != nil {
-            self.updateCoinLabel()
-        } else {
-            appDelegate.getUserDataRecord(callback: getUserDataCallback)
-        }
+        //TODO: Make UpdateUI function
+        self.updateCoinLabel()
         
         // Do any additional setup after loading the view, typically from a nib.
     }
@@ -46,12 +43,17 @@ class GameController: UIViewController, PNObjectEventListener {
     }
 
     @IBAction func OnButtonTap(_ sender: Any) {
-        if appDelegate.userData?["coins"] as! Int > 0 {
+        if LocalDataHandler.getCoins() > 0 {
+            
+            //send packet to pubnub
             appDelegate.sendMessage(packet: "{\"action\": \"button-press\", \"uuid\": \"" + appDelegate.uuid + "\", \"name\":\"Zac\"}");
-            let coins = appDelegate.userData?["coins"] as! Int
-            appDelegate.userData?.setValue(coins - 1, forKey: "coins")
+            
+            //update coins
+            LocalDataHandler.setCoins(coins: LocalDataHandler.getCoins() - 1)
+            
+            //update coin UI
             self.updateCoinLabel()
-            appDelegate.syncUserDataWithCloud()
+            
         } else {
             //TODO: warn user that they are broke
             print("Out of funds!");
@@ -59,18 +61,22 @@ class GameController: UIViewController, PNObjectEventListener {
     }
     
     //When the userData is collected, set ui and variable
-    func getUserDataCallback(record: CKRecord) {
-        appDelegate.userData = record
-        print("Coins: " + String(appDelegate.userData?["coins"] as! Int))
-        DispatchQueue.main.async {
-            // qos' default value is ´DispatchQoS.QoSClass.default`
-            self.updateCoinLabel()
-        }
-        
-    }
+//    func getUserDataCallback(record: CKRecord) {
+//        appDelegate.userData = record
+//        print("Coins: " + String(appDelegate.userData?["coins"] as! Int))
+//        DispatchQueue.main.async {
+//            // qos' default value is ´DispatchQoS.QoSClass.default`
+//            self.updateCoinLabel()
+//        }
+//        
+//    }
     
     func updateCoinLabel() {
-        self.walletLabel.text = "Wallet: " + String(self.appDelegate.userData?["coins"] as! Int)
+        self.walletLabel.text = "Wallet: " + String(LocalDataHandler.getCoins())
+    }
+    
+    func updatePotLabel() {
+        self.potLabel.text = "$" + String(appDelegate.pot)
     }
     
     // Handle new message from one of channels on which client has been subscribed.
@@ -95,8 +101,10 @@ class GameController: UIViewController, PNObjectEventListener {
             
             //Get current pot and set value
             let pot: Int = dictionary["pot"] as! Int
+            print(pot)
             appDelegate.pot = pot
-            potLabel.text = "$" + String(pot)
+            //update ui
+            updatePotLabel()
             
             let randX = arc4random_uniform(UInt32(self.view.bounds.width-100))+50;
             let label = UILabel(frame: CGRect(x: Int(randX), y: 100, width: 200, height: 21))
@@ -120,8 +128,7 @@ class GameController: UIViewController, PNObjectEventListener {
             if uuid == appDelegate.uuid {
                 appDelegate.winner = true
                 //update local userData coin value
-                let coins = appDelegate.userData?["coins"] as! Int
-                appDelegate.userData?.setValue(coins + appDelegate.pot, forKey: "coins")
+                LocalDataHandler.setCoins(coins: LocalDataHandler.getCoins() + appDelegate.pot)
                 //sync local data with cloud
                 appDelegate.syncUserDataWithCloud()
             }

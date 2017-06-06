@@ -35,7 +35,6 @@ class WinScreenController: UIViewController, PNObjectEventListener, AVCapturePho
             winnerLabel.isHidden = true
         } else {
             cameraView.isHidden = true
-//            maskTargetImageView.isHidden = true
         }
         
         winnerLabel.text = appDelegate.winnerName + " Won!";
@@ -48,6 +47,11 @@ class WinScreenController: UIViewController, PNObjectEventListener, AVCapturePho
     override func viewDidLayoutSubviews() {
         super.viewDidLayoutSubviews()
         maskView.frame = imageView.bounds
+    }
+    
+    //remove status bar
+    override var prefersStatusBarHidden: Bool {
+        return true
     }
     
     func capturePhoto() {
@@ -211,10 +215,6 @@ class WinScreenController: UIViewController, PNObjectEventListener, AVCapturePho
             }
         }
         
-    }
-    
-    override var prefersStatusBarHidden: Bool {
-        return true
     }
 
 }

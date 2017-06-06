@@ -18,8 +18,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate, PNObjectEventListener {
     var container: CKContainer
     var publicDB: CKDatabase
     var privateDB: CKDatabase
-    var userData: CKRecord? = nil
-    var userID: String = ""
+//    var userID: String
     
     typealias GetUserDataCallback = (_ record : CKRecord)  -> Void
     
@@ -73,56 +72,56 @@ class AppDelegate: UIResponder, UIApplicationDelegate, PNObjectEventListener {
         }
     }
 
-    func getUserDataRecord(callback: @escaping (_ record: CKRecord) -> ()) {
-        // call the function above in the following way:
-        // (userID is the string you are interested in!)
-        iCloudUserIDAsync { (recordID: CKRecordID?, error: NSError?) in
-            if let userID = recordID?.recordName {
-                print("received iCloudID \(userID)")
-                self.userID = userID
-                
-                //get current user record
-                var recId: CKRecordID = CKRecordID(recordName: userID)
-                self.publicDB.fetch(withRecordID: recId) { (record, error) -> Void in
-                    guard let record = record else {
-                        print("Error fetching record: ", error)
-                        return
-                    }
-                    print("Got User Record")
-                    self.userData = record
-                    callback(record)
-                }
-                
-            } else {
-                print("Fetched iCloudID was nil")
-            }
-        }
-    }
+//    func getUserDataRecord(callback: @escaping (_ record: CKRecord) -> ()) {
+//        // call the function above in the following way:
+//        // (userID is the string you are interested in!)
+//        iCloudUserIDAsync { (recordID: CKRecordID?, error: NSError?) in
+//            if let userID = recordID?.recordName {
+//                print("received iCloudID \(userID)")
+//                self.userID = userID
+//                
+//                //get current user record
+//                var recId: CKRecordID = CKRecordID(recordName: userID)
+//                self.publicDB.fetch(withRecordID: recId) { (record, error) -> Void in
+//                    guard let record = record else {
+//                        print("Error fetching record: ", error)
+//                        return
+//                    }
+//                    print("Got User Record")
+//                    self.userData = record
+//                    callback(record)
+//                }
+//                
+//            } else {
+//                print("Fetched iCloudID was nil")
+//            }
+//        }
+//    }
     
     //sync current userData with cloud userData
     func syncUserDataWithCloud() {
-        
-        let myRecordName = self.userData?.recordID.recordName
-        let recordID = CKRecordID(recordName: myRecordName!)
-        
-        self.publicDB.fetch(withRecordID: recordID, completionHandler: { (record, error) in
-            if error != nil {
-                print("Error fetching record: \(error?.localizedDescription)")
-            } else {
-                // Now you have grabbed your existing record from iCloud
-                // Apply whatever changes you want
-                record?.setObject(self.userData?["coins"], forKey: "coins")
-                
-                // Save this record again
-                self.publicDB.save(record!, completionHandler: { (savedRecord, saveError) in
-                    if saveError != nil {
-                        print("Error saving record: \(saveError?.localizedDescription)")
-                    } else {
-                        print("Successfully updated record!")
-                    }
-                })
-            }
-        })
+        //TODO: Sync local data with cloud
+//        let myRecordName = self.userData?.recordID.recordName
+//        let recordID = CKRecordID(recordName: myRecordName!)
+//        
+//        self.publicDB.fetch(withRecordID: recordID, completionHandler: { (record, error) in
+//            if error != nil {
+//                print("Error fetching record: \(error?.localizedDescription)")
+//            } else {
+//                // Now you have grabbed your existing record from iCloud
+//                // Apply whatever changes you want
+//                record?.setObject(self.userData?["coins"], forKey: "coins")
+//                
+//                // Save this record again
+//                self.publicDB.save(record!, completionHandler: { (savedRecord, saveError) in
+//                    if saveError != nil {
+//                        print("Error saving record: \(saveError?.localizedDescription)")
+//                    } else {
+//                        print("Successfully updated record!")
+//                    }
+//                })
+//            }
+//        })
 
     }
     

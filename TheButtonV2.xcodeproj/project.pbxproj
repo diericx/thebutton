@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		11EB28FF1EE641A9002BEF42 /* LocalDataHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = 11EB28FE1EE641A9002BEF42 /* LocalDataHandler.swift */; };
 		11EB528E1EE3652700A5312F /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 11EB528D1EE3652700A5312F /* AppDelegate.swift */; };
 		11EB52901EE3652700A5312F /* GameController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 11EB528F1EE3652700A5312F /* GameController.swift */; };
 		11EB52931EE3652700A5312F /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 11EB52911EE3652700A5312F /* Main.storyboard */; };
@@ -40,6 +41,7 @@
 
 /* Begin PBXFileReference section */
 		06C51D119D4CB713DA65539B /* Pods-TheButtonV2.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-TheButtonV2.release.xcconfig"; path = "Pods/Target Support Files/Pods-TheButtonV2/Pods-TheButtonV2.release.xcconfig"; sourceTree = "<group>"; };
+		11EB28FE1EE641A9002BEF42 /* LocalDataHandler.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LocalDataHandler.swift; sourceTree = "<group>"; };
 		11EB528A1EE3652700A5312F /* TheButtonV2.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = TheButtonV2.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		11EB528D1EE3652700A5312F /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		11EB528F1EE3652700A5312F /* GameController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameController.swift; sourceTree = "<group>"; };
@@ -124,6 +126,7 @@
 				11EB52961EE3652700A5312F /* LaunchScreen.storyboard */,
 				11EB52991EE3652700A5312F /* Info.plist */,
 				11EB52BF1EE3ADC900A5312F /* DataExtension.swift */,
+				11EB28FE1EE641A9002BEF42 /* LocalDataHandler.swift */,
 			);
 			path = TheButtonV2;
 			sourceTree = "<group>";
@@ -362,6 +365,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				11EB52BE1EE38A9800A5312F /* WinScreenController.swift in Sources */,
+				11EB28FF1EE641A9002BEF42 /* LocalDataHandler.swift in Sources */,
 				11EB52C01EE3ADC900A5312F /* DataExtension.swift in Sources */,
 				11EB52901EE3652700A5312F /* GameController.swift in Sources */,
 				11EB528E1EE3652700A5312F /* AppDelegate.swift in Sources */,
