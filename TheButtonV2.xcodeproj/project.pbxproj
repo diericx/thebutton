@@ -1,0 +1,645 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 46;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		11EB528E1EE3652700A5312F /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 11EB528D1EE3652700A5312F /* AppDelegate.swift */; };
+		11EB52901EE3652700A5312F /* GameController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 11EB528F1EE3652700A5312F /* GameController.swift */; };
+		11EB52931EE3652700A5312F /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 11EB52911EE3652700A5312F /* Main.storyboard */; };
+		11EB52951EE3652700A5312F /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 11EB52941EE3652700A5312F /* Assets.xcassets */; };
+		11EB52981EE3652700A5312F /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 11EB52961EE3652700A5312F /* LaunchScreen.storyboard */; };
+		11EB52A31EE3652700A5312F /* TheButtonV2Tests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 11EB52A21EE3652700A5312F /* TheButtonV2Tests.swift */; };
+		11EB52AE1EE3652700A5312F /* TheButtonV2UITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 11EB52AD1EE3652700A5312F /* TheButtonV2UITests.swift */; };
+		11EB52BC1EE3661200A5312F /* Podfile in Resources */ = {isa = PBXBuildFile; fileRef = 11EB52BB1EE3661200A5312F /* Podfile */; };
+		11EB52BE1EE38A9800A5312F /* WinScreenController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 11EB52BD1EE38A9800A5312F /* WinScreenController.swift */; };
+		11EB52C01EE3ADC900A5312F /* DataExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 11EB52BF1EE3ADC900A5312F /* DataExtension.swift */; };
+		11EB52C31EE3B7FF00A5312F /* CloudKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 11EB52C21EE3B7FF00A5312F /* CloudKit.framework */; };
+		475AE09944986636DD054D65 /* Pods_TheButtonV2.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 29776B2A315281BAD52BF208 /* Pods_TheButtonV2.framework */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXContainerItemProxy section */
+		11EB529F1EE3652700A5312F /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 11EB52821EE3652700A5312F /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 11EB52891EE3652700A5312F;
+			remoteInfo = TheButtonV2;
+		};
+		11EB52AA1EE3652700A5312F /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 11EB52821EE3652700A5312F /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 11EB52891EE3652700A5312F;
+			remoteInfo = TheButtonV2;
+		};
+/* End PBXContainerItemProxy section */
+
+/* Begin PBXFileReference section */
+		06C51D119D4CB713DA65539B /* Pods-TheButtonV2.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-TheButtonV2.release.xcconfig"; path = "Pods/Target Support Files/Pods-TheButtonV2/Pods-TheButtonV2.release.xcconfig"; sourceTree = "<group>"; };
+		11EB528A1EE3652700A5312F /* TheButtonV2.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = TheButtonV2.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		11EB528D1EE3652700A5312F /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
+		11EB528F1EE3652700A5312F /* GameController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameController.swift; sourceTree = "<group>"; };
+		11EB52921EE3652700A5312F /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
+		11EB52941EE3652700A5312F /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
+		11EB52971EE3652700A5312F /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
+		11EB52991EE3652700A5312F /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		11EB529E1EE3652700A5312F /* TheButtonV2Tests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = TheButtonV2Tests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		11EB52A21EE3652700A5312F /* TheButtonV2Tests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TheButtonV2Tests.swift; sourceTree = "<group>"; };
+		11EB52A41EE3652700A5312F /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		11EB52A91EE3652700A5312F /* TheButtonV2UITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = TheButtonV2UITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		11EB52AD1EE3652700A5312F /* TheButtonV2UITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TheButtonV2UITests.swift; sourceTree = "<group>"; };
+		11EB52AF1EE3652700A5312F /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		11EB52BB1EE3661200A5312F /* Podfile */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = Podfile; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.ruby; };
+		11EB52BD1EE38A9800A5312F /* WinScreenController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WinScreenController.swift; sourceTree = "<group>"; };
+		11EB52BF1EE3ADC900A5312F /* DataExtension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DataExtension.swift; sourceTree = "<group>"; };
+		11EB52C11EE3B75F00A5312F /* TheButtonV2.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = TheButtonV2.entitlements; sourceTree = "<group>"; };
+		11EB52C21EE3B7FF00A5312F /* CloudKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CloudKit.framework; path = System/Library/Frameworks/CloudKit.framework; sourceTree = SDKROOT; };
+		29776B2A315281BAD52BF208 /* Pods_TheButtonV2.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_TheButtonV2.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		D7A40060C93BEA5AC9AC3FFD /* Pods-TheButtonV2.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-TheButtonV2.debug.xcconfig"; path = "Pods/Target Support Files/Pods-TheButtonV2/Pods-TheButtonV2.debug.xcconfig"; sourceTree = "<group>"; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		11EB52871EE3652700A5312F /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				475AE09944986636DD054D65 /* Pods_TheButtonV2.framework in Frameworks */,
+				11EB52C31EE3B7FF00A5312F /* CloudKit.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		11EB529B1EE3652700A5312F /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		11EB52A61EE3652700A5312F /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		11EB52811EE3652700A5312F = {
+			isa = PBXGroup;
+			children = (
+				11EB52BB1EE3661200A5312F /* Podfile */,
+				11EB528C1EE3652700A5312F /* TheButtonV2 */,
+				11EB52A11EE3652700A5312F /* TheButtonV2Tests */,
+				11EB52AC1EE3652700A5312F /* TheButtonV2UITests */,
+				11EB528B1EE3652700A5312F /* Products */,
+				40AE6109641C84F3C9370D2F /* Pods */,
+				6F82AE19C40C32F3CD1B0A8F /* Frameworks */,
+			);
+			sourceTree = "<group>";
+		};
+		11EB528B1EE3652700A5312F /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				11EB528A1EE3652700A5312F /* TheButtonV2.app */,
+				11EB529E1EE3652700A5312F /* TheButtonV2Tests.xctest */,
+				11EB52A91EE3652700A5312F /* TheButtonV2UITests.xctest */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		11EB528C1EE3652700A5312F /* TheButtonV2 */ = {
+			isa = PBXGroup;
+			children = (
+				11EB52C11EE3B75F00A5312F /* TheButtonV2.entitlements */,
+				11EB528D1EE3652700A5312F /* AppDelegate.swift */,
+				11EB528F1EE3652700A5312F /* GameController.swift */,
+				11EB52BD1EE38A9800A5312F /* WinScreenController.swift */,
+				11EB52911EE3652700A5312F /* Main.storyboard */,
+				11EB52941EE3652700A5312F /* Assets.xcassets */,
+				11EB52961EE3652700A5312F /* LaunchScreen.storyboard */,
+				11EB52991EE3652700A5312F /* Info.plist */,
+				11EB52BF1EE3ADC900A5312F /* DataExtension.swift */,
+			);
+			path = TheButtonV2;
+			sourceTree = "<group>";
+		};
+		11EB52A11EE3652700A5312F /* TheButtonV2Tests */ = {
+			isa = PBXGroup;
+			children = (
+				11EB52A21EE3652700A5312F /* TheButtonV2Tests.swift */,
+				11EB52A41EE3652700A5312F /* Info.plist */,
+			);
+			path = TheButtonV2Tests;
+			sourceTree = "<group>";
+		};
+		11EB52AC1EE3652700A5312F /* TheButtonV2UITests */ = {
+			isa = PBXGroup;
+			children = (
+				11EB52AD1EE3652700A5312F /* TheButtonV2UITests.swift */,
+				11EB52AF1EE3652700A5312F /* Info.plist */,
+			);
+			path = TheButtonV2UITests;
+			sourceTree = "<group>";
+		};
+		40AE6109641C84F3C9370D2F /* Pods */ = {
+			isa = PBXGroup;
+			children = (
+				D7A40060C93BEA5AC9AC3FFD /* Pods-TheButtonV2.debug.xcconfig */,
+				06C51D119D4CB713DA65539B /* Pods-TheButtonV2.release.xcconfig */,
+			);
+			name = Pods;
+			sourceTree = "<group>";
+		};
+		6F82AE19C40C32F3CD1B0A8F /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				11EB52C21EE3B7FF00A5312F /* CloudKit.framework */,
+				29776B2A315281BAD52BF208 /* Pods_TheButtonV2.framework */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXNativeTarget section */
+		11EB52891EE3652700A5312F /* TheButtonV2 */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 11EB52B21EE3652700A5312F /* Build configuration list for PBXNativeTarget "TheButtonV2" */;
+			buildPhases = (
+				47BAC7417387A2C5609D40D5 /* [CP] Check Pods Manifest.lock */,
+				11EB52861EE3652700A5312F /* Sources */,
+				11EB52871EE3652700A5312F /* Frameworks */,
+				11EB52881EE3652700A5312F /* Resources */,
+				99F6ABE4DE260043605CEBE0 /* [CP] Embed Pods Frameworks */,
+				0CEEB448DC1A2C09BF06B7EE /* [CP] Copy Pods Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = TheButtonV2;
+			productName = TheButtonV2;
+			productReference = 11EB528A1EE3652700A5312F /* TheButtonV2.app */;
+			productType = "com.apple.product-type.application";
+		};
+		11EB529D1EE3652700A5312F /* TheButtonV2Tests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 11EB52B51EE3652700A5312F /* Build configuration list for PBXNativeTarget "TheButtonV2Tests" */;
+			buildPhases = (
+				11EB529A1EE3652700A5312F /* Sources */,
+				11EB529B1EE3652700A5312F /* Frameworks */,
+				11EB529C1EE3652700A5312F /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				11EB52A01EE3652700A5312F /* PBXTargetDependency */,
+			);
+			name = TheButtonV2Tests;
+			productName = TheButtonV2Tests;
+			productReference = 11EB529E1EE3652700A5312F /* TheButtonV2Tests.xctest */;
+			productType = "com.apple.product-type.bundle.unit-test";
+		};
+		11EB52A81EE3652700A5312F /* TheButtonV2UITests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 11EB52B81EE3652700A5312F /* Build configuration list for PBXNativeTarget "TheButtonV2UITests" */;
+			buildPhases = (
+				11EB52A51EE3652700A5312F /* Sources */,
+				11EB52A61EE3652700A5312F /* Frameworks */,
+				11EB52A71EE3652700A5312F /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				11EB52AB1EE3652700A5312F /* PBXTargetDependency */,
+			);
+			name = TheButtonV2UITests;
+			productName = TheButtonV2UITests;
+			productReference = 11EB52A91EE3652700A5312F /* TheButtonV2UITests.xctest */;
+			productType = "com.apple.product-type.bundle.ui-testing";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		11EB52821EE3652700A5312F /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				LastSwiftUpdateCheck = 0820;
+				LastUpgradeCheck = 0820;
+				ORGANIZATIONNAME = Diericx;
+				TargetAttributes = {
+					11EB52891EE3652700A5312F = {
+						CreatedOnToolsVersion = 8.2.1;
+						DevelopmentTeam = 5PJ639S4VT;
+						ProvisioningStyle = Automatic;
+						SystemCapabilities = {
+							com.apple.Push = {
+								enabled = 1;
+							};
+							com.apple.iCloud = {
+								enabled = 1;
+							};
+						};
+					};
+					11EB529D1EE3652700A5312F = {
+						CreatedOnToolsVersion = 8.2.1;
+						DevelopmentTeam = MDPF97Z469;
+						ProvisioningStyle = Automatic;
+						TestTargetID = 11EB52891EE3652700A5312F;
+					};
+					11EB52A81EE3652700A5312F = {
+						CreatedOnToolsVersion = 8.2.1;
+						DevelopmentTeam = MDPF97Z469;
+						ProvisioningStyle = Automatic;
+						TestTargetID = 11EB52891EE3652700A5312F;
+					};
+				};
+			};
+			buildConfigurationList = 11EB52851EE3652700A5312F /* Build configuration list for PBXProject "TheButtonV2" */;
+			compatibilityVersion = "Xcode 3.2";
+			developmentRegion = English;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				en,
+				Base,
+			);
+			mainGroup = 11EB52811EE3652700A5312F;
+			productRefGroup = 11EB528B1EE3652700A5312F /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				11EB52891EE3652700A5312F /* TheButtonV2 */,
+				11EB529D1EE3652700A5312F /* TheButtonV2Tests */,
+				11EB52A81EE3652700A5312F /* TheButtonV2UITests */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXResourcesBuildPhase section */
+		11EB52881EE3652700A5312F /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				11EB52981EE3652700A5312F /* LaunchScreen.storyboard in Resources */,
+				11EB52951EE3652700A5312F /* Assets.xcassets in Resources */,
+				11EB52BC1EE3661200A5312F /* Podfile in Resources */,
+				11EB52931EE3652700A5312F /* Main.storyboard in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		11EB529C1EE3652700A5312F /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		11EB52A71EE3652700A5312F /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
+
+/* Begin PBXShellScriptBuildPhase section */
+		0CEEB448DC1A2C09BF06B7EE /* [CP] Copy Pods Resources */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "[CP] Copy Pods Resources";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-TheButtonV2/Pods-TheButtonV2-resources.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		47BAC7417387A2C5609D40D5 /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_ROOT}/../Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n";
+			showEnvVarsInLog = 0;
+		};
+		99F6ABE4DE260043605CEBE0 /* [CP] Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "[CP] Embed Pods Frameworks";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-TheButtonV2/Pods-TheButtonV2-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+/* End PBXShellScriptBuildPhase section */
+
+/* Begin PBXSourcesBuildPhase section */
+		11EB52861EE3652700A5312F /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				11EB52BE1EE38A9800A5312F /* WinScreenController.swift in Sources */,
+				11EB52C01EE3ADC900A5312F /* DataExtension.swift in Sources */,
+				11EB52901EE3652700A5312F /* GameController.swift in Sources */,
+				11EB528E1EE3652700A5312F /* AppDelegate.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		11EB529A1EE3652700A5312F /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				11EB52A31EE3652700A5312F /* TheButtonV2Tests.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		11EB52A51EE3652700A5312F /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				11EB52AE1EE3652700A5312F /* TheButtonV2UITests.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin PBXTargetDependency section */
+		11EB52A01EE3652700A5312F /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 11EB52891EE3652700A5312F /* TheButtonV2 */;
+			targetProxy = 11EB529F1EE3652700A5312F /* PBXContainerItemProxy */;
+		};
+		11EB52AB1EE3652700A5312F /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 11EB52891EE3652700A5312F /* TheButtonV2 */;
+			targetProxy = 11EB52AA1EE3652700A5312F /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
+
+/* Begin PBXVariantGroup section */
+		11EB52911EE3652700A5312F /* Main.storyboard */ = {
+			isa = PBXVariantGroup;
+			children = (
+				11EB52921EE3652700A5312F /* Base */,
+			);
+			name = Main.storyboard;
+			sourceTree = "<group>";
+		};
+		11EB52961EE3652700A5312F /* LaunchScreen.storyboard */ = {
+			isa = PBXVariantGroup;
+			children = (
+				11EB52971EE3652700A5312F /* Base */,
+			);
+			name = LaunchScreen.storyboard;
+			sourceTree = "<group>";
+		};
+/* End PBXVariantGroup section */
+
+/* Begin XCBuildConfiguration section */
+		11EB52B01EE3652700A5312F /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = dwarf;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_TESTABILITY = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 10.2;
+				MTL_ENABLE_DEBUG_INFO = YES;
+				ONLY_ACTIVE_ARCH = YES;
+				SDKROOT = iphoneos;
+				SWIFT_ACTIVE_COMPILATION_CONDITIONS = DEBUG;
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Debug;
+		};
+		11EB52B11EE3652700A5312F /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				ENABLE_NS_ASSERTIONS = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 10.2;
+				MTL_ENABLE_DEBUG_INFO = NO;
+				SDKROOT = iphoneos;
+				SWIFT_OPTIMIZATION_LEVEL = "-Owholemodule";
+				TARGETED_DEVICE_FAMILY = "1,2";
+				VALIDATE_PRODUCT = YES;
+			};
+			name = Release;
+		};
+		11EB52B31EE3652700A5312F /* Debug */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = D7A40060C93BEA5AC9AC3FFD /* Pods-TheButtonV2.debug.xcconfig */;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_ENTITLEMENTS = TheButtonV2/TheButtonV2.entitlements;
+				DEVELOPMENT_TEAM = 5PJ639S4VT;
+				INFOPLIST_FILE = TheButtonV2/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = com.diericx.TheButtonV3;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 3.0;
+			};
+			name = Debug;
+		};
+		11EB52B41EE3652700A5312F /* Release */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = 06C51D119D4CB713DA65539B /* Pods-TheButtonV2.release.xcconfig */;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_ENTITLEMENTS = TheButtonV2/TheButtonV2.entitlements;
+				DEVELOPMENT_TEAM = 5PJ639S4VT;
+				INFOPLIST_FILE = TheButtonV2/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = com.diericx.TheButtonV3;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 3.0;
+			};
+			name = Release;
+		};
+		11EB52B61EE3652700A5312F /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				DEVELOPMENT_TEAM = MDPF97Z469;
+				INFOPLIST_FILE = TheButtonV2Tests/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = com.diericx.TheButtonV2Tests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 3.0;
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/TheButtonV2.app/TheButtonV2";
+			};
+			name = Debug;
+		};
+		11EB52B71EE3652700A5312F /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				DEVELOPMENT_TEAM = MDPF97Z469;
+				INFOPLIST_FILE = TheButtonV2Tests/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = com.diericx.TheButtonV2Tests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 3.0;
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/TheButtonV2.app/TheButtonV2";
+			};
+			name = Release;
+		};
+		11EB52B91EE3652700A5312F /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
+				DEVELOPMENT_TEAM = MDPF97Z469;
+				INFOPLIST_FILE = TheButtonV2UITests/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = com.diericx.TheButtonV2UITests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 3.0;
+				TEST_TARGET_NAME = TheButtonV2;
+			};
+			name = Debug;
+		};
+		11EB52BA1EE3652700A5312F /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
+				DEVELOPMENT_TEAM = MDPF97Z469;
+				INFOPLIST_FILE = TheButtonV2UITests/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = com.diericx.TheButtonV2UITests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 3.0;
+				TEST_TARGET_NAME = TheButtonV2;
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		11EB52851EE3652700A5312F /* Build configuration list for PBXProject "TheButtonV2" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				11EB52B01EE3652700A5312F /* Debug */,
+				11EB52B11EE3652700A5312F /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		11EB52B21EE3652700A5312F /* Build configuration list for PBXNativeTarget "TheButtonV2" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				11EB52B31EE3652700A5312F /* Debug */,
+				11EB52B41EE3652700A5312F /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		11EB52B51EE3652700A5312F /* Build configuration list for PBXNativeTarget "TheButtonV2Tests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				11EB52B61EE3652700A5312F /* Debug */,
+				11EB52B71EE3652700A5312F /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		11EB52B81EE3652700A5312F /* Build configuration list for PBXNativeTarget "TheButtonV2UITests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				11EB52B91EE3652700A5312F /* Debug */,
+				11EB52BA1EE3652700A5312F /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+/* End XCConfigurationList section */
+	};
+	rootObject = 11EB52821EE3652700A5312F /* Project object */;
+}

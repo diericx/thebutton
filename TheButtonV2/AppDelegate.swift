@@ -1,0 +1,165 @@
+//
+//  AppDelegate.swift
+//  TheButtonV2
+//
+//  Created by Zac Holland on 6/3/17.
+//  Copyright © 2017 Diericx. All rights reserved.
+//
+
+import UIKit
+import PubNub
+import CloudKit
+
+@UIApplicationMain
+class AppDelegate: UIResponder, UIApplicationDelegate, PNObjectEventListener {
+
+    var window: UIWindow?
+    
+    var container: CKContainer
+    var publicDB: CKDatabase
+    var privateDB: CKDatabase
+    var userData: CKRecord? = nil
+    var userID: String = ""
+    
+    typealias GetUserDataCallback = (_ record : CKRecord)  -> Void
+    
+    var winner = false
+    var winnerName = ""
+    var pot = 0
+    // Stores reference on PubNub client to make sure what it won't be released.
+    var client: PubNub!
+    let uuid = UUID().uuidString
+    
+    override init() {
+        //CLOUDKIT
+        // 1
+        container = CKContainer.default()
+        // 2
+        publicDB = container.publicCloudDatabase
+        // 3
+        privateDB = container.privateCloudDatabase
+    }
+    
+    func sendMessage(packet: String) {
+        print(self.uuid);
+        // Select last object from list of channels and send message to it.
+        let targetChannel = self.client.channels().last!
+        self.client.publish(packet, toChannel: targetChannel,
+                                   compressed: false, withCompletion: { (publishStatus) -> Void in
+                                    
+                                    if !publishStatus.isError {
+                                        print("Success");
+                                        // Message successfully published to specified channel.
+                                    }
+                                    else {
+                                        print("ERROR SENDING MESSAGE");
+                                        print(publishStatus.errorData);
+                                    }
+        })
+    }
+    
+    /// async gets iCloud record ID object of logged-in iCloud user
+    func iCloudUserIDAsync(complete: @escaping (_ instance: CKRecordID?, _ error: NSError?) -> ()) {
+        let container = CKContainer.default()
+        container.fetchUserRecordID() {
+            recordID, error in
+            if error != nil {
+                print(error!.localizedDescription)
+                complete(nil, error as NSError?)
+            } else {
+                print("fetched ID \(recordID?.recordName)")
+                complete(recordID, nil)
+            }
+        }
+    }
+
+    func getUserDataRecord(callback: @escaping (_ record: CKRecord) -> ()) {
+        // call the function above in the following way:
+        // (userID is the string you are interested in!)
+        iCloudUserIDAsync { (recordID: CKRecordID?, error: NSError?) in
+            if let userID = recordID?.recordName {
+                print("received iCloudID \(userID)")
+                self.userID = userID
+                
+                //get current user record
+                var recId: CKRecordID = CKRecordID(recordName: userID)
+                self.publicDB.fetch(withRecordID: recId) { (record, error) -> Void in
+                    guard let record = record else {
+                        print("Error fetching record: ", error)
+                        return
+                    }
+                    print("Got User Record")
+                    self.userData = record
+                    callback(record)
+                }
+                
+            } else {
+                print("Fetched iCloudID was nil")
+            }
+        }
+    }
+    
+    //sync current userData with cloud userData
+    func syncUserDataWithCloud() {
+        
+        let myRecordName = self.userData?.recordID.recordName
+        let recordID = CKRecordID(recordName: myRecordName!)
+        
+        self.publicDB.fetch(withRecordID: recordID, completionHandler: { (record, error) in
+            if error != nil {
+                print("Error fetching record: \(error?.localizedDescription)")
+            } else {
+                // Now you have grabbed your existing record from iCloud
+                // Apply whatever changes you want
+                record?.setObject(self.userData?["coins"], forKey: "coins")
+                
+                // Save this record again
+                self.publicDB.save(record!, completionHandler: { (savedRecord, saveError) in
+                    if saveError != nil {
+                        print("Error saving record: \(saveError?.localizedDescription)")
+                    } else {
+                        print("Successfully updated record!")
+                    }
+                })
+            }
+        })
+
+    }
+    
+    func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplicationLaunchOptionsKey: Any]?) -> Bool {
+        // Override point for customization after application launch.
+        // Initialize and configure PubNub client instance
+        let configuration = PNConfiguration(publishKey: "pub-c-9598bf00-2785-41d4-ad2f-d2362b2738d9", subscribeKey: "sub-c-8a0a7138-e751-11e6-94bb-0619f8945a4f")
+        self.client = PubNub.clientWithConfiguration(configuration)
+        
+        // Subscribe to demo channel with presence observation
+        self.client.subscribeToChannels(["global"], withPresence: true)
+        
+        return true
+    }
+
+    func applicationWillResignActive(_ application: UIApplication) {
+        // Sent when the application is about to move from active to inactive state. This can occur for certain types of temporary interruptions (such as an incoming phone call or SMS message) or when the user quits the application and it begins the transition to the background state.
+        // Use this method to pause ongoing tasks, disable timers, and invalidate graphics rendering callbacks. Games should use this method to pause the game.
+    }
+
+    func applicationDidEnterBackground(_ application: UIApplication) {
+        // Use this method to release shared resources, save user data, invalidate timers, and store enough application state information to restore your application to its current state in case it is terminated later.
+        // If your application supports background execution, this method is called instead of applicationWillTerminate: when the user quits.
+    }
+
+    func applicationWillEnterForeground(_ application: UIApplication) {
+        // Called as part of the transition from the background to the active state; here you can undo many of the changes made on entering the background.
+    }
+
+    func applicationDidBecomeActive(_ application: UIApplication) {
+        // Restart any tasks that were paused (or not yet started) while the application was inactive. If the application was previously in the background, optionally refresh the user interface.
+    }
+
+    func applicationWillTerminate(_ application: UIApplication) {
+        // Called when the application is about to terminate. Save data if appropriate. See also applicationDidEnterBackground:.
+    }
+
+
+}
+
