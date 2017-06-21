@@ -10,10 +10,11 @@ import UIKit
 import Foundation
 import AVFoundation
 
-class ProfileController: UIViewController {
+class ProfileController: UIViewController, UITextFieldDelegate {
     
     @IBOutlet weak var imageView: UIImageView!
     @IBOutlet weak var buttonMaskImageView: UIImageView!
+    @IBOutlet weak var usernameTextField: UITextField!
     
     var lastPoint = CGPoint.zero
     var swiped = false
@@ -21,10 +22,22 @@ class ProfileController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        usernameTextField.delegate = self
     }
     
     //remove status bar
     override var prefersStatusBarHidden: Bool {
+        return true
+    }
+    
+    func textField(_ textField: UITextField, shouldChangeCharactersIn range: NSRange, replacementString string: String) -> Bool {
+        guard let text = textField.text else { return true }
+        let newLength = text.characters.count + string.characters.count - range.length
+        return newLength <= 10
+    }
+    
+    func textFieldShouldReturn(_ textField: UITextField) -> Bool {
+        textField.resignFirstResponder()
         return true
     }
     
@@ -82,15 +95,6 @@ class ProfileController: UIViewController {
             
             var currentPoint = touch.location(in: self.view)
             
-//            if (buttonMaskImageView.frame.contains(currentPoint)) {
-//                drawLines(fromPoint: lastPoint, toPoint: currentPoint)
-//                var dg = DrawGesture(sp: lastPoint, ep: currentPoint, c: UIGraphicsGetCurrentContext()?.colorSpace as! CGColor)
-//                dgs.append(dg)
-//            }
-            
-            
-            
-            
             if (isValidDrawTouch(p: currentPoint)) {
                 currentPoint = touch.location(in: self.view)
                 drawLines(fromPoint: lastPoint, toPoint: currentPoint)
@@ -101,6 +105,11 @@ class ProfileController: UIViewController {
             
             
         }
+    }
+    
+    @IBAction func onSaveButtonPress(_ sender: Any) {
+        LocalDataHandler.setUsername(username: usernameTextField.text!)
+        performSegue(withIdentifier: "ShowGameScreen", sender: self)
     }
     
     override func touchesEnded(_ touches: Set<UITouch>, with event: UIEvent?) {

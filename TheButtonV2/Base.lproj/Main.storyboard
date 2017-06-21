@@ -51,11 +51,20 @@
                                 <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                 <nil key="highlightedColor"/>
                             </label>
+                            <label hidden="YES" opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="You need to set your username in your profile before you can tap!" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="lER-GN-BRd">
+                                <rect key="frame" x="19" y="557" width="337" height="66"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <fontDescription key="fontDescription" name=".AppleSystemUIFont" family=".AppleSystemUIFont" pointSize="17"/>
+                                <color key="textColor" red="0.4211913667408681" green="1" blue="0.57216161258979281" alpha="1" colorSpace="calibratedRGB"/>
+                                <nil key="highlightedColor"/>
+                            </label>
                         </subviews>
                         <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                     </view>
                     <connections>
                         <outlet property="potLabel" destination="brT-Ph-zM6" id="cne-uJ-wSE"/>
+                        <outlet property="theButton" destination="p0h-Ac-M8U" id="oxh-PC-6tg"/>
+                        <outlet property="usernameWarningLabel" destination="lER-GN-BRd" id="cFW-N9-uUE"/>
                         <outlet property="walletLabel" destination="uQV-7j-OF5" id="T79-Pn-bR8"/>
                         <segue destination="9sc-Jc-dQH" kind="show" identifier="ShowWinScreenSegue" id="Rdr-SI-Qy9"/>
                     </connections>
@@ -88,7 +97,17 @@
                                 <rect key="frame" x="170" y="617" width="34" height="30"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <state key="normal" title="Save"/>
+                                <connections>
+                                    <action selector="onSaveButtonPress:" destination="ekc-x2-F9Q" eventType="touchUpInside" id="Q4a-nd-hBj"/>
+                                </connections>
                             </button>
+                            <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Enter a Username" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="PSF-Gd-f9M">
+                                <rect key="frame" x="94" y="28" width="187" height="30"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <nil key="textColor"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                <textInputTraits key="textInputTraits" returnKeyType="done"/>
+                            </textField>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
@@ -101,11 +120,13 @@
                     <connections>
                         <outlet property="buttonMaskImageView" destination="B4o-mM-As4" id="Klq-qQ-6SW"/>
                         <outlet property="imageView" destination="gbT-6L-3C6" id="DnV-CH-Rsw"/>
+                        <outlet property="usernameTextField" destination="PSF-Gd-f9M" id="xWn-FT-mko"/>
+                        <segue destination="BYZ-38-t0r" kind="show" identifier="ShowGameScreen" id="WCt-zU-29v"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Giz-3Y-pk0" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-135.19999999999999" y="-741.67916041979015"/>
+            <point key="canvasLocation" x="-135" y="-725"/>
         </scene>
         <!--Win Screen Controller-->
         <scene sceneID="ZS9-dF-Muq">
@@ -171,4 +192,7 @@
         <image name="maskTarget" width="956" height="956"/>
         <image name="maskTarget-solid-border" width="956" height="956"/>
     </resources>
+    <inferredMetricsTieBreakers>
+        <segue reference="WCt-zU-29v"/>
+    </inferredMetricsTieBreakers>
 </document>

@@ -15,8 +15,12 @@ class GameController: UIViewController, PNObjectEventListener {
     
     @IBOutlet weak var walletLabel: UILabel!
     @IBOutlet weak var potLabel: UILabel!
+    @IBOutlet weak var theButton: UIButton!
+    @IBOutlet weak var usernameWarningLabel: UILabel!
+    
     let appDelegate = UIApplication.shared.delegate as! AppDelegate
     private var notification: NSObjectProtocol?
+    var username = LocalDataHandler.getUsername()
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -29,6 +33,12 @@ class GameController: UIViewController, PNObjectEventListener {
         notification = NotificationCenter.default.addObserver(forName: .UIApplicationWillEnterForeground, object: nil, queue: .main) {
             [unowned self] notification in
             self.appDelegate.client.addListener(self)
+        }
+        
+        print("Username: " + String((LocalDataHandler.getUsername() == nil)))
+        if username == nil || username == "" {
+            theButton.isHidden = true
+            usernameWarningLabel.isHidden = false
         }
         
         // Do any additional setup after loading the view, typically from a nib.
@@ -52,7 +62,7 @@ class GameController: UIViewController, PNObjectEventListener {
         if LocalDataHandler.getCoins() > 0 {
             
             //send packet to pubnub
-            appDelegate.sendMessage(packet: "{\"action\": \"button-press\", \"uuid\": \"" + appDelegate.uuid + "\", \"name\":\"Zac\"}");
+            appDelegate.sendMessage(packet: "{\"action\": \"button-press\", \"uuid\": \"" + appDelegate.uuid + "\", \"name\":\"" + username! + "\"}");
             
             //update coins
             LocalDataHandler.setCoins(coins: LocalDataHandler.getCoins() - 1)
@@ -112,9 +122,9 @@ class GameController: UIViewController, PNObjectEventListener {
             updatePotLabel()
             
             let randX = arc4random_uniform(UInt32(self.view.bounds.width-100))+50;
-            let label = UILabel(frame: CGRect(x: Int(randX), y: 100, width: 200, height: 21))
+            let label = UILabel(frame: CGRect(x: Int(randX), y: 100, width: 250, height: 21))
             // you will probably want to set the font (remember to use Dynamic Type!)
-            label.font = UIFont.preferredFont(forTextStyle: .title1)
+            label.font = UIFont.preferredFont(forTextStyle: .title3)
             // and set the text color too - remember good contrast
             label.textColor = .black
             // may not be necessary (e.g., if the width & height match the superview)
