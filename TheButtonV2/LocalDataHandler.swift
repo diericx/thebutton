@@ -20,6 +20,10 @@ class LocalDataHandler {
         defaults.set(username, forKey: "username")
     }
     
+    static func setButtonImgId(id: String) {
+        defaults.set(id, forKey: "buttonImgId")
+    }
+    
     static func getCoins() -> Int {
         let coins = defaults.integer(forKey: "coins")
         //TODO: remove this
@@ -32,6 +36,11 @@ class LocalDataHandler {
     static func getUsername() -> String? {
         let username = defaults.string(forKey: "username")
         return username
+    }
+    
+    static func getButtonImgId() -> String? {
+        let imgId = defaults.string(forKey: "buttonImgId")
+        return imgId
     }
     
 }

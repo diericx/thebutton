@@ -16,6 +16,7 @@ class GameController: UIViewController, PNObjectEventListener {
     @IBOutlet weak var walletLabel: UILabel!
     @IBOutlet weak var potLabel: UILabel!
     let appDelegate = UIApplication.shared.delegate as! AppDelegate
+    private var notification: NSObjectProtocol?
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -24,6 +25,11 @@ class GameController: UIViewController, PNObjectEventListener {
         //Update wallet text
         //TODO: Make UpdateUI function
         self.updateCoinLabel()
+        
+        notification = NotificationCenter.default.addObserver(forName: .UIApplicationWillEnterForeground, object: nil, queue: .main) {
+            [unowned self] notification in
+            self.appDelegate.client.addListener(self)
+        }
         
         // Do any additional setup after loading the view, typically from a nib.
     }
@@ -101,7 +107,6 @@ class GameController: UIViewController, PNObjectEventListener {
             
             //Get current pot and set value
             let pot: Int = dictionary["pot"] as! Int
-            print(pot)
             appDelegate.pot = pot
             //update ui
             updatePotLabel()

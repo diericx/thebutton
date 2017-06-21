@@ -2,7 +2,7 @@
   "images" : [
     {
       "idiom" : "universal",
-      "filename" : "maskTarget.png",
+      "filename" : "maskTarget-solid-border.png",
       "scale" : "1x"
     },
     {

@@ -28,9 +28,19 @@ class WinScreenController: UIViewController, PNObjectEventListener, AVCapturePho
     var timer = Timer()
     let maskView = UIImageView()
     
+    //Making sure we are always subscribed when a user tabs out
+    private var notification: NSObjectProtocol?
+    
     override func viewDidLoad() {
         super.viewDidLoad()
+        
         appDelegate.client.addListener(self)
+        //also add listener when we tab out
+        notification = NotificationCenter.default.addObserver(forName: .UIApplicationWillEnterForeground, object: nil, queue: .main) {
+            [unowned self] notification in
+            self.appDelegate.client.addListener(self)
+        }
+        
         if appDelegate.winner {
             winnerLabel.isHidden = true
         } else {
@@ -153,7 +163,6 @@ class WinScreenController: UIViewController, PNObjectEventListener, AVCapturePho
                     print("Error fetching record: ", error)
                     return
                 }
-                print("Successfully fetched record: ")
                 var data: Data = record["Image"] as! Data;
                 print(data.count)
                 

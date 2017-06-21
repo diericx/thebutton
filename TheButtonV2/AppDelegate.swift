@@ -40,14 +40,12 @@ class AppDelegate: UIResponder, UIApplicationDelegate, PNObjectEventListener {
     }
     
     func sendMessage(packet: String) {
-        print(self.uuid);
         // Select last object from list of channels and send message to it.
         let targetChannel = self.client.channels().last!
         self.client.publish(packet, toChannel: targetChannel,
                                    compressed: false, withCompletion: { (publishStatus) -> Void in
                                     
                                     if !publishStatus.isError {
-                                        print("Success");
                                         // Message successfully published to specified channel.
                                     }
                                     else {
@@ -125,38 +123,52 @@ class AppDelegate: UIResponder, UIApplicationDelegate, PNObjectEventListener {
 
     }
     
-    func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplicationLaunchOptionsKey: Any]?) -> Bool {
-        // Override point for customization after application launch.
-        // Initialize and configure PubNub client instance
+    func subscribeToGlobal() {
         let configuration = PNConfiguration(publishKey: "pub-c-9598bf00-2785-41d4-ad2f-d2362b2738d9", subscribeKey: "sub-c-8a0a7138-e751-11e6-94bb-0619f8945a4f")
+        configuration.presenceHeartbeatInterval = 15
+        configuration.presenceHeartbeatValue = 30
         self.client = PubNub.clientWithConfiguration(configuration)
         
         // Subscribe to demo channel with presence observation
         self.client.subscribeToChannels(["global"], withPresence: true)
-        
+    }
+    
+    func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplicationLaunchOptionsKey: Any]?) -> Bool {
+        // Override point for customization after application launch.
+        // Initialize and configure PubNub client instance
+        subscribeToGlobal()
+
         return true
     }
-
+    
     func applicationWillResignActive(_ application: UIApplication) {
         // Sent when the application is about to move from active to inactive state. This can occur for certain types of temporary interruptions (such as an incoming phone call or SMS message) or when the user quits the application and it begins the transition to the background state.
         // Use this method to pause ongoing tasks, disable timers, and invalidate graphics rendering callbacks. Games should use this method to pause the game.
+        print("Will resign active")
     }
 
     func applicationDidEnterBackground(_ application: UIApplication) {
         // Use this method to release shared resources, save user data, invalidate timers, and store enough application state information to restore your application to its current state in case it is terminated later.
         // If your application supports background execution, this method is called instead of applicationWillTerminate: when the user quits.
+        print("moving to background")
+        self.client.unsubscribeFromAll()
     }
 
     func applicationWillEnterForeground(_ application: UIApplication) {
         // Called as part of the transition from the background to the active state; here you can undo many of the changes made on entering the background.
+        print("Will enter foreground")
+        subscribeToGlobal()
     }
 
     func applicationDidBecomeActive(_ application: UIApplication) {
         // Restart any tasks that were paused (or not yet started) while the application was inactive. If the application was previously in the background, optionally refresh the user interface.
+        print("Will become active")
     }
 
     func applicationWillTerminate(_ application: UIApplication) {
         // Called when the application is about to terminate. Save data if appropriate. See also applicationDidEnterBackground:.
+        print("Terminating")
+        self.client.unsubscribeFromAll()
     }
 
 

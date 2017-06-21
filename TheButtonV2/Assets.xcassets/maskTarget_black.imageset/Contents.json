@@ -2,7 +2,7 @@
   "images" : [
     {
       "idiom" : "universal",
-      "filename" : "maskTarget.png",
+      "filename" : "maskTarget_black.png",
       "scale" : "1x"
     },
     {
