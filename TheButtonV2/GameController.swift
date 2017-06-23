@@ -41,6 +41,15 @@ class GameController: UIViewController, PNObjectEventListener {
             usernameWarningLabel.isHidden = false
         }
         
+        var lastLootCollect = LocalDataHandler.getLastLootCollectTime()
+        print (lastLootCollect)
+        let interval = Date().timeIntervalSince(lastLootCollect)
+        if interval/60/60 > 1 {
+            print("Collect money!")
+            LocalDataHandler.setLastLootCollectTime(status: Date())
+        }
+        print(interval)
+        
         // Do any additional setup after loading the view, typically from a nib.
     }
     
@@ -88,7 +97,7 @@ class GameController: UIViewController, PNObjectEventListener {
 //    }
     
     func updateCoinLabel() {
-        self.walletLabel.text = "Wallet: " + String(LocalDataHandler.getCoins())
+        self.walletLabel.text = String(LocalDataHandler.getCoins())
     }
     
     func updatePotLabel() {
@@ -129,7 +138,7 @@ class GameController: UIViewController, PNObjectEventListener {
             label.textColor = .black
             // may not be necessary (e.g., if the width & height match the superview)
             // if you do need to center, CGPointMake has been deprecated, so use this
-            label.center = CGPoint(x: Int(randX), y: Int(self.view.bounds.height/2) )
+            label.center = CGPoint(x: Int(randX), y: Int(self.view.bounds.height/2) + 100 )
             // this changed in Swift 3 (much better, no?)
             label.textAlignment = .center
             label.text = name
@@ -147,6 +156,7 @@ class GameController: UIViewController, PNObjectEventListener {
                 //sync local data with cloud
                 appDelegate.syncUserDataWithCloud()
             }
+            potLabel.text = "$0";
             appDelegate.winnerName = dictionary["name"] as! String;
             performSegue(withIdentifier: "ShowWinScreenSegue", sender: self)
         }

@@ -24,6 +24,30 @@ class LocalDataHandler {
         defaults.set(id, forKey: "buttonImgId")
     }
     
+    static func setNameSizeUpgradeStatus(status: Int) {
+        defaults.set(status, forKey: "sizeUpgradeStatus")
+    }
+    
+    static func setNameSpeedUpgradeStatus(status: Int) {
+        defaults.set(status, forKey: "speedUpgradeStatus")
+    }
+    
+    static func setNameChangeStatus(status: Bool) {
+        defaults.set(status, forKey: "nameChangeStatus")
+    }
+    
+    static func setColorPackIStatus(status: Bool) {
+        defaults.set(status, forKey: "colorPackIStatus")
+    }
+    
+    static func setLastLootCollectTime(status: Date) {
+        let dateFormatter = DateFormatter()
+        dateFormatter.dateFormat = "yyyy-MM-dd'T'HH:mm:ss.SSSZ"
+        let dateString = dateFormatter.string(from:status)
+        defaults.set(nil, forKey: "lastLootCollectTime")
+    }
+    
+    
     static func getCoins() -> Int {
         let coins = defaults.integer(forKey: "coins")
         //TODO: remove this
@@ -42,5 +66,57 @@ class LocalDataHandler {
         let imgId = defaults.string(forKey: "buttonImgId")
         return imgId
     }
+    
+    static func getNameSizeUpgradeStatus() -> Int? {
+        let status = defaults.integer(forKey: "sizeUpgradeStatus")
+        if (status == nil) {
+            setNameSizeUpgradeStatus(status: 1)
+            return 1
+        }
+        return status
+    }
+    
+    static func getNameSpeedUpgradeStatus() -> Int? {
+        let status = defaults.integer(forKey: "speedUpgradeStatus")
+        if (status == nil) {
+            setNameSpeedUpgradeStatus(status: 1)
+            return 1
+        }
+        return status
+    }
+    
+    static func getNameChangeStatus() -> Bool? {
+        let status = defaults.bool(forKey: "nameChangeStatus")
+        return status
+    }
+    
+    static func setColorPackIStatus() -> Bool? {
+        let status = defaults.bool(forKey: "colorPackIStatus")
+        return status
+    }
+    
+    static func getLastLootCollectTime() -> Date {
+        let status = defaults.string(forKey: "lastLootCollectTime")
+        
+        let dateFormatter = DateFormatter()
+        dateFormatter.dateFormat = "yyyy-MM-dd'T'HH:mm:ss.SSSZ"
+        
+        if (status == nil) {
+            
+            
+            let calendar = Calendar.current
+            let date = calendar.date(byAdding: .hour, value: -1, to: Date())
+            setLastLootCollectTime(status: date!)
+            
+            return date!
+        }
+        
+        let date = dateFormatter.date(from: status!)
+        if (date == nil) {
+            setLastLootCollectTime(status: Date())
+        }
+        return date!
+    }
+    
     
 }

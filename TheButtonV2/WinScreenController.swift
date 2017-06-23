@@ -142,7 +142,8 @@ class WinScreenController: UIViewController, PNObjectEventListener, AVCapturePho
             } else {
                 timer.invalidate()
                 //TODO: Segue to main scene
-                performSegue(withIdentifier: "ShowGameScreen", sender: self)
+                //performSegue(withIdentifier: "ShowGameScreen", sender: self)
+                dismiss(animated: true, completion: nil)
             }
 
         }

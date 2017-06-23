@@ -23,6 +23,8 @@ class ProfileController: UIViewController, UITextFieldDelegate {
     override func viewDidLoad() {
         super.viewDidLoad()
         usernameTextField.delegate = self
+        UIGraphicsGetCurrentContext()!.saveGState()
+        
     }
     
     //remove status bar
@@ -110,6 +112,10 @@ class ProfileController: UIViewController, UITextFieldDelegate {
     @IBAction func onSaveButtonPress(_ sender: Any) {
         LocalDataHandler.setUsername(username: usernameTextField.text!)
         performSegue(withIdentifier: "ShowGameScreen", sender: self)
+    }
+    
+    @IBAction func clearDrawingBtnPress(_ sender: Any) {
+        UIGraphicsGetCurrentContext()?.restoreGState()
     }
     
     override func touchesEnded(_ touches: Set<UITouch>, with event: UIEvent?) {
