@@ -21,8 +21,8 @@ class ProfileController: UIViewController, UITextFieldDelegate {
     
     var lastPoint = CGPoint.zero
     var swiped = false
-    var dgs = [Data]()
     let appDelegate = UIApplication.shared.delegate as! AppDelegate
+    var erasing = false
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -41,17 +41,7 @@ class ProfileController: UIViewController, UITextFieldDelegate {
             previousDrawingImageView.image = testImageView.image
         }
         
-        
-//        if let strokes = LocalDataHandler.getButtonDrawingStrokes() {
-//            print("Stroke Count: " + String(strokes.count) )
-//            strokes.forEach { stroke in
-//                let dg = NSKeyedUnarchiver.unarchiveObject(with: stroke) as! DrawGesture
-//                let sp = CGPoint(x: CGFloat(dg.startX), y: CGFloat(dg.startY))
-//                let ep = CGPoint(x: CGFloat(dg.endX), y: CGFloat(dg.endY))
-//                print("Start: \(dg.startX)")
-//                drawLines(fromPoint: sp, toPoint: ep)
-//            }
-//        }
+        UIGraphicsBeginImageContext(self.view.frame.size)
 
     }
     
@@ -89,28 +79,48 @@ class ProfileController: UIViewController, UITextFieldDelegate {
     
     func drawLines(fromPoint:CGPoint, toPoint: CGPoint) {
         let color = UIColor(red: 0, green: 0, blue: 0, alpha: 1.0)
-        UIGraphicsBeginImageContext(self.view.frame.size)
         
-        imageView.image?.draw(in: CGRect(x: 0, y: 0, width: self.view.frame.width, height: self.view.frame.height))
         
-        let context = UIGraphicsGetCurrentContext()
-        context?.move(to: CGPoint(x: fromPoint.x, y: fromPoint.y) )
-        context?.addLine(to: CGPoint(x: toPoint.x, y: toPoint.y) )
         
-        context?.setBlendMode(CGBlendMode.normal)
-        context?.setLineCap(CGLineCap.round)
-        context?.setLineWidth(5)
-        context?.setStrokeColor(color.cgColor)
+        if (!erasing) { //drawing
+            
+            imageView.image?.draw(in: CGRect(x: 0, y: 0, width: self.view.frame.width, height: self.view.frame.height))
+            
+            let context = UIGraphicsGetCurrentContext()
+            
+            context?.move(to: CGPoint(x: fromPoint.x, y: fromPoint.y) )
+            context?.addLine(to: CGPoint(x: toPoint.x, y: toPoint.y) )
+            
+            context?.setBlendMode(CGBlendMode.normal)
+            context?.setLineCap(CGLineCap.round)
+            context?.setLineWidth(5)
+            context?.setStrokeColor(color.cgColor)
+            
+            context?.strokePath()
+            
+            
+            imageView.image = UIGraphicsGetImageFromCurrentImageContext()
+        } else { //erasing
+//            let context = UIGraphicsGetCurrentContext()
+//            context!.beginTransparencyLayer(auxiliaryInfo: nil)
+//            imageView.image?.draw(in: CGRect(x: 0, y: 0, width: self.view.frame.width, height: self.view.frame.height))
+//            
+//            context?.move(to: CGPoint(x: fromPoint.x, y: fromPoint.y) )
+//            context?.addLine(to: CGPoint(x: toPoint.x, y: toPoint.y) )
+//            context?.setBlendMode(CGBlendMode.clear)
+//            context?.setLineCap(CGLineCap.round)
+//            context?.setLineWidth(5)
+//            context?.setStrokeColor(UIColor.clear.cgColor)
+//            context?.strokePath()
+//            
+//            context!.endTransparencyLayer()
+        }
         
-        context?.strokePath()
         
-        imageView.image = UIGraphicsGetImageFromCurrentImageContext()
-        UIGraphicsEndImageContext()
+//        context!.beginTransparencyLayer(auxiliaryInfo: nil);
         
-        //Save this line
-        let dg = DrawGesture(sp: fromPoint, ep: toPoint, c: color)
-        let encodedData = NSKeyedArchiver.archivedData(withRootObject: dg)
-        dgs.append(encodedData)
+
+//        UIGraphicsEndImageContext()
     }
     
     func dist(x1: CGFloat, y1: CGFloat, x2: CGFloat, y2: CGFloat) -> CGFloat {
@@ -151,6 +161,10 @@ class ProfileController: UIViewController, UITextFieldDelegate {
         }
     }
     
+    @IBAction func EraseButtonUpInside(_ sender: Any) {
+        self.erasing = !self.erasing
+    }
+    
     @IBAction func onSaveButtonPress(_ sender: Any) {
         if (usernameTextField.text != "") {
             //change name
@@ -173,7 +187,6 @@ class ProfileController: UIViewController, UITextFieldDelegate {
             }
             
             //save drawing strokes
-//            LocalDataHandler.setButtonDrawingStrokes(status: dgs)
             
             let imageData = LocalDataHandler.getButtonImg()!
             
