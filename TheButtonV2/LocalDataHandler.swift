@@ -7,6 +7,7 @@
 //
 
 import Foundation
+import UIKit
 
 class LocalDataHandler {
     
@@ -40,11 +41,24 @@ class LocalDataHandler {
         defaults.set(status, forKey: "colorPackIStatus")
     }
     
+    static func setButtonImg(status: Data) {
+        defaults.set(status, forKey: "buttonImg")
+    }
+    
+    static func setButtonDrawingStrokes(status: [Data]) {
+        defaults.set(status, forKey: "buttonDrawingStrokes")
+    }
+    
+    static func setColorPackIStatus() -> Bool? {
+        let status = defaults.bool(forKey: "colorPackIStatus")
+        return status
+    }
+    
     static func setLastLootCollectTime(status: Date) {
         let dateFormatter = DateFormatter()
         dateFormatter.dateFormat = "yyyy-MM-dd'T'HH:mm:ss.SSSZ"
         let dateString = dateFormatter.string(from:status)
-        defaults.set(nil, forKey: "lastLootCollectTime")
+        defaults.set(dateString, forKey: "lastLootCollectTime")
     }
     
     
@@ -67,31 +81,31 @@ class LocalDataHandler {
         return imgId
     }
     
+    static func getButtonImg() -> Data? {
+        let imgId = defaults.data(forKey: "buttonImg")
+        return imgId
+    }
+    
+    static func getButtonDrawingStrokes() -> [Data]? {
+        let strokes = defaults.array(forKey: "buttonDrawingStrokes")
+        if strokes == nil {
+            return nil
+        }
+        return strokes as? [Data]
+    }
+    
     static func getNameSizeUpgradeStatus() -> Int? {
         let status = defaults.integer(forKey: "sizeUpgradeStatus")
-        if (status == nil) {
-            setNameSizeUpgradeStatus(status: 1)
-            return 1
-        }
         return status
     }
     
     static func getNameSpeedUpgradeStatus() -> Int? {
         let status = defaults.integer(forKey: "speedUpgradeStatus")
-        if (status == nil) {
-            setNameSpeedUpgradeStatus(status: 1)
-            return 1
-        }
         return status
     }
     
     static func getNameChangeStatus() -> Bool? {
         let status = defaults.bool(forKey: "nameChangeStatus")
-        return status
-    }
-    
-    static func setColorPackIStatus() -> Bool? {
-        let status = defaults.bool(forKey: "colorPackIStatus")
         return status
     }
     
@@ -103,7 +117,7 @@ class LocalDataHandler {
         
         if (status == nil) {
             
-            
+            print("Date status nil")
             let calendar = Calendar.current
             let date = calendar.date(byAdding: .hour, value: -1, to: Date())
             setLastLootCollectTime(status: date!)

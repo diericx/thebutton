@@ -20,6 +20,9 @@ class WinScreenController: UIViewController, PNObjectEventListener, AVCapturePho
     @IBOutlet weak var imageView: UIImageView!
     @IBOutlet weak var cameraView: UIView!
     @IBOutlet weak var countDownLabel: UILabel!
+    @IBOutlet weak var potAmountLabel: UILabel!
+    @IBOutlet weak var maskTarget: UIImageView!
+    
     var countDown = 4;
     
     var captureSession = AVCaptureSession()
@@ -28,40 +31,79 @@ class WinScreenController: UIViewController, PNObjectEventListener, AVCapturePho
     var timer = Timer()
     let maskView = UIImageView()
     
+    var potCountUpTimer: Timer!
+    var potCountUpTimerWaitTime = 0.3
+    var currentPotCount = 0
+    
     //Making sure we are always subscribed when a user tabs out
     private var notification: NSObjectProtocol?
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        //If you arent the winner, start counting up the pot amount
+        if (!appDelegate.winner) {
+            //start pot timer
+            potCountUpTimer = Timer.scheduledTimer(timeInterval: potCountUpTimerWaitTime, target: self, selector: #selector(potCountUp), userInfo: nil, repeats: true)
+        }
+
+        //set up pubnub for this scene
         appDelegate.client.addListener(self)
-        //also add listener when we tab out
+        
+        //add listener when we tab out
         notification = NotificationCenter.default.addObserver(forName: .UIApplicationWillEnterForeground, object: nil, queue: .main) {
             [unowned self] notification in
             self.appDelegate.client.addListener(self)
         }
         
+        //show or hide labels and camera view depending on if you are winner
         if appDelegate.winner {
             winnerLabel.isHidden = true
+            potAmountLabel.isHidden = true
+            
+            //Update current button record with your button record name
+            CKHandler.SetNewWinnerButtonID(onComplete: { (record: CKRecord) in
+                let buttonImageRN: String = record["ButtonImageRecordName"] as! String;
+                self.appDelegate.sendMessage(packet: "{\"action\": \"button-image\", \"recordName\":\"" + buttonImageRN + "\"}")
+            })
+            
+            //set winner button image to your own
+            if let imgData = LocalDataHandler.getButtonImg() {
+                appDelegate.winnerButtonImg = UIImage(data: imgData)
+            }
         } else {
             cameraView.isHidden = true
         }
         
+        //Display who won
         winnerLabel.text = appDelegate.winnerName + " Won!";
         
+        //add mask for capturing image
         self.maskView.image = UIImage(named: "mask")
         self.imageView.mask = self.maskView
-        // Do any additional setup after loading the view, typically from a nib.
+        
     }
     
     override func viewDidLayoutSubviews() {
         super.viewDidLayoutSubviews()
-        maskView.frame = imageView.bounds
+        maskView.frame = maskTarget.bounds
     }
     
     //remove status bar
     override var prefersStatusBarHidden: Bool {
         return true
+    }
+    
+    func potCountUp() {
+        potCountUpTimer.invalidate()
+        if (currentPotCount >= appDelegate.pot) {
+            return
+        }
+        currentPotCount += 1
+        potAmountLabel.text = "$" + String(currentPotCount)
+        potCountUpTimerWaitTime *= 0.8
+        potCountUpTimer = Timer.scheduledTimer(timeInterval: potCountUpTimerWaitTime, target: self, selector: #selector(potCountUp), userInfo: nil, repeats: false)
+        
     }
     
     func capturePhoto() {
@@ -76,6 +118,24 @@ class WinScreenController: UIViewController, PNObjectEventListener, AVCapturePho
         
     }
     
+    func resizeImage(image: UIImage, scale: CGFloat) -> UIImage {
+        let size = image.size
+        
+        // Figure out what our orientation is, and use that to form the rectangle
+        var newSize = CGSize(width: size.width * scale, height: size.height * scale)
+        
+        // This is the rect that we've calculated out and this is what is actually used below
+        let rect = CGRect(x: 0, y: 0, width: newSize.width, height: newSize.height)
+        
+        // Actually do the resizing to the rect using the ImageContext stuff
+        UIGraphicsBeginImageContextWithOptions(newSize, false, 1.0)
+        image.draw(in: rect)
+        let newImage = UIGraphicsGetImageFromCurrentImageContext()
+        UIGraphicsEndImageContext()
+        
+        return newImage!
+    }
+    
     func capture(_ captureOutput: AVCapturePhotoOutput, didFinishProcessingPhotoSampleBuffer photoSampleBuffer: CMSampleBuffer?, previewPhotoSampleBuffer: CMSampleBuffer?, resolvedSettings: AVCaptureResolvedPhotoSettings, bracketSettings: AVCaptureBracketedStillImageSettings?, error: Error?) {
         
         if let error = error {
@@ -85,6 +145,10 @@ class WinScreenController: UIViewController, PNObjectEventListener, AVCapturePho
         if let sampleBuffer = photoSampleBuffer, let previewBuffer = previewPhotoSampleBuffer, let dataImage = AVCapturePhotoOutput.jpegPhotoDataRepresentation(forJPEGSampleBuffer: sampleBuffer, previewPhotoSampleBuffer: previewBuffer) {
             print(dataImage.count)
             
+            let img: UIImage = UIImage(data: dataImage, scale: CGFloat(1))!
+            let compressedData = img.jpeg(.lowest)
+            print("compressed size: " + String(compressedData!.count) )
+
             //update image on main thread
             DispatchQueue.main.async {
                 // Update UI
@@ -95,7 +159,7 @@ class WinScreenController: UIViewController, PNObjectEventListener, AVCapturePho
             
             //create record for image
             let newRecord:CKRecord = CKRecord(recordType: "Image")
-            newRecord.setValue(dataImage, forKey: "Image")
+            newRecord.setValue(compressedData, forKey: "Image")
             
             let modifyRecordsOperation = CKModifyRecordsOperation(
                 recordsToSave: [newRecord],
@@ -137,8 +201,13 @@ class WinScreenController: UIViewController, PNObjectEventListener, AVCapturePho
                 //reset variables
                 appDelegate.winner = false
                 winnerLabel.isHidden = false
+                potAmountLabel.isHidden = false
+                maskTarget.isHidden = true
                 countDown = 10
                 self.countDownLabel.text = String(countDown);
+                
+                //start pot timer
+                potCountUpTimer = Timer.scheduledTimer(timeInterval: potCountUpTimerWaitTime, target: self, selector: #selector(potCountUp), userInfo: nil, repeats: true)
             } else {
                 timer.invalidate()
                 //TODO: Segue to main scene
@@ -158,25 +227,32 @@ class WinScreenController: UIViewController, PNObjectEventListener, AVCapturePho
         if (action == "image") {
             let recordName: String = dictionary["recordName"] as! String
             
-            var recId: CKRecordID = CKRecordID(recordName: recordName)
-            appDelegate.publicDB.fetch(withRecordID: recId) { (record, error) -> Void in
-                guard let record = record else {
-                    print("Error fetching record: ", error)
-                    return
-                }
-                var data: Data = record["Image"] as! Data;
-                print(data.count)
-                
-                // Update UI on main thread
-                DispatchQueue.main.async {
-                    let img: UIImage = UIImage(data: data)!
-                    let flippedImage = UIImage(cgImage: img.cgImage!, scale: img.scale, orientation: .leftMirrored)
+            var recordID: CKRecordID = CKRecordID(recordName: recordName)
+            CKHandler.GetRecordById(
+                recordID: recordID,
+                onComplete: { (record: CKRecord) in
+                    var data: Data = record["Image"] as! Data;
+                    //print(data.count)
                     
-                    //Mask image
-                    self.imageView.image = flippedImage;
+                    // Update UI on main thread
+                    DispatchQueue.main.async {
+                        let img: UIImage = UIImage(data: data)!
+                        let flippedImage = UIImage(cgImage: img.cgImage!, scale: img.scale, orientation: .leftMirrored)
+                                    
+                        //Mask image
+                        self.imageView.image = flippedImage;
+                    }
                 }
-                
-            }
+            )
+        } else if (action == "button-image") {
+            let recordName: String = dictionary["recordName"] as! String;
+            CKHandler.GetLatestWinnerButton(
+                recordName: recordName,
+                onComplete: { (record: CKRecord) in
+                    let data: Data = record["Image"] as! Data;
+                    self.appDelegate.winnerButtonImg = UIImage(data: data)
+                }
+            )
         }
     }
     

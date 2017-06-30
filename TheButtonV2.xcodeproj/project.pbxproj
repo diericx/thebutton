@@ -12,6 +12,8 @@
 		116BBD321EFD81E900AB16A8 /* Skranji-Regular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 116BBD311EFD81DA00AB16A8 /* Skranji-Regular.ttf */; };
 		116BBD341EFD84A200AB16A8 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 116BBD331EFD84A200AB16A8 /* Assets.xcassets */; };
 		116BBD361EFDC63000AB16A8 /* CollectViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 116BBD351EFDC63000AB16A8 /* CollectViewController.swift */; };
+		116BBD381EFDED8E00AB16A8 /* coins.wav in Resources */ = {isa = PBXBuildFile; fileRef = 116BBD371EFDED8E00AB16A8 /* coins.wav */; };
+		116BBD3A1F0447BE00AB16A8 /* CKHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = 116BBD391F0447BE00AB16A8 /* CKHandler.swift */; };
 		118FE0571EFB37CE000A629B /* GoldShopController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 118FE0561EFB37CE000A629B /* GoldShopController.swift */; };
 		11EB28FF1EE641A9002BEF42 /* LocalDataHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = 11EB28FE1EE641A9002BEF42 /* LocalDataHandler.swift */; };
 		11EB528E1EE3652700A5312F /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 11EB528D1EE3652700A5312F /* AppDelegate.swift */; };
@@ -51,6 +53,8 @@
 		116BBD311EFD81DA00AB16A8 /* Skranji-Regular.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Skranji-Regular.ttf"; sourceTree = "<group>"; };
 		116BBD331EFD84A200AB16A8 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		116BBD351EFDC63000AB16A8 /* CollectViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CollectViewController.swift; sourceTree = "<group>"; };
+		116BBD371EFDED8E00AB16A8 /* coins.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; name = coins.wav; path = TheButtonV2/Assets.xcassets/coins.dataset/coins.wav; sourceTree = "<group>"; };
+		116BBD391F0447BE00AB16A8 /* CKHandler.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CKHandler.swift; sourceTree = "<group>"; };
 		118FE0561EFB37CE000A629B /* GoldShopController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GoldShopController.swift; sourceTree = "<group>"; };
 		11EB28FE1EE641A9002BEF42 /* LocalDataHandler.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LocalDataHandler.swift; sourceTree = "<group>"; };
 		11EB528A1EE3652700A5312F /* TheButtonV2.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = TheButtonV2.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -104,6 +108,7 @@
 		11EB52811EE3652700A5312F = {
 			isa = PBXGroup;
 			children = (
+				116BBD371EFDED8E00AB16A8 /* coins.wav */,
 				11EB52BB1EE3661200A5312F /* Podfile */,
 				11EB528C1EE3652700A5312F /* TheButtonV2 */,
 				11EB52A11EE3652700A5312F /* TheButtonV2Tests */,
@@ -142,6 +147,7 @@
 				11EB52991EE3652700A5312F /* Info.plist */,
 				11EB52BF1EE3ADC900A5312F /* DataExtension.swift */,
 				11EB28FE1EE641A9002BEF42 /* LocalDataHandler.swift */,
+				116BBD391F0447BE00AB16A8 /* CKHandler.swift */,
 			);
 			path = TheButtonV2;
 			sourceTree = "<group>";
@@ -303,6 +309,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				116BBD381EFDED8E00AB16A8 /* coins.wav in Resources */,
 				11EB52981EE3652700A5312F /* LaunchScreen.storyboard in Resources */,
 				11EB52BC1EE3661200A5312F /* Podfile in Resources */,
 				11EB52931EE3652700A5312F /* Main.storyboard in Resources */,
@@ -385,6 +392,7 @@
 				11EB28FF1EE641A9002BEF42 /* LocalDataHandler.swift in Sources */,
 				11EB52C01EE3ADC900A5312F /* DataExtension.swift in Sources */,
 				116BBD361EFDC63000AB16A8 /* CollectViewController.swift in Sources */,
+				116BBD3A1F0447BE00AB16A8 /* CKHandler.swift in Sources */,
 				118FE0571EFB37CE000A629B /* GoldShopController.swift in Sources */,
 				11EB52901EE3652700A5312F /* GameController.swift in Sources */,
 				11EB528E1EE3652700A5312F /* AppDelegate.swift in Sources */,

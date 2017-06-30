@@ -24,6 +24,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate, PNObjectEventListener {
     
     var winner = false
     var winnerName = ""
+    var winnerButtonImg: UIImage?
     var pot = 0
     // Stores reference on PubNub client to make sure what it won't be released.
     var client: PubNub!
@@ -37,6 +38,12 @@ class AppDelegate: UIResponder, UIApplicationDelegate, PNObjectEventListener {
         publicDB = container.publicCloudDatabase
         // 3
         privateDB = container.privateCloudDatabase
+        
+        //DEBUG
+        //TODO: Remove this
+        LocalDataHandler.setNameSizeUpgradeStatus(status: 0)
+        LocalDataHandler.setNameSpeedUpgradeStatus(status: 0)
+        LocalDataHandler.setCoins(coins: 500000000)
     }
     
     func sendMessage(packet: String) {
@@ -51,6 +58,14 @@ class AppDelegate: UIResponder, UIApplicationDelegate, PNObjectEventListener {
                                     else {
                                         print("ERROR SENDING MESSAGE");
                                         print(publishStatus.errorData);
+                                        let alertController = UIAlertController(title: "Servers Unavailable", message: "Try checking your internet connection.", preferredStyle: .alert)
+                                        
+                                        let OKAction = UIAlertAction(title: "Okay", style: .default) { (action:UIAlertAction!) in
+                                            //Call another alert here
+                                        }
+                                        alertController.addAction(OKAction)
+                                        
+                                        self.window?.rootViewController?.present(alertController, animated: true, completion:nil)
                                     }
         })
     }
