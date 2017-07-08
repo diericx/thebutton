@@ -22,7 +22,7 @@ class ProfileController: UIViewController, UITextFieldDelegate {
     var lastPoint = CGPoint.zero
     var swiped = false
     let appDelegate = UIApplication.shared.delegate as! AppDelegate
-    var erasing = false
+    var color = UIColor(red: 0, green: 0, blue: 0, alpha: 1.0)
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -37,17 +37,37 @@ class ProfileController: UIViewController, UITextFieldDelegate {
         
         //TODO - remove this
         if let image = LocalDataHandler.getButtonImg() {
-            testImageView.image = UIImage(data:image)
-            previousDrawingImageView.image = testImageView.image
+            let img = UIImage(data:image)
+            testImageView.image = img
+            let flippedImage = UIImage(cgImage: img!.cgImage!, scale: 1.0, orientation: .downMirrored)
+//            previousDrawingImageView.image = testImageView.image
+            drawPreviousButton(image: flippedImage)
         }
-        
-        UIGraphicsBeginImageContext(self.view.frame.size)
 
     }
     
     //remove status bar
     override var prefersStatusBarHidden: Bool {
         return true
+    }
+    
+    func drawPreviousButton(image: UIImage) {
+//        UIGraphicsBeginImageContext(self.view.frame.size)
+//        let context = UIGraphicsGetCurrentContext()
+//        context?.draw(image.cgImage!, in: buttonMaskImageView.frame)
+//        imageView.image = UIGraphicsGetImageFromCurrentImageContext()
+//        UIGraphicsEndImageContext()
+
+//        UIGraphicsBeginImageContextWithOptions(image.size, false, image.scale)
+//        let context = UIGraphicsGetCurrentContext()!
+//        context.translateBy(x: image.size.width, y: image.size.height)
+//        context.scaleBy(x: -1.0, y: -1.0)
+//        
+//        context.draw(image.cgImage!, in: CGRect(origin:CGPoint.zero, size: image.size))
+//        
+//        imageView.image = UIGraphicsGetImageFromCurrentImageContext()
+//        
+//        UIGraphicsEndImageContext()
     }
     
     func updateUsernameChangeView() {
@@ -78,49 +98,28 @@ class ProfileController: UIViewController, UITextFieldDelegate {
     }
     
     func drawLines(fromPoint:CGPoint, toPoint: CGPoint) {
-        let color = UIColor(red: 0, green: 0, blue: 0, alpha: 1.0)
+        
+        UIGraphicsBeginImageContext(self.view.frame.size)
+        
+        imageView.image?.draw(in: CGRect(x: 0, y: 0, width: self.view.frame.width, height: self.view.frame.height))
+        
+        let context = UIGraphicsGetCurrentContext()
+        
+        context?.move(to: CGPoint(x: fromPoint.x, y: fromPoint.y) )
+        context?.addLine(to: CGPoint(x: toPoint.x, y: toPoint.y) )
+        
+        context?.setBlendMode(CGBlendMode.normal)
+        context?.setLineCap(CGLineCap.round)
+        context?.setLineWidth(5)
+        context?.setStrokeColor(self.color.cgColor)
+        
+        context?.strokePath()
         
         
-        
-        if (!erasing) { //drawing
-            
-            imageView.image?.draw(in: CGRect(x: 0, y: 0, width: self.view.frame.width, height: self.view.frame.height))
-            
-            let context = UIGraphicsGetCurrentContext()
-            
-            context?.move(to: CGPoint(x: fromPoint.x, y: fromPoint.y) )
-            context?.addLine(to: CGPoint(x: toPoint.x, y: toPoint.y) )
-            
-            context?.setBlendMode(CGBlendMode.normal)
-            context?.setLineCap(CGLineCap.round)
-            context?.setLineWidth(5)
-            context?.setStrokeColor(color.cgColor)
-            
-            context?.strokePath()
-            
-            
-            imageView.image = UIGraphicsGetImageFromCurrentImageContext()
-        } else { //erasing
-//            let context = UIGraphicsGetCurrentContext()
-//            context!.beginTransparencyLayer(auxiliaryInfo: nil)
-//            imageView.image?.draw(in: CGRect(x: 0, y: 0, width: self.view.frame.width, height: self.view.frame.height))
-//            
-//            context?.move(to: CGPoint(x: fromPoint.x, y: fromPoint.y) )
-//            context?.addLine(to: CGPoint(x: toPoint.x, y: toPoint.y) )
-//            context?.setBlendMode(CGBlendMode.clear)
-//            context?.setLineCap(CGLineCap.round)
-//            context?.setLineWidth(5)
-//            context?.setStrokeColor(UIColor.clear.cgColor)
-//            context?.strokePath()
-//            
-//            context!.endTransparencyLayer()
-        }
-        
-        
-//        context!.beginTransparencyLayer(auxiliaryInfo: nil);
+        imageView.image = UIGraphicsGetImageFromCurrentImageContext()
         
 
-//        UIGraphicsEndImageContext()
+        UIGraphicsEndImageContext()
     }
     
     func dist(x1: CGFloat, y1: CGFloat, x2: CGFloat, y2: CGFloat) -> CGFloat {
@@ -162,9 +161,22 @@ class ProfileController: UIViewController, UITextFieldDelegate {
     }
     
     @IBAction func EraseButtonUpInside(_ sender: Any) {
-        self.erasing = !self.erasing
+        self.color = UIColor(red: 177/255, green: 229/255, blue: 229/255, alpha: 1)
     }
     
+    @IBAction func colorButtonUpInside(_ sender: AnyObject) {
+        if sender.tag == 0 {
+            color = UIColor(red: 1, green: 1, blue: 1, alpha: 1)
+        } else if sender.tag == 1 {
+            color = UIColor(red: 1, green: 0, blue: 0, alpha: 1)
+        } else if sender.tag == 2 {
+            color = UIColor(red: 0, green: 1, blue: 0, alpha: 1)
+        } else if sender.tag == 3 {
+            color = UIColor(red: 0, green: 0, blue: 1, alpha: 1)
+        } else if sender.tag == 4 {
+            color = UIColor(red: 0, green: 1, blue: 1, alpha: 1)
+        }
+    }
     @IBAction func onSaveButtonPress(_ sender: Any) {
         if (usernameTextField.text != "") {
             //change name

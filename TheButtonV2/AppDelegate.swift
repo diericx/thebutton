@@ -41,9 +41,9 @@ class AppDelegate: UIResponder, UIApplicationDelegate, PNObjectEventListener {
         
         //DEBUG
         //TODO: Remove this
-        LocalDataHandler.setNameSizeUpgradeStatus(status: 0)
-        LocalDataHandler.setNameSpeedUpgradeStatus(status: 0)
-        LocalDataHandler.setCoins(coins: 500000000)
+//        LocalDataHandler.setNameSizeUpgradeStatus(status: 0)
+//        LocalDataHandler.setNameSpeedUpgradeStatus(status: 0)
+        LocalDataHandler.setCoins(coins: 5000)
     }
     
     func sendMessage(packet: String) {

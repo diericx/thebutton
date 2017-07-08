@@ -146,3 +146,13 @@ extension UIView {
     }
     
 }
+
+extension CGContext {
+    func drawFlipped(image: CGImage, rect: CGRect) {
+        saveGState()
+        translateBy(x: 0, y: rect.height)
+        scaleBy(x: 1, y: -1)
+        draw(image, in: rect)
+        restoreGState()
+    }
+}
