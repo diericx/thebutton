@@ -28,7 +28,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate, PNObjectEventListener {
     var pot = 0
     // Stores reference on PubNub client to make sure what it won't be released.
     var client: PubNub!
-    let uuid = UUID().uuidString
+    let uuid = UIDevice.current.identifierForVendor!.uuidString
     
     override init() {
         //CLOUDKIT

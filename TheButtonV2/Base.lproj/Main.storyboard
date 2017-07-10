@@ -70,7 +70,7 @@
                                 <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                             </imageView>
                             <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="p0h-Ac-M8U">
-                                <rect key="frame" x="109" y="461" width="156" height="149"/>
+                                <rect key="frame" x="109" y="500" width="156" height="149"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMaxX="YES" flexibleMinY="YES"/>
                                 <state key="normal" title="Button" image="maskTarget-solid-border"/>
                                 <connections>
@@ -78,10 +78,14 @@
                                     <action selector="OnButtonTouchDown:" destination="BYZ-38-t0r" eventType="touchDown" id="65A-GN-3H0"/>
                                 </connections>
                             </button>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="$0" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="brT-Ph-zM6">
-                                <rect key="frame" x="19" y="265" width="332" height="58"/>
+                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="9ds-Eg-7fi">
+                                <rect key="frame" x="109" y="500" width="156" height="149"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMaxX="YES" flexibleMinY="YES"/>
+                            </imageView>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Winner Pot" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="brT-Ph-zM6">
+                                <rect key="frame" x="97" y="113" width="181" height="34"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <fontDescription key="fontDescription" name="Skranji" family="Skranji" pointSize="40"/>
+                                <fontDescription key="fontDescription" name="Skranji" family="Skranji" pointSize="23"/>
                                 <color key="textColor" red="0.99985764345620942" green="1" blue="0.99599558929065002" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <nil key="highlightedColor"/>
                                 <color key="shadowColor" cocoaTouchSystemColor="darkTextColor"/>
@@ -90,20 +94,22 @@
                             <label hidden="YES" opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="You need to set your username in your profile before you can tap!" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="lER-GN-BRd">
                                 <rect key="frame" x="19" y="557" width="337" height="66"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMaxX="YES" flexibleMinY="YES"/>
-                                <fontDescription key="fontDescription" name=".AppleSystemUIFont" family=".AppleSystemUIFont" pointSize="17"/>
-                                <color key="textColor" red="0.4211913667408681" green="1" blue="0.57216161258979281" alpha="1" colorSpace="calibratedRGB"/>
+                                <fontDescription key="fontDescription" name="Skranji" family="Skranji" pointSize="17"/>
+                                <color key="textColor" red="0.97351353528477913" green="0.97193047864091597" blue="0.9840354323387146" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <nil key="highlightedColor"/>
+                                <color key="shadowColor" cocoaTouchSystemColor="darkTextColor"/>
+                                <size key="shadowOffset" width="2" height="3"/>
                             </label>
                             <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="vJA-K4-Wbk" userLabel="ProfileButton">
-                                <rect key="frame" x="316" y="86" width="47" height="46"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <rect key="frame" x="316" y="55" width="47" height="46"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMaxY="YES"/>
                                 <state key="normal" image="profileBtn"/>
                                 <connections>
                                     <segue destination="ekc-x2-F9Q" kind="presentation" id="ixi-IU-FGb"/>
                                 </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleAspectFit" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="c3C-Df-rth" userLabel="ShopButton">
-                                <rect key="frame" x="316" y="33" width="47" height="46"/>
+                                <rect key="frame" x="316" y="8" width="47" height="46"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMaxY="YES"/>
                                 <state key="normal" image="storeBtn"/>
                                 <connections>
@@ -111,18 +117,18 @@
                                 </connections>
                             </button>
                             <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="moneyBanner" translatesAutoresizingMaskIntoConstraints="NO" id="nuh-kO-kHi">
-                                <rect key="frame" x="12" y="20" width="174" height="64"/>
+                                <rect key="frame" x="12" y="-5" width="174" height="64"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                             </imageView>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumScaleFactor="0.5" adjustsFontForContentSizeCategory="YES" translatesAutoresizingMaskIntoConstraints="NO" id="uQV-7j-OF5">
-                                <rect key="frame" x="67" y="46" width="79" height="21"/>
+                                <rect key="frame" x="67" y="21" width="79" height="21"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <fontDescription key="fontDescription" name="Skranji" family="Skranji" pointSize="18"/>
                                 <color key="textColor" red="0.93144333125189094" green="0.9840354323387146" blue="0.96059633809500533" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="zvQ-7i-cKl" userLabel="CollectBtn">
-                                <rect key="frame" x="20" y="92" width="126" height="35"/>
+                                <rect key="frame" x="20" y="60" width="126" height="35"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <state key="normal" backgroundImage="blankBar"/>
                                 <connections>
@@ -130,20 +136,94 @@
                                 </connections>
                             </button>
                             <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="hourglass" translatesAutoresizingMaskIntoConstraints="NO" id="pol-hn-hJh">
-                                <rect key="frame" x="20" y="81" width="30" height="56"/>
+                                <rect key="frame" x="20" y="49" width="30" height="56"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                             </imageView>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumScaleFactor="0.5" adjustsFontForContentSizeCategory="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Elc-HE-J6r" userLabel="TimeLabel">
-                                <rect key="frame" x="59" y="99" width="79" height="21"/>
+                                <rect key="frame" x="59" y="67" width="79" height="21"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <fontDescription key="fontDescription" name="Skranji" family="Skranji" pointSize="18"/>
                                 <color key="textColor" red="0.93144333130000001" green="0.98403543230000001" blue="0.9605963381" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="9ds-Eg-7fi">
-                                <rect key="frame" x="109" y="461" width="156" height="149"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMaxX="YES" flexibleMinY="YES"/>
+                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="kw5-xw-Nrt" userLabel="TierSelector">
+                                <rect key="frame" x="0.0" y="419" width="375" height="60"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <color key="backgroundColor" red="1" green="0.89736357600319461" blue="0.0" alpha="0.43755501760563381" colorSpace="custom" customColorSpace="sRGB"/>
                             </imageView>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="😂" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="5iG-fL-M6d">
+                                <rect key="frame" x="127" y="361" width="60" height="56"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <fontDescription key="fontDescription" name=".AppleColorEmojiUI" family=".Apple Color Emoji UI" pointSize="53"/>
+                                <color key="textColor" red="0.96824554379275951" green="1" blue="0.94481496222768435" alpha="0.109375" colorSpace="custom" customColorSpace="sRGB"/>
+                                <color key="highlightedColor" red="0.96824554380000005" green="1" blue="0.94481496220000005" alpha="0.32020246479999998" colorSpace="custom" customColorSpace="sRGB"/>
+                                <color key="shadowColor" red="0.14229337140000001" green="0.14696000649999999" blue="0.13885001299999999" alpha="0.0" colorSpace="custom" customColorSpace="sRGB"/>
+                            </label>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="😂" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="1RK-dj-RIV">
+                                <rect key="frame" x="187" y="361" width="60" height="56"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <fontDescription key="fontDescription" name=".AppleColorEmojiUI" family=".Apple Color Emoji UI" pointSize="53"/>
+                                <color key="textColor" red="0.96824554379275951" green="1" blue="0.94481496222768435" alpha="0.109375" colorSpace="custom" customColorSpace="sRGB"/>
+                                <color key="highlightedColor" red="0.96824554380000005" green="1" blue="0.94481496220000005" alpha="0.32020246479999998" colorSpace="custom" customColorSpace="sRGB"/>
+                                <color key="shadowColor" red="0.14229337140000001" green="0.14696000649999999" blue="0.13885001299999999" alpha="0.0" colorSpace="custom" customColorSpace="sRGB"/>
+                            </label>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="😂" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="pCc-L3-4GF">
+                                <rect key="frame" x="118" y="292" width="69" height="65"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <fontDescription key="fontDescription" name=".AppleColorEmojiUI" family=".Apple Color Emoji UI" pointSize="63"/>
+                                <color key="textColor" red="0.96824554380000005" green="1" blue="0.94481496220000005" alpha="0.109375" colorSpace="custom" customColorSpace="sRGB"/>
+                                <color key="highlightedColor" red="0.96824554380000005" green="1" blue="0.94481496220000005" alpha="0.32020246479999998" colorSpace="custom" customColorSpace="sRGB"/>
+                                <color key="shadowColor" red="0.14229337140000001" green="0.14696000649999999" blue="0.13885001299999999" alpha="0.0" colorSpace="custom" customColorSpace="sRGB"/>
+                            </label>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="😂" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="OhJ-EF-KdY">
+                                <rect key="frame" x="187" y="293" width="69" height="65"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <fontDescription key="fontDescription" name=".AppleColorEmojiUI" family=".Apple Color Emoji UI" pointSize="63"/>
+                                <color key="textColor" red="0.96824554380000005" green="1" blue="0.94481496220000005" alpha="0.109375" colorSpace="custom" customColorSpace="sRGB"/>
+                                <color key="highlightedColor" red="0.96824554380000005" green="1" blue="0.94481496220000005" alpha="0.32020246479999998" colorSpace="custom" customColorSpace="sRGB"/>
+                                <color key="shadowColor" red="0.14229337140000001" green="0.14696000649999999" blue="0.13885001299999999" alpha="0.0" colorSpace="custom" customColorSpace="sRGB"/>
+                            </label>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="😂" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="zn9-Yy-EIC">
+                                <rect key="frame" x="103" y="211" width="84" height="79"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <fontDescription key="fontDescription" name=".AppleColorEmojiUI" family=".Apple Color Emoji UI" pointSize="75"/>
+                                <color key="textColor" red="0.96824554380000005" green="1" blue="0.94481496220000005" alpha="0.109375" colorSpace="custom" customColorSpace="sRGB"/>
+                                <color key="highlightedColor" red="0.96824554380000005" green="1" blue="0.94481496220000005" alpha="0.32020246479999998" colorSpace="custom" customColorSpace="sRGB"/>
+                                <color key="shadowColor" red="0.14229337140000001" green="0.14696000649999999" blue="0.13885001299999999" alpha="0.0" colorSpace="custom" customColorSpace="sRGB"/>
+                            </label>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="😂" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Ceb-n5-Rgu">
+                                <rect key="frame" x="188" y="211" width="84" height="79"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <fontDescription key="fontDescription" name=".AppleColorEmojiUI" family=".Apple Color Emoji UI" pointSize="75"/>
+                                <color key="textColor" red="0.96824554380000005" green="1" blue="0.94481496220000005" alpha="0.109375" colorSpace="custom" customColorSpace="sRGB"/>
+                                <color key="highlightedColor" red="0.96824554380000005" green="1" blue="0.94481496220000005" alpha="0.32020246479999998" colorSpace="custom" customColorSpace="sRGB"/>
+                                <color key="shadowColor" red="0.14229337140000001" green="0.14696000649999999" blue="0.13885001299999999" alpha="0.0" colorSpace="custom" customColorSpace="sRGB"/>
+                            </label>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="😂" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="l98-xi-spB">
+                                <rect key="frame" x="137" y="424" width="50" height="50"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <fontDescription key="fontDescription" name=".AppleColorEmojiUI" family=".Apple Color Emoji UI" pointSize="46"/>
+                                <color key="textColor" red="0.96824554379275951" green="1" blue="0.94481496222768435" alpha="0.109375" colorSpace="custom" customColorSpace="sRGB"/>
+                                <color key="highlightedColor" red="0.96824554379275951" green="1" blue="0.94481496222768435" alpha="0.32020246478873238" colorSpace="custom" customColorSpace="sRGB"/>
+                                <color key="shadowColor" red="0.14229337138680431" green="0.14696000647668395" blue="0.13885001296824839" alpha="0.0" colorSpace="custom" customColorSpace="sRGB"/>
+                            </label>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="😂" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ta3-cw-eKB">
+                                <rect key="frame" x="187" y="424" width="50" height="50"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <fontDescription key="fontDescription" name=".AppleColorEmojiUI" family=".Apple Color Emoji UI" pointSize="46"/>
+                                <color key="textColor" red="0.96824554379275951" green="1" blue="0.94481496222768435" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                <color key="highlightedColor" red="0.96824554380000005" green="1" blue="0.94481496220000005" alpha="0.32020246479999998" colorSpace="custom" customColorSpace="sRGB"/>
+                                <color key="shadowColor" red="0.14229337140000001" green="0.14696000649999999" blue="0.13885001299999999" alpha="0.0" colorSpace="custom" customColorSpace="sRGB"/>
+                            </label>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="$100" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Wa8-FW-ztG">
+                                <rect key="frame" x="21" y="143" width="332" height="51"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <fontDescription key="fontDescription" name="Skranji" family="Skranji" pointSize="46"/>
+                                <color key="textColor" red="0.99985764349999995" green="1" blue="0.99599558929999998" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                <nil key="highlightedColor"/>
+                                <color key="shadowColor" cocoaTouchSystemColor="darkTextColor"/>
+                                <size key="shadowOffset" width="2" height="3"/>
+                            </label>
                         </subviews>
                         <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <constraints>

@@ -13,7 +13,7 @@ import CloudKit
 import AVFoundation
 
 class GameController: UIViewController, PNObjectEventListener {
-    
+
     @IBOutlet weak var walletLabel: UILabel!
     @IBOutlet weak var potLabel: UILabel!
     @IBOutlet weak var theButton: UIButton!
@@ -32,6 +32,8 @@ class GameController: UIViewController, PNObjectEventListener {
     var timeToCollectTimer: Timer!
     
     var avplayer: AVAudioPlayer!
+    
+    public static var tier = 0
     
     //testing gravity
     var animators = [UIDynamicAnimator!]()

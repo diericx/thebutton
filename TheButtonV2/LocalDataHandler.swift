@@ -18,6 +18,7 @@ class LocalDataHandler {
     }
     
     static func setUsername(username: String) {
+        print("Setting Name to: " + username);
         defaults.set(username, forKey: "username")
     }
     
