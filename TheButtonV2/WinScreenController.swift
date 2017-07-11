@@ -14,8 +14,6 @@ import CloudKit
 
 class WinScreenController: UIViewController, PNObjectEventListener, AVCapturePhotoCaptureDelegate {
     
-    let appDelegate = UIApplication.shared.delegate as! AppDelegate
-
     @IBOutlet weak var winnerLabel: UILabel!
     @IBOutlet weak var imageView: UIImageView!
     @IBOutlet weak var cameraView: UIView!
@@ -42,41 +40,41 @@ class WinScreenController: UIViewController, PNObjectEventListener, AVCapturePho
         super.viewDidLoad()
         
         //If you arent the winner, start counting up the pot amount
-        if (!appDelegate.winner) {
+        if (!GameController.winner) {
             //start pot timer
             potCountUpTimer = Timer.scheduledTimer(timeInterval: potCountUpTimerWaitTime, target: self, selector: #selector(potCountUp), userInfo: nil, repeats: true)
         }
 
         //set up pubnub for this scene
-        appDelegate.client.addListener(self)
+        PubnubHandler.addListener(listener: self)
         
         //add listener when we tab out
         notification = NotificationCenter.default.addObserver(forName: .UIApplicationWillEnterForeground, object: nil, queue: .main) {
             [unowned self] notification in
-            self.appDelegate.client.addListener(self)
+            PubnubHandler.addListener(listener: self)
         }
         
         //show or hide labels and camera view depending on if you are winner
-        if appDelegate.winner {
+        if GameController.winner {
             winnerLabel.isHidden = true
             potAmountLabel.isHidden = true
             
             //Update current button record with your button record name
             CKHandler.SetNewWinnerButtonID(onComplete: { (record: CKRecord) in
                 let buttonImageRN: String = record["ButtonImageRecordName"] as! String;
-                self.appDelegate.sendMessage(packet: "{\"action\": \"button-image\", \"recordName\":\"" + buttonImageRN + "\"}")
+                PubnubHandler.sendMessage(packet: "{\"action\": \"button-image\", \"recordName\":\"" + buttonImageRN + "\"}")
             })
             
             //set winner button image to your own
             if let imgData = LocalDataHandler.getButtonImg() {
-                appDelegate.winnerButtonImg = UIImage(data: imgData)
+                GameController.winnerButtonImg = UIImage(data: imgData)
             }
         } else {
             cameraView.isHidden = true
         }
         
         //Display who won
-        winnerLabel.text = appDelegate.winnerName + " Won!";
+        winnerLabel.text = GameController.winnerName + " Won!";
         
         //add mask for capturing image
         self.maskView.image = UIImage(named: "mask")
@@ -96,7 +94,7 @@ class WinScreenController: UIViewController, PNObjectEventListener, AVCapturePho
     
     func potCountUp() {
         potCountUpTimer.invalidate()
-        if (currentPotCount >= appDelegate.pot) {
+        if (currentPotCount >= GameController.gs.pot) {
             return
         }
         currentPotCount += 1
@@ -168,13 +166,13 @@ class WinScreenController: UIViewController, PNObjectEventListener, AVCapturePho
             modifyRecordsOperation.timeoutIntervalForRequest = 10
             modifyRecordsOperation.timeoutIntervalForResource = 10
             
-            appDelegate.publicDB.save(newRecord) { (record, error) -> Void in
+            CKHandler.publicDB.save(newRecord) { (record, error) -> Void in
                 guard let record = record else {
                     print("Error saving record: ", error)
                     return
                 }
 //                print("Successfully saved record: ", record)
-                self.appDelegate.sendMessage(packet: "{\"action\": \"image\", \"recordName\":\"" + record.recordID.recordName + "\"}")
+                PubnubHandler.sendMessage(packet: "{\"action\": \"image\", \"recordName\":\"" + record.recordID.recordName + "\"}")
             }
             
             cameraView.isHidden = true
@@ -187,7 +185,7 @@ class WinScreenController: UIViewController, PNObjectEventListener, AVCapturePho
         self.countDownLabel.text = String(countDown);
         if (countDown == 0) {
             
-            if appDelegate.winner {
+            if GameController.winner {
                 //capture photo
                 let settings = AVCapturePhotoSettings()
                 let previewPixelType = settings.availablePreviewPhotoPixelFormatTypes.first!
@@ -199,7 +197,7 @@ class WinScreenController: UIViewController, PNObjectEventListener, AVCapturePho
                 self.sessionOutput.capturePhoto(with: settings, delegate: self)
                 
                 //reset variables
-                appDelegate.winner = false
+                GameController.winner = false
                 winnerLabel.isHidden = false
                 potAmountLabel.isHidden = false
                 maskTarget.isHidden = true
@@ -212,6 +210,7 @@ class WinScreenController: UIViewController, PNObjectEventListener, AVCapturePho
                 timer.invalidate()
                 //TODO: Segue to main scene
                 //performSegue(withIdentifier: "ShowGameScreen", sender: self)
+                GameController.gs.pot = 0
                 dismiss(animated: true, completion: nil)
             }
 
@@ -250,7 +249,7 @@ class WinScreenController: UIViewController, PNObjectEventListener, AVCapturePho
                 recordName: recordName,
                 onComplete: { (record: CKRecord) in
                     let data: Data = record["Image"] as! Data;
-                    self.appDelegate.winnerButtonImg = UIImage(data: data)
+                    GameController.winnerButtonImg = UIImage(data: data)
                 }
             )
         }
@@ -263,7 +262,7 @@ class WinScreenController: UIViewController, PNObjectEventListener, AVCapturePho
         self.countDownLabel.text = String(countDown);
         timer = Timer.scheduledTimer(timeInterval: 1, target: self, selector: #selector(self.updateCountDown), userInfo: nil, repeats: true)
             
-        if appDelegate.winner {
+        if GameController.winner {
             self.countDown = 4
             
             let deviceSession = AVCaptureDeviceDiscoverySession(deviceTypes: [.builtInDuoCamera,.builtInTelephotoCamera,.builtInWideAngleCamera], mediaType: AVMediaTypeVideo, position: .unspecified)

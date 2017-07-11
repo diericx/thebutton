@@ -16,6 +16,7 @@
 		116BBD3A1F0447BE00AB16A8 /* CKHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = 116BBD391F0447BE00AB16A8 /* CKHandler.swift */; };
 		118FE0571EFB37CE000A629B /* GoldShopController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 118FE0561EFB37CE000A629B /* GoldShopController.swift */; };
 		11E914981F1358B4002D4D74 /* Emoji.swift in Sources */ = {isa = PBXBuildFile; fileRef = 11E914971F1358B4002D4D74 /* Emoji.swift */; };
+		11E9149A1F135936002D4D74 /* PubnubHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = 11E914991F135936002D4D74 /* PubnubHandler.swift */; };
 		11EB28FF1EE641A9002BEF42 /* LocalDataHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = 11EB28FE1EE641A9002BEF42 /* LocalDataHandler.swift */; };
 		11EB528E1EE3652700A5312F /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 11EB528D1EE3652700A5312F /* AppDelegate.swift */; };
 		11EB52901EE3652700A5312F /* GameController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 11EB528F1EE3652700A5312F /* GameController.swift */; };
@@ -58,6 +59,7 @@
 		116BBD391F0447BE00AB16A8 /* CKHandler.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CKHandler.swift; sourceTree = "<group>"; };
 		118FE0561EFB37CE000A629B /* GoldShopController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GoldShopController.swift; sourceTree = "<group>"; };
 		11E914971F1358B4002D4D74 /* Emoji.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Emoji.swift; sourceTree = "<group>"; };
+		11E914991F135936002D4D74 /* PubnubHandler.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PubnubHandler.swift; sourceTree = "<group>"; };
 		11EB28FE1EE641A9002BEF42 /* LocalDataHandler.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LocalDataHandler.swift; sourceTree = "<group>"; };
 		11EB528A1EE3652700A5312F /* TheButtonV2.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = TheButtonV2.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		11EB528D1EE3652700A5312F /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -150,6 +152,7 @@
 				11EB52BF1EE3ADC900A5312F /* DataExtension.swift */,
 				11EB28FE1EE641A9002BEF42 /* LocalDataHandler.swift */,
 				116BBD391F0447BE00AB16A8 /* CKHandler.swift */,
+				11E914991F135936002D4D74 /* PubnubHandler.swift */,
 				11E914971F1358B4002D4D74 /* Emoji.swift */,
 			);
 			path = TheButtonV2;
@@ -396,6 +399,7 @@
 				11EB28FF1EE641A9002BEF42 /* LocalDataHandler.swift in Sources */,
 				11EB52C01EE3ADC900A5312F /* DataExtension.swift in Sources */,
 				116BBD361EFDC63000AB16A8 /* CollectViewController.swift in Sources */,
+				11E9149A1F135936002D4D74 /* PubnubHandler.swift in Sources */,
 				116BBD3A1F0447BE00AB16A8 /* CKHandler.swift in Sources */,
 				118FE0571EFB37CE000A629B /* GoldShopController.swift in Sources */,
 				11EB52901EE3652700A5312F /* GameController.swift in Sources */,

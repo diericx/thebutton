@@ -21,7 +21,6 @@ class ProfileController: UIViewController, UITextFieldDelegate {
     
     var lastPoint = CGPoint.zero
     var swiped = false
-    let appDelegate = UIApplication.shared.delegate as! AppDelegate
     var color = UIColor(red: 0, green: 0, blue: 0, alpha: 1.0)
     
     override func viewDidLoad() {

@@ -50,6 +50,10 @@ class LocalDataHandler {
         defaults.set(status, forKey: "buttonDrawingStrokes")
     }
     
+    static func setEmojiArray(status: [String]) {
+        defaults.set(status, forKey: "emojiArray")
+    }
+    
     static func setColorPackIStatus() -> Bool? {
         let status = defaults.bool(forKey: "colorPackIStatus")
         return status
@@ -131,6 +135,15 @@ class LocalDataHandler {
             setLastLootCollectTime(status: Date())
         }
         return date!
+    }
+    
+    static func getEmojiArray() -> [String] {
+        guard let status = defaults.array(forKey: "emojiArray") else {
+            let emojiArray: [String] = []
+            setEmojiArray(status: emojiArray)
+            return emojiArray
+        }
+        return status as! [String]
     }
     
     

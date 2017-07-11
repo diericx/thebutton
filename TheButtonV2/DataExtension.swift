@@ -156,3 +156,14 @@ extension CGContext {
         restoreGState()
     }
 }
+
+extension Array where Element:UILabel {
+    func findByTag(tag: Int) -> UILabel? {
+        for label in self {
+            if label.tag == tag {
+                return label
+            }
+        }
+        return nil
+    }
+}

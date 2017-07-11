@@ -21,19 +21,25 @@ class GameController: UIViewController, PNObjectEventListener {
     @IBOutlet weak var hourGlassImageView: UIImageView!
     @IBOutlet weak var timeToCollectTxt: UILabel!
     @IBOutlet weak var winnerButtonImageView: UIImageView!
-    
-    let appDelegate = UIApplication.shared.delegate as! AppDelegate
+    @IBOutlet var goalEmojiLabels:[UILabel]?
+    @IBOutlet var currentEmojiLabels:[UILabel]?
+    @IBOutlet weak var highlightBarImageView: UIImageView!
+    @IBOutlet weak var tapAnimationsView: UIView!
+    @IBOutlet weak var profileButton: UIButton!
+    //instance vars
     private var notification: NSObjectProtocol?
     var username = LocalDataHandler.getUsername()
-    
     var shouldResizeHourglass = true;
     var canCollect = false;
-    
     var timeToCollectTimer: Timer!
-    
     var avplayer: AVAudioPlayer!
     
-    public static var tier = 0
+    //static vars
+    static var winner = false
+    static var winnerName = ""
+    static var winnerButtonImg: UIImage?
+    static let uuid = UIDevice.current.identifierForVendor!.uuidString
+    static var gs = GameState()
     
     //testing gravity
     var animators = [UIDynamicAnimator!]()
@@ -41,7 +47,7 @@ class GameController: UIViewController, PNObjectEventListener {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        appDelegate.client.addListener(self)
+        PubnubHandler.instance?.client?.addListener(self)
         
         //Update wallet text
         //TODO: Make UpdateUI function
@@ -49,11 +55,22 @@ class GameController: UIViewController, PNObjectEventListener {
         
         notification = NotificationCenter.default.addObserver(forName: .UIApplicationWillEnterForeground, object: nil, queue: .main) {
             [unowned self] notification in
-            self.appDelegate.client.addListener(self)
+            PubnubHandler.addListener(listener: self)
         }
+        
+        //TODO - get this info from pubnub
+        //Set GameState defaults
+        GameController.gs.currentEmojis = [0, 0, 0, 0]
+        GameController.gs.goalEmojis = [4, 7, 1, 3]
+        GameController.gs.pot = 0
+        GameController.gs.tier = 0
         
         //update ttc text
         updateTimeToCollectTxt()
+        
+        //update goal and current emojis to show what the current goal/current selected emoji is
+        updateGoalEmojiLabels()
+        updateCurrentEmojiLabels()
         
         //resize hourglass
         resizeHourGlass()
@@ -67,6 +84,7 @@ class GameController: UIViewController, PNObjectEventListener {
         super.viewWillAppear(animated);
         self.updateCoinLabel()
         self.updatePotLabel()
+        GameController.gs.tier = 0
         //Get current coin count
     }
     
@@ -85,9 +103,9 @@ class GameController: UIViewController, PNObjectEventListener {
         }
         
         //set winner button
-        if appDelegate.winnerButtonImg != nil {
+        if GameController.winnerButtonImg != nil {
             print("Found a winner button image!")
-            winnerButtonImageView.image = appDelegate.winnerButtonImg
+            winnerButtonImageView.image = GameController.winnerButtonImg
         } else {
             print("No winner button image!")
         }
@@ -112,6 +130,75 @@ class GameController: UIViewController, PNObjectEventListener {
             //TODO enable a button here
         } else {
             timeToCollectTxt.text = String(60-Int(interval/60)) + "m"
+        }
+    }
+    
+    //updates goal emoji labels
+    func updateGoalEmojiLabels() {
+        for label in goalEmojiLabels! {
+            label.text = Emoji.emojis[GameController.gs.goalEmojis[label.tag]]
+        }
+    }
+    //updates all current emoji labels
+    func updateCurrentEmojiLabels() {
+        for label in currentEmojiLabels! {
+            var newEmoji = GameController.gs.currentEmojis[label.tag]
+            label.text = Emoji.emojis[GameController.gs.currentEmojis[label.tag]]
+        }
+    }
+    //changes the current emoji, if its the correct one go on to the next tier
+    func changeCurrentEmoji() {
+        for label in currentEmojiLabels! {
+            if label.tag == GameController.gs.tier {
+                //found current emoji label
+                var rand = Int(arc4random_uniform(UInt32(Emoji.tiers[GameController.gs.tier]+1)))
+                while (rand == GameController.gs.currentEmojis[GameController.gs.tier]) {
+                    rand = Int(arc4random_uniform(UInt32(Emoji.tiers[GameController.gs.tier]+1)))
+                }
+                GameController.gs.currentEmojis[GameController.gs.tier] = rand
+                updateCurrentEmojiLabels()
+                //check if tier has been won
+                if GameController.gs.hasWonTier() {
+                    //this tier has just changed during this call so we may need to use its previous value
+                    let tier = GameController.gs.tier
+                    let emoji = Emoji.emojis[GameController.gs.goalEmojis[tier-1]]
+                    if (GameController.gs.tier == 4) {
+                        PubnubHandler.sendMessage(packet: "{\"action\": \"win\", \"uuid\": \"" + GameController.uuid + "\", \"name\":\"" + username! + "\" }");
+                    }
+                    //attempt to add emoji to inventory
+                    if (Emoji.addToMyInventory(emojiInput: emoji)) {
+                        UIView.animate(withDuration: 1.5, animations: {
+                            let label = self.goalEmojiLabels?.findByTag(tag: tier-1)
+                            //targot origin/frame
+                            let t_f = self.profileButton.frame
+                            let t_o = t_f.origin
+                            label?.frame = CGRect(x: t_o.x + (t_f.width/2), y: t_o.y + (t_f.height/2), width: 0, height: 0)
+                        })  { (finished) in                            
+                        }
+                    } else {
+                        //TODO - animate emoji bursting into coins
+                    }
+                    //TODO - display tier winning animations with coins
+                    tierWonAnimation(prev: GameController.gs.tier, cur: GameController.gs.tier-1)
+                }
+                
+                break
+            }
+        }
+    }
+    //plays animation for tier change
+    func tierWonAnimation(prev: Int, cur: Int) {
+        UIView.animate(withDuration: 0.5, animations: {
+            guard let curGoalLabel = self.goalEmojiLabels?.findByTag(tag: GameController.gs.tier) else {
+                print ("ERROR - Couldnt show animation, couldnt find label")
+                return
+            }
+            self.highlightBarImageView.frame.origin.y = curGoalLabel.frame.origin.y
+            var f = self.highlightBarImageView.frame
+            var newSize = CGRect(x: f.origin.x, y: f.origin.y - 5, width: f.width, height: f.height+10)
+            self.highlightBarImageView.frame = newSize
+        }) { (finished) in
+
         }
     }
     
@@ -170,7 +257,7 @@ class GameController: UIViewController, PNObjectEventListener {
             let image = UIImage(named: "coinImg.png")
             let imageView = UIImageView(image: image!)
             imageView.frame = CGRect(x: self.view.bounds.width/2, y: self.view.bounds.height/2, width: 25, height: 25)
-            view.addSubview(imageView)
+            tapAnimationsView.addSubview(imageView)
             animator = UIDynamicAnimator(referenceView: view)
             gravity = UIGravityBehavior(items: [imageView])
             
@@ -188,7 +275,10 @@ class GameController: UIViewController, PNObjectEventListener {
             let nameSpeed = String(LocalDataHandler.getNameSpeedUpgradeStatus()!)
             print("nameSizeOnTap: " + nameSize)
             //send packet to pubnub
-            appDelegate.sendMessage(packet: "{\"action\": \"button-press\", \"uuid\": \"" + appDelegate.uuid + "\", \"name\":\"" + username! + "\", \"name-size\": \"" + nameSize + "\", \"name-speed\": \"" + nameSpeed + "\" }");
+            PubnubHandler.sendMessage(packet: "{\"action\": \"button-press\", \"uuid\": \"" + GameController.uuid + "\", \"name\":\"" + username! + "\", \"name-size\": \"" + nameSize + "\", \"name-speed\": \"" + nameSpeed + "\" }");
+            
+            //change current emoji
+            changeCurrentEmoji()
         } else {
             //TODO: warn user that they are broke
             print("Out of funds!");
@@ -207,6 +297,7 @@ class GameController: UIViewController, PNObjectEventListener {
             canCollect = false
         }
     }
+    
     //When the userData is collected, set ui and variable
 //    func getUserDataCallback(record: CKRecord) {
 //        appDelegate.userData = record
@@ -223,7 +314,7 @@ class GameController: UIViewController, PNObjectEventListener {
     }
     
     func updatePotLabel() {
-        self.potLabel.text = "$" + String(appDelegate.pot)
+        self.potLabel.text = "$" + String(GameController.gs.pot)
     }
     
     // Handle new message from one of channels on which client has been subscribed.
@@ -250,7 +341,7 @@ class GameController: UIViewController, PNObjectEventListener {
             let uuid: String = dictionary["uuid"] as! String
             
             //only deduct coins if the tap goes through
-            if (uuid == appDelegate.uuid) {
+            if (uuid == GameController.uuid) {
                 //update coins
                 LocalDataHandler.setCoins(coins: LocalDataHandler.getCoins() - 1)
                 
@@ -260,7 +351,7 @@ class GameController: UIViewController, PNObjectEventListener {
             
             //Get current pot and set value
             let pot: Int = dictionary["pot"] as! Int
-            appDelegate.pot = pot
+            GameController.gs.pot = pot
             //update ui
             updatePotLabel()
             
@@ -278,7 +369,7 @@ class GameController: UIViewController, PNObjectEventListener {
             // this changed in Swift 3 (much better, no?)
             label.textAlignment = .center
             label.text = name
-            self.view.addSubview(label)
+            self.tapAnimationsView.addSubview(label)
             
             UIView.animate(withDuration: (2.0 + (Double(nameSpeed))/4), animations: {
                 label.center.y -= self.view.bounds.height/2
@@ -286,18 +377,34 @@ class GameController: UIViewController, PNObjectEventListener {
             })
         } else if (action == "win") {
             let uuid = dictionary["uuid"] as! String;
-            if uuid == appDelegate.uuid {
-                appDelegate.winner = true
+            if uuid == GameController.uuid {
+                GameController.winner = true
                 //update local userData coin value
-                LocalDataHandler.setCoins(coins: LocalDataHandler.getCoins() + appDelegate.pot)
+                LocalDataHandler.setCoins(coins: LocalDataHandler.getCoins() + GameController.gs.pot)
                 //sync local data with cloud
-                appDelegate.syncUserDataWithCloud()
+//                appDelegate.syncUserDataWithCloud()
             }
             potLabel.text = "$0";
-            appDelegate.winnerName = dictionary["name"] as! String;
+            GameController.winnerName = dictionary["name"] as! String;
             performSegue(withIdentifier: "ShowWinScreenSegue", sender: self)
         }
     }
 
+}
+
+class GameState {
+    var goalEmojis: [Int] = [3, 5, 2, 6]
+    var currentEmojis: [Int] = [0, 0, 0, 0]
+    var tier = 0
+    var pot = 0
+    
+    func hasWonTier() -> Bool {
+        if currentEmojis[tier] == goalEmojis[tier] {
+            tier += 1
+            return true
+        } else {
+            return false
+        }
+    }
 }
 

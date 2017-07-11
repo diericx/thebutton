@@ -16,6 +16,14 @@ typealias GetRecordCallback = (CKRecord) -> Void
 
 class CKHandler {
     
+    static let container = CKContainer.default()
+    static let publicDB = CKHandler.container.publicCloudDatabase
+    static let privateDB = CKHandler.container.privateCloudDatabase
+    
+    init () {
+        
+    }
+    
     static func GetRecordById(recordID: CKRecordID, onComplete:@escaping GetRecordCallback ) {
         
         CKContainer.default().publicCloudDatabase.fetch(withRecordID: recordID, completionHandler: { record, error in
