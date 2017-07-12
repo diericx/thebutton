@@ -168,7 +168,7 @@ class GameController: UIViewController, PNObjectEventListener {
                     //attempt to add emoji to inventory
                     if (Emoji.addToMyInventory(emojiInput: emoji)) {
                         UIView.animate(withDuration: 1.5, animations: {
-                            let label = self.goalEmojiLabels?.findByTag(tag: tier-1)
+                            let label = self.currentEmojiLabels?.findByTag(tag: tier-1)
                             //targot origin/frame
                             let t_f = self.profileButton.frame
                             let t_o = t_f.origin
@@ -177,6 +177,8 @@ class GameController: UIViewController, PNObjectEventListener {
                         }
                     } else {
                         //TODO - animate emoji bursting into coins
+                        let label = self.currentEmojiLabels?.findByTag(tag: tier-1)
+                        label?.alpha = 0.5;
                     }
                     //TODO - display tier winning animations with coins
                     tierWonAnimation(prev: GameController.gs.tier, cur: GameController.gs.tier-1)
