@@ -11,6 +11,7 @@ import PubNub
 import Foundation
 import CloudKit
 import AVFoundation
+import KDCircularProgress
 
 class GameController: UIViewController, PNObjectEventListener {
 
@@ -26,6 +27,7 @@ class GameController: UIViewController, PNObjectEventListener {
     @IBOutlet weak var highlightBarImageView: UIImageView!
     @IBOutlet weak var tapAnimationsView: UIView!
     @IBOutlet weak var profileButton: UIButton!
+    @IBOutlet weak var progressBar: KDCircularProgress!
     //instance vars
     private var notification: NSObjectProtocol?
     var username = LocalDataHandler.getUsername()
@@ -33,11 +35,16 @@ class GameController: UIViewController, PNObjectEventListener {
     var canCollect = false;
     var timeToCollectTimer: Timer!
     var avplayer: AVAudioPlayer!
+    var taps = 0
+    //reset vars
+    var goalEmojiLabelInitFrames: [CGRect] = []
+    var currentEmojiLabelInitFrames: [CGRect] = []
+    var highlightBarInitFrame: CGRect = CGRect()
     
     //static vars
     static var winner = false
     static var winnerName = ""
-    static var winnerButtonImg: UIImage?
+    static var winnerImg: UIImage?
     static let uuid = UIDevice.current.identifierForVendor!.uuidString
     static var gs = GameState()
     
@@ -60,10 +67,21 @@ class GameController: UIViewController, PNObjectEventListener {
         
         //TODO - get this info from pubnub
         //Set GameState defaults
+        //TODO - make this more interesting
         GameController.gs.currentEmojis = [0, 0, 0, 0]
-        GameController.gs.goalEmojis = [4, 7, 1, 3]
-        GameController.gs.pot = 0
-        GameController.gs.tier = 0
+        
+        //collect initial positions
+        for emoji in goalEmojiLabels! {
+            goalEmojiLabelInitFrames.append(emoji.frame)
+        }
+        for emoji in currentEmojiLabels! {
+            currentEmojiLabelInitFrames.append(emoji.frame)
+        }
+        highlightBarInitFrame = highlightBarImageView.frame
+        
+        //reset positions
+        GameController.ResetGameState()
+        resetGameToMatchState()
         
         //update ttc text
         updateTimeToCollectTxt()
@@ -84,7 +102,7 @@ class GameController: UIViewController, PNObjectEventListener {
         super.viewWillAppear(animated);
         self.updateCoinLabel()
         self.updatePotLabel()
-        GameController.gs.tier = 0
+        resetGameToMatchState()
         //Get current coin count
     }
     
@@ -103,12 +121,14 @@ class GameController: UIViewController, PNObjectEventListener {
         }
         
         //set winner button
-        if GameController.winnerButtonImg != nil {
+        if GameController.winnerImg != nil {
             print("Found a winner button image!")
-            winnerButtonImageView.image = GameController.winnerButtonImg
+            winnerButtonImageView.image = GameController.winnerImg
         } else {
             print("No winner button image!")
         }
+        
+        resetGameToMatchState()
     }
 
     override func didReceiveMemoryWarning() {
@@ -146,6 +166,72 @@ class GameController: UIViewController, PNObjectEventListener {
             label.text = Emoji.emojis[GameController.gs.currentEmojis[label.tag]]
         }
     }
+    
+    //reset all emoji labels
+    func resetGameToMatchState() {
+        let tier = GameController.gs.tier
+        var i = 0
+        for emoji in currentEmojiLabels! {
+            emoji.frame = currentEmojiLabelInitFrames[i]
+            emoji.isHidden = false
+            emoji.transform = CGAffineTransform(scaleX: 1, y: 1);
+            i+=1
+        }
+        i=0
+        for emoji in goalEmojiLabels! {
+            emoji.frame = goalEmojiLabelInitFrames[i]
+            emoji.isHidden = false
+            emoji.transform = CGAffineTransform(scaleX: 1, y: 1);
+            i+=1
+        }
+        
+        //match state
+        for i in 0...3 {
+            if GameController.gs.currentEmojis[i] == GameController.gs.goalEmojis[i] {
+                currentEmojiLabels?.findByTag(tag: i)?.isHidden = true
+            }
+        }
+        
+        //reset highlight
+        //highlightBarImageView.frame = highlightBarInitFrame
+        let f = highlightBarInitFrame
+        let currentLabel = self.currentEmojiLabels?.findByTag(tag: tier)
+        let newSize = CGRect(x: f.origin.x, y: (currentLabel?.frame.origin.y)!, width: f.width, height: (currentLabel?.frame.height)! )
+        highlightBarImageView.frame = newSize
+        
+        //update taps
+        updateTapUI()
+    }
+    
+    func increaseTapCount() {
+        taps += 1
+        //TODO - change this so you keep taps
+        if taps == GameController.gs.tapsToNextLevel {
+            taps = 0
+            levelUp()
+        }
+        LocalDataHandler.setTaps(value: taps)
+        updateTapUI()
+    }
+    
+    func updateTapUI() {
+        let pBarAngle = (Double(taps) / Double(GameController.gs.tapsToNextLevel)) * Double(360)
+        print("Taps: \(taps)")
+        print("Angle:  \(pBarAngle)")
+        progressBar.animate(toAngle: pBarAngle, duration: 0.2, completion: nil)
+    }
+    
+    func levelUp() {
+        //TODO - add to level
+//        var timer = Timer.scheduledTimer(timeInterval: 0.05, target: self, selector: Selector("spawnCoin"),userInfo: nil, repeats: true)
+    }
+    
+    static func ResetGameState() {
+        GameController.gs.tier = 0
+        GameController.gs.pot = 0
+        GameController.gs.currentEmojis = [0, 0, 0, 0]
+    }
+    
     //changes the current emoji, if its the correct one go on to the next tier
     func changeCurrentEmoji() {
         for label in currentEmojiLabels! {
@@ -166,20 +252,7 @@ class GameController: UIViewController, PNObjectEventListener {
                         PubnubHandler.sendMessage(packet: "{\"action\": \"win\", \"uuid\": \"" + GameController.uuid + "\", \"name\":\"" + username! + "\" }");
                     }
                     //attempt to add emoji to inventory
-                    if (Emoji.addToMyInventory(emojiInput: emoji)) {
-                        UIView.animate(withDuration: 1.5, animations: {
-                            let label = self.currentEmojiLabels?.findByTag(tag: tier-1)
-                            //targot origin/frame
-                            let t_f = self.profileButton.frame
-                            let t_o = t_f.origin
-                            label?.frame = CGRect(x: t_o.x + (t_f.width/2), y: t_o.y + (t_f.height/2), width: 0, height: 0)
-                        })  { (finished) in                            
-                        }
-                    } else {
-                        //TODO - animate emoji bursting into coins
-                        let label = self.currentEmojiLabels?.findByTag(tag: tier-1)
-                        label?.alpha = 0.5;
-                    }
+                    Emoji.addToMyInventory(emojiInput: emoji)
                     //TODO - display tier winning animations with coins
                     tierWonAnimation(prev: GameController.gs.tier, cur: GameController.gs.tier-1)
                 }
@@ -188,16 +261,30 @@ class GameController: UIViewController, PNObjectEventListener {
             }
         }
     }
+    
     //plays animation for tier change
     func tierWonAnimation(prev: Int, cur: Int) {
+        let tier = GameController.gs.tier
+        let currentLabel = self.currentEmojiLabels?.findByTag(tag: tier-1)
+        UIView.animate(withDuration: 1.5, animations: {
+            
+            //targot origin/frame
+            let newFrame = self.profileButton.frame
+            currentLabel?.frame = newFrame
+            currentLabel?.transform = CGAffineTransform(scaleX: 0.1, y: 0.1);
+        })  { (finished) in
+            currentLabel?.isHidden = true
+        }
+        
+        //Animate highlight bar
         UIView.animate(withDuration: 0.5, animations: {
-            guard let curGoalLabel = self.goalEmojiLabels?.findByTag(tag: GameController.gs.tier) else {
+            guard let curGoalLabel = self.goalEmojiLabels?.findByTag(tag: tier) else {
                 print ("ERROR - Couldnt show animation, couldnt find label")
                 return
             }
             self.highlightBarImageView.frame.origin.y = curGoalLabel.frame.origin.y
-            var f = self.highlightBarImageView.frame
-            var newSize = CGRect(x: f.origin.x, y: f.origin.y - 5, width: f.width, height: f.height+10)
+            let f = self.highlightBarImageView.frame
+            let newSize = CGRect(x: f.origin.x, y: f.origin.y, width: f.width, height: curGoalLabel.frame.height)
             self.highlightBarImageView.frame = newSize
         }) { (finished) in
 
@@ -237,40 +324,43 @@ class GameController: UIViewController, PNObjectEventListener {
             }
         }
     }
+    
+    func spawnCoin() {
+        //spawn coin
+        var animator: UIDynamicAnimator!
+        var gravity: UIGravityBehavior!
+        let image = UIImage(named: "coinImg.png")
+        let imageView = UIImageView(image: image!)
+        imageView.frame = CGRect(x: theButton.frame.origin.x + (theButton.frame.width/2), y: theButton.frame.origin.y + (theButton.frame.height/2), width: 25, height: 25)
+        tapAnimationsView.addSubview(imageView)
+        animator = UIDynamicAnimator(referenceView: view)
+        gravity = UIGravityBehavior(items: [imageView])
+        
+        let randAngle = CGFloat.random(min: CGFloat((4*Double.pi)/3), max: CGFloat((5*Double.pi)/3));
+        let instantaneousPush: UIPushBehavior = UIPushBehavior(items: [imageView], mode: UIPushBehaviorMode.instantaneous)
+        instantaneousPush.setAngle( randAngle , magnitude: 0.2);
+        animator.addBehavior(instantaneousPush)
+        animator.addBehavior(gravity)
+        
+        animators.append(animator)
+        gravityBehaviours.append(gravity)
+    }
 
     @IBAction func OnButtonTouchDown(_ sender: Any) {
         //shrink button
-        UIView.animate(withDuration: 0.05,
+        UIView.animate(withDuration: 0.02,
                        animations: {
-                        self.theButton.transform = CGAffineTransform(scaleX: 0.9, y: 0.9)
+//                        self.progressBar.glowAmount = 1
         })
     }
     
     @IBAction func OnButtonTap(_ sender: Any) {
-        //reset button size
+        print("touch up")
         UIView.animate(withDuration: 0.02) {
-            self.theButton.transform = CGAffineTransform.identity
+//            self.progressBar.glowAmount = 0
         }
         
         if LocalDataHandler.getCoins() > 0 {
-            //spawn coin
-            var animator: UIDynamicAnimator!
-            var gravity: UIGravityBehavior!
-            let image = UIImage(named: "coinImg.png")
-            let imageView = UIImageView(image: image!)
-            imageView.frame = CGRect(x: self.view.bounds.width/2, y: self.view.bounds.height/2, width: 25, height: 25)
-            tapAnimationsView.addSubview(imageView)
-            animator = UIDynamicAnimator(referenceView: view)
-            gravity = UIGravityBehavior(items: [imageView])
-            
-            let randAngle = CGFloat.random(min: CGFloat((4*Double.pi)/3), max: CGFloat((5*Double.pi)/3));
-            let instantaneousPush: UIPushBehavior = UIPushBehavior(items: [imageView], mode: UIPushBehaviorMode.instantaneous)
-            instantaneousPush.setAngle( randAngle , magnitude: 0.2);
-            animator.addBehavior(instantaneousPush)
-            animator.addBehavior(gravity)
-            
-            animators.append(animator)
-            gravityBehaviours.append(gravity)
             
             //send packet
             let nameSize = String(LocalDataHandler.getNameSizeUpgradeStatus()!*2)
@@ -281,6 +371,11 @@ class GameController: UIViewController, PNObjectEventListener {
             
             //change current emoji
             changeCurrentEmoji()
+            
+            //increase taps
+            increaseTapCount()
+            
+            
         } else {
             //TODO: warn user that they are broke
             print("Out of funds!");
@@ -395,10 +490,12 @@ class GameController: UIViewController, PNObjectEventListener {
 }
 
 class GameState {
-    var goalEmojis: [Int] = [3, 5, 2, 6]
+    var goalEmojis: [Int] = [3, 1, 2, 3]
     var currentEmojis: [Int] = [0, 0, 0, 0]
     var tier = 0
     var pot = 0
+    var currentLevel = 0
+    var tapsToNextLevel = 5
     
     func hasWonTier() -> Bool {
         if currentEmojis[tier] == goalEmojis[tier] {
@@ -407,6 +504,12 @@ class GameState {
         } else {
             return false
         }
+    }
+    
+    func calcTapsToLevel(level: Int) -> Int {
+        //TODO - make this better
+        let taps = level * 5
+        return taps
     }
 }
 

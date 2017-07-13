@@ -16,6 +16,8 @@ class ProfileController: UIViewController, UITextFieldDelegate, UICollectionView
     @IBOutlet weak var usernameTextField: UITextField!
     @IBOutlet weak var emojiCollectionView: UICollectionView!
     
+    var selectedEmoji = ""
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         usernameTextField.delegate = self
@@ -32,6 +34,9 @@ class ProfileController: UIViewController, UITextFieldDelegate, UICollectionView
         //Functions implemented below
         self.emojiCollectionView.delegate = self
         self.emojiCollectionView.dataSource = self
+        //set it to clear background
+        self.emojiCollectionView.backgroundColor = UIColor.clear;
+        self.emojiCollectionView.backgroundView?.backgroundColor = UIColor.clear;
     }
     
     //remove status bar
@@ -60,9 +65,6 @@ class ProfileController: UIViewController, UITextFieldDelegate, UICollectionView
         return true
     }
     
-    override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
-    }
-    
     
     func dist(x1: CGFloat, y1: CGFloat, x2: CGFloat, y2: CGFloat) -> CGFloat {
         return ((x2 - x1) * (x2 - x1) + (y2 - y1) * (y2 - y1)).squareRoot()
@@ -78,19 +80,51 @@ class ProfileController: UIViewController, UITextFieldDelegate, UICollectionView
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
+        //get cell
         let cell = emojiCollectionView.dequeueReusableCell(withReuseIdentifier: "emoji_collection_cell", for: indexPath) as! EmojiCollectionViewCell
+        //edit button
         cell.emojiButton.setTitle(Emoji.emojis[indexPath.row], for: .normal)
+        cell.emojiButton.alpha = 0.5;
+        if Emoji.doIOwn(emojiInput: Emoji.emojis[indexPath.row]) {
+            cell.emojiButton.alpha = 1;
+        }
+        cell.emojiButton.tag = indexPath.row
+        //edit amount text
+        let count = Emoji.howManyDoIOwn(emojiInput: Emoji.emojis[indexPath.row])
+        if count == 0 {
+            cell.amountText.text = ""
+        } else {
+            cell.amountText.text = "x" + String(count)
+        }
+        cell.emojiButton.addTarget(self, action: "emojiButtonUp:", for: .touchUpInside)
+
         return cell
+    }
+    
+    func emojiButtonUp(_ sender: AnyObject?) {
+        var emoji = Emoji.emojis[(sender?.tag)!]
+        if Emoji.doIOwn(emojiInput: emoji) {
+            selectedEmoji = Emoji.emojis[(sender?.tag)!]
+        } else {
+            selectedEmoji = "";
+        }
+    }
+    
+    @IBAction func slotUpInside(_ sender: UIButton!) {
+        if selectedEmoji != "" {
+            sender.setTitle(selectedEmoji, for: .normal)
+        }
+        
     }
     
     @IBAction func onSaveButtonPress(_ sender: Any) {
         if (usernameTextField.text != "") {
             //change name
             if (LocalDataHandler.getNameChangeStatus()! == true || LocalDataHandler.getUsername() == nil) {
-                print("Saving username!")
                 LocalDataHandler.setUsername(username: usernameTextField.text!)
                 LocalDataHandler.setNameChangeStatus(status: false)
             }
+            dismiss(animated: true, completion: nil)
         } else {
             let alertController = UIAlertController(title: "Oh no!", message: "Your username can't be blank.", preferredStyle: .alert)
 
@@ -100,7 +134,7 @@ class ProfileController: UIViewController, UITextFieldDelegate, UICollectionView
             alertController.addAction(OKAction)
             
             self.present(alertController, animated: true, completion:nil)
-
+            dismiss(animated: true, completion: nil)
         }
     }
     

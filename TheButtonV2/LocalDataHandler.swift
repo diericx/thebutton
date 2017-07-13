@@ -22,8 +22,8 @@ class LocalDataHandler {
         defaults.set(username, forKey: "username")
     }
     
-    static func setButtonImgId(id: String) {
-        defaults.set(id, forKey: "buttonImgId")
+    static func setWinImgId(id: String) {
+        defaults.set(id, forKey: "winImg")
     }
     
     static func setNameSizeUpgradeStatus(status: Int) {
@@ -50,8 +50,12 @@ class LocalDataHandler {
         defaults.set(status, forKey: "buttonDrawingStrokes")
     }
     
-    static func setEmojiArray(status: [String]) {
+    static func setEmojiInvArray(status: [String: Int]) {
         defaults.set(status, forKey: "emojiArray")
+    }
+    
+    static func setTaps(value: Int) {
+        defaults.set(value, forKey: "taps")
     }
     
     static func setColorPackIStatus() -> Bool? {
@@ -81,13 +85,8 @@ class LocalDataHandler {
         return username
     }
     
-    static func getButtonImgId() -> String? {
+    static func getWinImgId() -> String? {
         let imgId = defaults.string(forKey: "buttonImgId")
-        return imgId
-    }
-    
-    static func getButtonImg() -> Data? {
-        let imgId = defaults.data(forKey: "buttonImg")
         return imgId
     }
     
@@ -137,13 +136,21 @@ class LocalDataHandler {
         return date!
     }
     
-    static func getEmojiArray() -> [String] {
-        guard let status = defaults.array(forKey: "emojiArray") else {
-            let emojiArray: [String] = []
-            setEmojiArray(status: emojiArray)
+    static func getEmojiInvArray() -> [String: Int] {
+        guard let status = defaults.value(forKey: "emojiArray") else {
+            let emojiArray: [String: Int] = [String: Int]()
+            setEmojiInvArray(status: emojiArray)
             return emojiArray
         }
-        return status as! [String]
+        return status as! [String: Int]
+    }
+    
+    static func getTaps() -> Int {
+        guard let taps = defaults.value(forKey: "taps") else {
+            setTaps(value: 0)
+            return 0
+        }
+        return taps as! Int
     }
     
     

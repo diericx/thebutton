@@ -13,4 +13,5 @@ target 'TheButtonV2' do
 platform :ios, '8.0' # (or '9.0' or '10.0')
 pod "PubNub", "~> 4"
 pod 'GzipSwift'
+pod 'KDCircularProgress'
 end

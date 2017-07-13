@@ -93,16 +93,10 @@ class CKHandler {
         )
     }
     
-    static func SetNewWinnerButtonID (onComplete:@escaping UploadRecordCallback) {
-        var buttonRecordName = LocalDataHandler.getButtonImgId()
-        
-        //if user hasnt set their button record name, stop all this
-        if (buttonRecordName == nil) {
-            return
-        }
+    static func UpdateWinImg (data: Data, onComplete:@escaping UploadRecordCallback) {
         
         //set query
-        let query = CKQuery(recordType: "WinnerButtonImage", predicate: NSPredicate(value: true))
+        let query = CKQuery(recordType: "Image", predicate: NSPredicate(value: true))
         
         //execute query
         CKContainer.default().publicCloudDatabase.perform(query, inZoneWith: nil){
@@ -111,14 +105,13 @@ class CKHandler {
                 print("error fetching winner button record\(error)")
                 //TODO - display error, couldn't fetch
                 //create record for image record name
-                let newRecord:CKRecord = CKRecord(recordType: "WinnerButtonImage")
-                newRecord.setValue(buttonRecordName!, forKey: "ButtonImageRecordName")
+                let newRecord:CKRecord = CKRecord(recordType: "Image")
+                newRecord.setValue(data, forKey: "Image")
                 
                 CKHandler.UploadNewRecord(
                     record: newRecord,
                     onComplete: { (record: CKRecord) in
-                        print("Successfully saved new buttonImageRecordName record!")
-                        LocalDataHandler.setButtonImgId(id: record.recordID.recordName)
+                        print("Successfully saved new Image record!")
                         onComplete(record)
                     },
                     onUploadError: { (error: Error) in
@@ -130,9 +123,9 @@ class CKHandler {
                 print("fetched winner button records.")
                 if (records?.count == 0) {
                     //Create new record
-                    print("Creating new WB record...")
-                    let newRecord:CKRecord = CKRecord(recordType: "WinnerButtonImage")
-                    newRecord.setValue(buttonRecordName, forKey: "ButtonImageRecordName")
+                    print("Creating new WImage record...")
+                    let newRecord:CKRecord = CKRecord(recordType: "Image")
+                    newRecord.setValue(data, forKey: "Image")
                     
                     CKHandler.UploadNewRecord(
                         record: newRecord,
@@ -144,11 +137,11 @@ class CKHandler {
                         }
                     );
                 } else {
-                    print("Updating WB record...")
+                    print("Updating WImage record...")
                     UpdateRecordWithRecordID(
                         recordID: records![0].recordID,
-                        key: "ButtonImageRecordName",
-                        value: buttonRecordName! as CKRecordValue,
+                        key: "Image",
+                        value: data as CKRecordValue,
                         onComplete: { () in
                             onComplete(records![0])
                         },

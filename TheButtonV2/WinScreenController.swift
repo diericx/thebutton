@@ -51,24 +51,13 @@ class WinScreenController: UIViewController, PNObjectEventListener, AVCapturePho
         //add listener when we tab out
         notification = NotificationCenter.default.addObserver(forName: .UIApplicationWillEnterForeground, object: nil, queue: .main) {
             [unowned self] notification in
-            PubnubHandler.addListener(listener: self)
+            //PubnubHandler.addListener(listener: self)
         }
         
         //show or hide labels and camera view depending on if you are winner
         if GameController.winner {
             winnerLabel.isHidden = true
             potAmountLabel.isHidden = true
-            
-            //Update current button record with your button record name
-            CKHandler.SetNewWinnerButtonID(onComplete: { (record: CKRecord) in
-                let buttonImageRN: String = record["ButtonImageRecordName"] as! String;
-                PubnubHandler.sendMessage(packet: "{\"action\": \"button-image\", \"recordName\":\"" + buttonImageRN + "\"}")
-            })
-            
-            //set winner button image to your own
-            if let imgData = LocalDataHandler.getButtonImg() {
-                GameController.winnerButtonImg = UIImage(data: imgData)
-            }
         } else {
             cameraView.isHidden = true
         }
@@ -142,10 +131,6 @@ class WinScreenController: UIViewController, PNObjectEventListener, AVCapturePho
         
         if let sampleBuffer = photoSampleBuffer, let previewBuffer = previewPhotoSampleBuffer, let dataImage = AVCapturePhotoOutput.jpegPhotoDataRepresentation(forJPEGSampleBuffer: sampleBuffer, previewPhotoSampleBuffer: previewBuffer) {
             print(dataImage.count)
-            
-            let img: UIImage = UIImage(data: dataImage, scale: CGFloat(1))!
-            let compressedData = img.jpeg(.lowest)
-            print("compressed size: " + String(compressedData!.count) )
 
             //update image on main thread
             DispatchQueue.main.async {
@@ -153,27 +138,42 @@ class WinScreenController: UIViewController, PNObjectEventListener, AVCapturePho
                 let img: UIImage = UIImage(data: dataImage)!
                 let flippedImage = UIImage(cgImage: img.cgImage!, scale: img.scale, orientation: .leftMirrored)
                 self.imageView.image = flippedImage;
+                
+                var croppedData = UIImagePNGRepresentation(self.imageView.image!)
+                let croppedImage: UIImage = UIImage(data: croppedData!, scale: CGFloat(1))!
+                let compressedData = img.jpeg(.lowest)
+                print("compressed size: " + String(compressedData!.count) )
+                
+                
+                CKHandler.UpdateWinImg(data: compressedData!, onComplete: { (record) in
+                    PubnubHandler.sendMessage(packet: "{\"action\": \"image\", \"recordName\":\"" + record.recordID.recordName + "\"}")
+                })
+                
+                GameController.winnerImg = img
             }
+
             
-            //create record for image
-            let newRecord:CKRecord = CKRecord(recordType: "Image")
-            newRecord.setValue(compressedData, forKey: "Image")
             
-            let modifyRecordsOperation = CKModifyRecordsOperation(
-                recordsToSave: [newRecord],
-                recordIDsToDelete: nil)
             
-            modifyRecordsOperation.timeoutIntervalForRequest = 10
-            modifyRecordsOperation.timeoutIntervalForResource = 10
-            
-            CKHandler.publicDB.save(newRecord) { (record, error) -> Void in
-                guard let record = record else {
-                    print("Error saving record: ", error)
-                    return
-                }
-//                print("Successfully saved record: ", record)
-                PubnubHandler.sendMessage(packet: "{\"action\": \"image\", \"recordName\":\"" + record.recordID.recordName + "\"}")
-            }
+//            //create record for image
+//            let newRecord:CKRecord = CKRecord(recordType: "Image")
+//            newRecord.setValue(compressedData, forKey: "Image")
+//            
+//            let modifyRecordsOperation = CKModifyRecordsOperation(
+//                recordsToSave: [newRecord],
+//                recordIDsToDelete: nil)
+//            
+//            modifyRecordsOperation.timeoutIntervalForRequest = 10
+//            modifyRecordsOperation.timeoutIntervalForResource = 10
+//            
+//            CKHandler.publicDB.save(newRecord) { (record, error) -> Void in
+//                guard let record = record else {
+//                    print("Error saving record: ", error)
+//                    return
+//                }
+////                print("Successfully saved record: ", record)
+//                PubnubHandler.sendMessage(packet: "{\"action\": \"image\", \"recordName\":\"" + record.recordID.recordName + "\"}")
+//            }
             
             cameraView.isHidden = true
         }
@@ -210,7 +210,7 @@ class WinScreenController: UIViewController, PNObjectEventListener, AVCapturePho
                 timer.invalidate()
                 //TODO: Segue to main scene
                 //performSegue(withIdentifier: "ShowGameScreen", sender: self)
-                GameController.gs.pot = 0
+                GameController.ResetGameState()
                 dismiss(animated: true, completion: nil)
             }
 
@@ -249,7 +249,7 @@ class WinScreenController: UIViewController, PNObjectEventListener, AVCapturePho
                 recordName: recordName,
                 onComplete: { (record: CKRecord) in
                     let data: Data = record["Image"] as! Data;
-                    GameController.winnerButtonImg = UIImage(data: data)
+                    GameController.winnerImg = UIImage(data: data)
                 }
             )
         }

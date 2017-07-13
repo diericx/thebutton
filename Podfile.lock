@@ -1,17 +1,20 @@
 PODS:
   - GzipSwift (3.1.2)
+  - KDCircularProgress (1.5.2)
   - PubNub (4.5.11):
     - PubNub/Core (= 4.5.11)
   - PubNub/Core (4.5.11)
 
 DEPENDENCIES:
   - GzipSwift
+  - KDCircularProgress
   - PubNub (~> 4)
 
 SPEC CHECKSUMS:
   GzipSwift: 86700e6530b3aa5e782ed7107cde2deea6b16688
+  KDCircularProgress: 12f677b2deb02409ab48c6cae1898d146b8ad549
   PubNub: bf767a13b65f0492f8a2f141d6af27d1e8746f2b
 
-PODFILE CHECKSUM: 44a31c0f2864c10ed44d504f2a4aeda5ab175d3b
+PODFILE CHECKSUM: a8c0ea7ee2d9655ced8118705b4978bfccc36232
 
 COCOAPODS: 1.2.0

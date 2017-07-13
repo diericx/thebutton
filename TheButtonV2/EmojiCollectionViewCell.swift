@@ -10,4 +10,5 @@ import UIKit
 
 class EmojiCollectionViewCell: UICollectionViewCell {
     @IBOutlet weak var emojiButton: UIButton!
+    @IBOutlet weak var amountText: UILabel!
 }

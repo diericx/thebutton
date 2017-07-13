@@ -103,6 +103,11 @@ class GoldShopController: UIViewController {
             //TODO: Disable Button when at max
         }
     }
+    
+    @IBAction func backButtonTapInside(_ sender: Any) {
+        dismiss(animated: true, completion: nil)
+    }
+    
     //remove status bar
     override var prefersStatusBarHidden: Bool {
         return true
