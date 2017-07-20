@@ -65,6 +65,11 @@ class GameController: UIViewController, PNObjectEventListener {
             PubnubHandler.addListener(listener: self)
         }
         
+        //Fix image view
+        let angle =  CGFloat(Double.pi/4)
+        let tr = CGAffineTransform.identity.rotated(by: angle)
+        self.winnerButtonImageView.transform = tr
+        
         //TODO - get this info from pubnub
         //Set GameState defaults
         //TODO - make this more interesting
@@ -96,6 +101,27 @@ class GameController: UIViewController, PNObjectEventListener {
         timeToCollectTimer = Timer.scheduledTimer(timeInterval: 60, target: self, selector: #selector(updateTimeToCollectTxt), userInfo: nil, repeats: true)
 
         // Do any additional setup after loading the view, typically from a nib.
+        //Tree test
+        print ("----Tree test----")
+        var tree = ETree()
+        tree.addChildToRoot(node: ETree.Node(value: "1"))
+            .addSibling(node: ETree.Node(value: "2spas"))?
+                .addChild(node: ETree.Node(value: "1"))
+                .addSibling(node: ETree.Node(value: "2"))?
+                .parent?
+            .addSibling(node: ETree.Node(value: "3a"))?
+                .addChild(node: ETree.Node(value: "1"))
+                .addSibling(node: ETree.Node(value: "22"))?
+                    .addChild(node: ETree.Node(value: "1"))
+                    .addSibling(node: ETree.Node(value: "2"))?
+                    .addSibling(node: ETree.Node(value: "3"))?
+                    .parent?
+                .parent?
+            .addSibling(node: ETree.Node(value: "4"))
+        tree.printTree()
+        var recipe = tree.findRecipe(emoji: "2spas")
+        print("recipe: " + (recipe?.value)!)
+        print ("----End Tree test----")
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -125,7 +151,15 @@ class GameController: UIViewController, PNObjectEventListener {
             print("Found a winner button image!")
             winnerButtonImageView.image = GameController.winnerImg
         } else {
-            print("No winner button image!")
+            //Get latest winner image
+            CKHandler.GetMostRecentWinImg { (record) in
+                DispatchQueue.main.async {
+                    let imageData = record["Image"] as! Data
+                    let image = UIImage(data: imageData)
+                    GameController.winnerImg = image
+                    self.winnerButtonImageView.image = image
+                }
+            }
         }
         
         resetGameToMatchState()
@@ -223,6 +257,9 @@ class GameController: UIViewController, PNObjectEventListener {
     
     func levelUp() {
         //TODO - add to level
+        var coins = LocalDataHandler.getCoins()
+        coins += 200
+        LocalDataHandler.setCoins(coins: coins)
 //        var timer = Timer.scheduledTimer(timeInterval: 0.05, target: self, selector: Selector("spawnCoin"),userInfo: nil, repeats: true)
     }
     
@@ -368,14 +405,6 @@ class GameController: UIViewController, PNObjectEventListener {
             print("nameSizeOnTap: " + nameSize)
             //send packet to pubnub
             PubnubHandler.sendMessage(packet: "{\"action\": \"button-press\", \"uuid\": \"" + GameController.uuid + "\", \"name\":\"" + username! + "\", \"name-size\": \"" + nameSize + "\", \"name-speed\": \"" + nameSpeed + "\" }");
-            
-            //change current emoji
-            changeCurrentEmoji()
-            
-            //increase taps
-            increaseTapCount()
-            
-            
         } else {
             //TODO: warn user that they are broke
             print("Out of funds!");
@@ -444,6 +473,12 @@ class GameController: UIViewController, PNObjectEventListener {
                 
                 //update coin UI
                 self.updateCoinLabel()
+                
+                //change current emoji
+                changeCurrentEmoji()
+                
+                //increase taps
+                increaseTapCount()
             }
             
             //Get current pot and set value

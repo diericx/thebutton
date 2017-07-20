@@ -93,6 +93,29 @@ class CKHandler {
         )
     }
     
+    static func GetMostRecentWinImg(onComplete:@escaping GetRecordCallback) {
+        //set query
+        let query = CKQuery(recordType: "Image", predicate: NSPredicate(value: true))
+        
+        //execute query
+        CKContainer.default().publicCloudDatabase.perform(query, inZoneWith: nil){
+            (records, error) in
+            if error != nil {
+                print("error fetching winner image record\(error)")
+                
+            } else {
+                print("fetched winner image records.")
+                if (records?.count == 0) {
+                    //No record
+                    print("No WImage record!")
+                } else {
+                    print("Got WImage record!")
+                    onComplete(records![0])
+                }
+            }
+        }
+    }
+    
     static func UpdateWinImg (data: Data, onComplete:@escaping UploadRecordCallback) {
         
         //set query

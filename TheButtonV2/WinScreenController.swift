@@ -20,6 +20,7 @@ class WinScreenController: UIViewController, PNObjectEventListener, AVCapturePho
     @IBOutlet weak var countDownLabel: UILabel!
     @IBOutlet weak var potAmountLabel: UILabel!
     @IBOutlet weak var maskTarget: UIImageView!
+    @IBOutlet weak var photoDisplayView: UIView!
     
     var countDown = 4;
     
@@ -68,6 +69,9 @@ class WinScreenController: UIViewController, PNObjectEventListener, AVCapturePho
         //add mask for capturing image
         self.maskView.image = UIImage(named: "mask")
         self.imageView.mask = self.maskView
+        
+        //rotate winner image to account 
+        imageView.transform = imageView.transform.rotated(by: CGFloat(Double.pi/4))
         
     }
     
@@ -139,17 +143,37 @@ class WinScreenController: UIViewController, PNObjectEventListener, AVCapturePho
                 let flippedImage = UIImage(cgImage: img.cgImage!, scale: img.scale, orientation: .leftMirrored)
                 self.imageView.image = flippedImage;
                 
-                var croppedData = UIImagePNGRepresentation(self.imageView.image!)
-                let croppedImage: UIImage = UIImage(data: croppedData!, scale: CGFloat(1))!
-                let compressedData = img.jpeg(.lowest)
-                print("compressed size: " + String(compressedData!.count) )
+                //rotate image
+                var angle =  CGFloat(-Double.pi/4)
+                var tr = CGAffineTransform.identity.rotated(by: angle)
+                self.imageView.transform = tr
+                
+                //capture image
+                UIGraphicsBeginImageContext(self.photoDisplayView.frame.size)
+                self.photoDisplayView.layer.render(in: UIGraphicsGetCurrentContext()!)
+                let croppedImage = UIGraphicsGetImageFromCurrentImageContext()
+                UIGraphicsEndImageContext()
+                var uncompressedData = UIImagePNGRepresentation(croppedImage!)
+                let compressedData = croppedImage?.jpeg(.low)
+                
+                self.imageView.image = croppedImage
+                
+                //undo rotation image
+                angle =  CGFloat(Double.pi/4)
+                tr = CGAffineTransform.identity.rotated(by: angle)
+                self.imageView.transform = tr
+                
+//                var croppedData = UIImagePNGRepresentation(croppedImage!)
+//                let croppedImage: UIImage = UIImage(data: croppedData!, scale: CGFloat(1))!
+//                let compressedData = img.jpeg(.lowest)
+//                print("compressed size: " + String(compressedData!.count) )
                 
                 
-                CKHandler.UpdateWinImg(data: compressedData!, onComplete: { (record) in
+                CKHandler.UpdateWinImg(data: uncompressedData!, onComplete: { (record) in
                     PubnubHandler.sendMessage(packet: "{\"action\": \"image\", \"recordName\":\"" + record.recordID.recordName + "\"}")
                 })
                 
-                GameController.winnerImg = img
+                GameController.winnerImg = self.imageView.image
             }
 
             
@@ -236,10 +260,12 @@ class WinScreenController: UIViewController, PNObjectEventListener, AVCapturePho
                     // Update UI on main thread
                     DispatchQueue.main.async {
                         let img: UIImage = UIImage(data: data)!
-                        let flippedImage = UIImage(cgImage: img.cgImage!, scale: img.scale, orientation: .leftMirrored)
-                                    
+//                        let flippedImage = UIImage(cgImage: img.cgImage!, scale: img.scale, orientation: .leftMirrored)
+                        
                         //Mask image
-                        self.imageView.image = flippedImage;
+                        self.imageView.image = img;
+                        
+                        GameController.winnerImg = self.imageView.image
                     }
                 }
             )
@@ -248,8 +274,8 @@ class WinScreenController: UIViewController, PNObjectEventListener, AVCapturePho
             CKHandler.GetLatestWinnerButton(
                 recordName: recordName,
                 onComplete: { (record: CKRecord) in
-                    let data: Data = record["Image"] as! Data;
-                    GameController.winnerImg = UIImage(data: data)
+//                    let data: Data = record["Image"] as! Data;
+//                    GameController.winnerImg = UIImage(data: data)
                 }
             )
         }
