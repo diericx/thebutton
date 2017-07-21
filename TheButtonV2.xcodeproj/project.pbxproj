@@ -7,7 +7,9 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		1106D5A11EF9D8D700046D9B /* ProfileController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1106D5A01EF9D8D700046D9B /* ProfileController.swift */; };
+		1106D5A11EF9D8D700046D9B /* CraftingController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1106D5A01EF9D8D700046D9B /* CraftingController.swift */; };
+		11139C991F217B4000FD8E88 /* ProfileController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 11139C981F217B4000FD8E88 /* ProfileController.swift */; };
+		11139C9B1F217DE300FD8E88 /* CollectViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 11139C9A1F217DE300FD8E88 /* CollectViewController.swift */; };
 		11246B621F1835D800312035 /* ETree.swift in Sources */ = {isa = PBXBuildFile; fileRef = 11246B611F1835D800312035 /* ETree.swift */; };
 		114FC93D1F16C70900D6F1E0 /* EmojiCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 114FC93C1F16C70900D6F1E0 /* EmojiCollectionViewCell.swift */; };
 		116BBD301EFD7F0500AB16A8 /* AveriaSansLibre-LightItalic.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 116BBD2F1EFD7F0500AB16A8 /* AveriaSansLibre-LightItalic.ttf */; };
@@ -51,7 +53,9 @@
 
 /* Begin PBXFileReference section */
 		06C51D119D4CB713DA65539B /* Pods-TheButtonV2.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-TheButtonV2.release.xcconfig"; path = "Pods/Target Support Files/Pods-TheButtonV2/Pods-TheButtonV2.release.xcconfig"; sourceTree = "<group>"; };
-		1106D5A01EF9D8D700046D9B /* ProfileController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ProfileController.swift; sourceTree = "<group>"; };
+		1106D5A01EF9D8D700046D9B /* CraftingController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CraftingController.swift; sourceTree = "<group>"; };
+		11139C981F217B4000FD8E88 /* ProfileController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ProfileController.swift; sourceTree = "<group>"; };
+		11139C9A1F217DE300FD8E88 /* CollectViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CollectViewController.swift; sourceTree = "<group>"; };
 		11246B611F1835D800312035 /* ETree.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ETree.swift; sourceTree = "<group>"; };
 		114FC93C1F16C70900D6F1E0 /* EmojiCollectionViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EmojiCollectionViewCell.swift; sourceTree = "<group>"; };
 		116BBD2F1EFD7F0500AB16A8 /* AveriaSansLibre-LightItalic.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; name = "AveriaSansLibre-LightItalic.ttf"; path = "../../../../../Downloads/averia_sans_libre/AveriaSansLibre-LightItalic.ttf"; sourceTree = "<group>"; };
@@ -124,7 +128,9 @@
 			children = (
 				11EB528F1EE3652700A5312F /* GameController.swift */,
 				11EB52BD1EE38A9800A5312F /* WinScreenController.swift */,
-				1106D5A01EF9D8D700046D9B /* ProfileController.swift */,
+				1106D5A01EF9D8D700046D9B /* CraftingController.swift */,
+				11139C981F217B4000FD8E88 /* ProfileController.swift */,
+				11139C9A1F217DE300FD8E88 /* CollectViewController.swift */,
 				118FE0561EFB37CE000A629B /* GoldShopController.swift */,
 			);
 			name = ViewControllers;
@@ -422,17 +428,19 @@
 			buildActionMask = 2147483647;
 			files = (
 				11E914981F1358B4002D4D74 /* Emoji.swift in Sources */,
+				11139C9B1F217DE300FD8E88 /* CollectViewController.swift in Sources */,
 				11EB52BE1EE38A9800A5312F /* WinScreenController.swift in Sources */,
 				11EB28FF1EE641A9002BEF42 /* LocalDataHandler.swift in Sources */,
 				11EB52C01EE3ADC900A5312F /* DataExtension.swift in Sources */,
 				11E9149A1F135936002D4D74 /* PubnubHandler.swift in Sources */,
+				11139C991F217B4000FD8E88 /* ProfileController.swift in Sources */,
 				114FC93D1F16C70900D6F1E0 /* EmojiCollectionViewCell.swift in Sources */,
 				116BBD3A1F0447BE00AB16A8 /* CKHandler.swift in Sources */,
 				118FE0571EFB37CE000A629B /* GoldShopController.swift in Sources */,
 				11EB52901EE3652700A5312F /* GameController.swift in Sources */,
 				11246B621F1835D800312035 /* ETree.swift in Sources */,
 				11EB528E1EE3652700A5312F /* AppDelegate.swift in Sources */,
-				1106D5A11EF9D8D700046D9B /* ProfileController.swift in Sources */,
+				1106D5A11EF9D8D700046D9B /* CraftingController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

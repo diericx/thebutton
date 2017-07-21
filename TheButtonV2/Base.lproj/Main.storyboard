@@ -121,7 +121,7 @@
                                 <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMaxY="YES"/>
                                 <state key="normal" image="profileBtn"/>
                                 <connections>
-                                    <segue destination="ekc-x2-F9Q" kind="presentation" id="ixi-IU-FGb"/>
+                                    <segue destination="fTh-eM-rSu" kind="show" id="ZId-46-Leq"/>
                                 </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleAspectFit" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="c3C-Df-rth" userLabel="ShopButton">
@@ -129,7 +129,7 @@
                                 <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMaxY="YES"/>
                                 <state key="normal" image="storeBtn"/>
                                 <connections>
-                                    <segue destination="fTh-eM-rSu" kind="show" id="B54-fX-lub"/>
+                                    <segue destination="ekc-x2-F9Q" kind="show" id="dbS-86-dd1"/>
                                 </connections>
                             </button>
                             <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="moneyBanner" translatesAutoresizingMaskIntoConstraints="NO" id="nuh-kO-kHi">
@@ -303,10 +303,10 @@
             </objects>
             <point key="canvasLocation" x="-135.19999999999999" y="48.125937031484263"/>
         </scene>
-        <!--Profile Controller-->
+        <!--Crafting Controller-->
         <scene sceneID="v1B-oS-8Up">
             <objects>
-                <viewController id="ekc-x2-F9Q" customClass="ProfileController" customModule="TheButtonV2" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController id="ekc-x2-F9Q" customClass="CraftingController" customModule="TheButtonV2" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="YGf-Hf-AAK"/>
                         <viewControllerLayoutGuide type="bottom" id="sq1-DI-wRw"/>
@@ -315,7 +315,7 @@
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <imageView userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="bg" translatesAutoresizingMaskIntoConstraints="NO" id="Xva-rb-Rfv">
+                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="bg" translatesAutoresizingMaskIntoConstraints="NO" id="Xva-rb-Rfv">
                                 <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                             </imageView>
                             <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="inventoryBG" translatesAutoresizingMaskIntoConstraints="NO" id="ujj-Pg-0PT">
@@ -365,15 +365,6 @@
                                     </collectionViewCell>
                                 </cells>
                             </collectionView>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Username" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="oU0-7q-33v">
-                                <rect key="frame" x="94" y="75" width="187" height="16"/>
-                                <constraints>
-                                    <constraint firstAttribute="width" constant="187" id="Rue-TE-uuy"/>
-                                </constraints>
-                                <fontDescription key="fontDescription" type="system" pointSize="13"/>
-                                <nil key="textColor"/>
-                                <nil key="highlightedColor"/>
-                            </label>
                             <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="DOq-sA-ydA">
                                 <rect key="frame" x="16" y="17" width="34" height="30"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
@@ -382,15 +373,6 @@
                                     <action selector="onSaveButtonPress:" destination="ekc-x2-F9Q" eventType="touchUpInside" id="5fC-k9-oOO"/>
                                 </connections>
                             </button>
-                            <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Enter a Username" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="PSF-Gd-f9M">
-                                <rect key="frame" x="94" y="93" width="187" height="30"/>
-                                <constraints>
-                                    <constraint firstAttribute="width" constant="187" id="VwS-dj-iov"/>
-                                </constraints>
-                                <nil key="textColor"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                                <textInputTraits key="textInputTraits" returnKeyType="done"/>
-                            </textField>
                             <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="M6Z-oT-ktY">
                                 <rect key="frame" x="16" y="287" width="80" height="80"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
@@ -423,21 +405,15 @@
                         <constraints>
                             <constraint firstItem="ujj-Pg-0PT" firstAttribute="centerX" secondItem="CAy-Xh-KB3" secondAttribute="centerX" id="1Qy-iX-Qtc"/>
                             <constraint firstItem="Xva-rb-Rfv" firstAttribute="centerY" secondItem="CAy-Xh-KB3" secondAttribute="centerY" id="55W-YA-hnV"/>
-                            <constraint firstItem="oU0-7q-33v" firstAttribute="centerX" secondItem="CAy-Xh-KB3" secondAttribute="centerX" id="W4w-DR-1PB"/>
                             <constraint firstItem="Xva-rb-Rfv" firstAttribute="width" secondItem="CAy-Xh-KB3" secondAttribute="width" id="Xol-NJ-HG1"/>
-                            <constraint firstItem="PSF-Gd-f9M" firstAttribute="top" secondItem="oU0-7q-33v" secondAttribute="bottom" constant="2" id="f63-du-2hV"/>
-                            <constraint firstItem="PSF-Gd-f9M" firstAttribute="top" secondItem="oU0-7q-33v" secondAttribute="bottom" constant="2" id="iG0-Q1-N0N"/>
                             <constraint firstAttribute="bottom" secondItem="ujj-Pg-0PT" secondAttribute="bottom" constant="-65" id="krx-SE-vJl"/>
                             <constraint firstItem="Xva-rb-Rfv" firstAttribute="centerX" secondItem="CAy-Xh-KB3" secondAttribute="centerX" id="oNI-kt-3E5"/>
                             <constraint firstItem="Xva-rb-Rfv" firstAttribute="height" secondItem="CAy-Xh-KB3" secondAttribute="height" id="qFH-qi-Ata"/>
                             <constraint firstItem="ujj-Pg-0PT" firstAttribute="width" secondItem="CAy-Xh-KB3" secondAttribute="width" id="qiv-3T-oRW"/>
-                            <constraint firstItem="PSF-Gd-f9M" firstAttribute="centerX" secondItem="CAy-Xh-KB3" secondAttribute="centerX" id="r6V-On-OEV"/>
-                            <constraint firstItem="oU0-7q-33v" firstAttribute="top" secondItem="YGf-Hf-AAK" secondAttribute="bottom" constant="55" id="yKB-61-Odj"/>
                         </constraints>
                     </view>
                     <connections>
                         <outlet property="emojiCollectionView" destination="kek-Mz-fqq" id="OZw-9H-Nth"/>
-                        <outlet property="usernameTextField" destination="PSF-Gd-f9M" id="xWn-FT-mko"/>
                         <segue destination="BYZ-38-t0r" kind="show" identifier="ShowGameScreen" id="WCt-zU-29v"/>
                     </connections>
                 </viewController>
@@ -546,7 +522,7 @@
         <!--Upgrades-->
         <scene sceneID="zGM-ia-h9q">
             <objects>
-                <viewController title="Upgrades" id="fTh-eM-rSu" customClass="GoldShopController" customModule="TheButtonV2" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController title="Upgrades" id="fTh-eM-rSu" customClass="ProfileController" customModule="TheButtonV2" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="tzs-rC-022"/>
                         <viewControllerLayoutGuide type="bottom" id="4e3-3v-1dp"/>
@@ -555,83 +531,9 @@
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <imageView userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="bg" translatesAutoresizingMaskIntoConstraints="NO" id="c34-KZ-8dJ">
+                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="bg" translatesAutoresizingMaskIntoConstraints="NO" id="c34-KZ-8dJ">
                                 <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                             </imageView>
-                            <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="8zr-D6-Z7F" userLabel="NameSize">
-                                <rect key="frame" x="24" y="156" width="326" height="85"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <subviews>
-                                    <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="NameSizeUpgrade" translatesAutoresizingMaskIntoConstraints="NO" id="Y5I-hF-v6c">
-                                        <rect key="frame" x="0.0" y="0.0" width="326" height="101"/>
-                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                    </imageView>
-                                    <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="x8N-1U-aKL" userLabel="NameSizeUpgradeProgress">
-                                        <rect key="frame" x="13" y="58" width="204" height="27"/>
-                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                    </imageView>
-                                    <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="IwK-97-6Y5" userLabel="NameSizeBuy">
-                                        <rect key="frame" x="221" y="29" width="95" height="43"/>
-                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                        <subviews>
-                                            <button opaque="NO" contentMode="scaleAspectFit" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="mal-yu-DOl">
-                                                <rect key="frame" x="-1" y="4" width="102" height="37"/>
-                                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                                <state key="normal" image="buyBtn"/>
-                                                <connections>
-                                                    <action selector="nameSizeButtonTap:" destination="fTh-eM-rSu" eventType="touchUpInside" id="dzR-Sg-Oml"/>
-                                                </connections>
-                                            </button>
-                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="1000" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumScaleFactor="0.5" translatesAutoresizingMaskIntoConstraints="NO" id="trL-4p-9e4">
-                                                <rect key="frame" x="34" y="10" width="61" height="24"/>
-                                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                                <fontDescription key="fontDescription" name="Skranji" family="Skranji" pointSize="13"/>
-                                                <color key="textColor" red="0.93314381540000002" green="0.93314381540000002" blue="0.93314381540000002" alpha="1" colorSpace="calibratedRGB"/>
-                                                <nil key="highlightedColor"/>
-                                            </label>
-                                        </subviews>
-                                        <color key="backgroundColor" white="1" alpha="0.0" colorSpace="calibratedWhite"/>
-                                    </view>
-                                </subviews>
-                                <color key="backgroundColor" white="1" alpha="0.0" colorSpace="calibratedWhite"/>
-                            </view>
-                            <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="cds-Bx-n0d" userLabel="NameSpeed">
-                                <rect key="frame" x="24" y="257" width="326" height="85"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <subviews>
-                                    <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="NameSpeedUpgrade" translatesAutoresizingMaskIntoConstraints="NO" id="gsm-wv-kDz" userLabel="NameSpeedUpgrade">
-                                        <rect key="frame" x="0.0" y="0.0" width="326" height="101"/>
-                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                    </imageView>
-                                    <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="03S-AP-1rS" userLabel="NameSpeedUpgradeProgress">
-                                        <rect key="frame" x="12" y="58" width="204" height="27"/>
-                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                    </imageView>
-                                    <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="tgF-AV-7h0" userLabel="NameSpeedBuy">
-                                        <rect key="frame" x="221" y="29" width="95" height="43"/>
-                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                        <subviews>
-                                            <button opaque="NO" contentMode="scaleAspectFit" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="lJT-fF-vLp">
-                                                <rect key="frame" x="-1" y="4" width="102" height="37"/>
-                                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                                <state key="normal" image="buyBtn"/>
-                                                <connections>
-                                                    <action selector="nameSpeedButtonTap:" destination="fTh-eM-rSu" eventType="touchUpInside" id="w0a-GC-NcQ"/>
-                                                </connections>
-                                            </button>
-                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="1,200" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumScaleFactor="0.5" translatesAutoresizingMaskIntoConstraints="NO" id="G5J-dh-1bM">
-                                                <rect key="frame" x="34" y="10" width="61" height="24"/>
-                                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                                <fontDescription key="fontDescription" name="Skranji" family="Skranji" pointSize="13"/>
-                                                <color key="textColor" red="0.93314381540000002" green="0.93314381540000002" blue="0.93314381540000002" alpha="1" colorSpace="calibratedRGB"/>
-                                                <nil key="highlightedColor"/>
-                                            </label>
-                                        </subviews>
-                                        <color key="backgroundColor" white="1" alpha="0.0" colorSpace="calibratedWhite"/>
-                                    </view>
-                                </subviews>
-                                <color key="backgroundColor" white="1" alpha="0.0" colorSpace="calibratedWhite"/>
-                            </view>
                             <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="WCN-4v-cdn">
                                 <rect key="frame" x="30" y="20" width="34" height="30"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
@@ -640,97 +542,43 @@
                                     <action selector="backButtonTapInside:" destination="fTh-eM-rSu" eventType="touchUpInside" id="H7K-iA-7FO"/>
                                 </connections>
                             </button>
-                            <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="nameChangeUpgrade" translatesAutoresizingMaskIntoConstraints="NO" id="Nle-Q6-N9A" userLabel="NameChangeUpgrade">
-                                <rect key="frame" x="24" y="58" width="326" height="101"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                            </imageView>
-                            <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="bza-Av-Ti0" userLabel="NameChangeBuy">
-                                <rect key="frame" x="244" y="87" width="95" height="43"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <subviews>
-                                    <button opaque="NO" contentMode="scaleAspectFit" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="duE-IC-3Xl">
-                                        <rect key="frame" x="-1" y="4" width="102" height="37"/>
-                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                        <state key="normal" image="buyBtn"/>
-                                        <connections>
-                                            <action selector="nameChangeButtonTap:" destination="fTh-eM-rSu" eventType="touchUpInside" id="XlA-DA-ZMG"/>
-                                        </connections>
-                                    </button>
-                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="1000000" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="LOB-ca-vIY">
-                                        <rect key="frame" x="34" y="10" width="61" height="24"/>
-                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                        <fontDescription key="fontDescription" name="Skranji" family="Skranji" pointSize="13"/>
-                                        <color key="textColor" red="0.93314381540000002" green="0.93314381540000002" blue="0.93314381540000002" alpha="1" colorSpace="calibratedRGB"/>
-                                        <nil key="highlightedColor"/>
-                                    </label>
-                                </subviews>
-                                <color key="backgroundColor" white="1" alpha="0.0" colorSpace="calibratedWhite"/>
-                            </view>
-                            <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="colorPackUpgrade" translatesAutoresizingMaskIntoConstraints="NO" id="23I-bv-iGE">
-                                <rect key="frame" x="24" y="357" width="326" height="101"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                            </imageView>
-                            <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="UPP-AM-Qvx" userLabel="ColorPackBuy">
-                                <rect key="frame" x="244" y="386" width="95" height="43"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <subviews>
-                                    <button opaque="NO" contentMode="scaleAspectFit" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="1bb-rj-b00">
-                                        <rect key="frame" x="-1" y="4" width="102" height="37"/>
-                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                        <state key="normal" image="buyBtn"/>
-                                    </button>
-                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="20,000" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="NaP-BD-COv">
-                                        <rect key="frame" x="34" y="10" width="51" height="24"/>
-                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                        <fontDescription key="fontDescription" name="Skranji" family="Skranji" pointSize="13"/>
-                                        <color key="textColor" red="0.93314381540000002" green="0.93314381540000002" blue="0.93314381540000002" alpha="1" colorSpace="calibratedRGB"/>
-                                        <nil key="highlightedColor"/>
-                                    </label>
-                                </subviews>
-                                <color key="backgroundColor" white="1" alpha="0.0" colorSpace="calibratedWhite"/>
-                            </view>
-                            <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="colorPackUpgrade2" translatesAutoresizingMaskIntoConstraints="NO" id="zEk-mY-fpz" userLabel="colorPackUpgrade2">
-                                <rect key="frame" x="24" y="458" width="326" height="101"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                            </imageView>
-                            <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Ohl-9a-GHh" userLabel="ColorPackBuy2">
-                                <rect key="frame" x="244" y="487" width="95" height="43"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <subviews>
-                                    <button opaque="NO" contentMode="scaleAspectFit" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ajR-vv-Z3p">
-                                        <rect key="frame" x="-1" y="4" width="102" height="37"/>
-                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                        <state key="normal" image="buyBtn"/>
-                                    </button>
-                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="500,000" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="HdQ-Su-rTQ">
-                                        <rect key="frame" x="34" y="10" width="51" height="24"/>
-                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                        <fontDescription key="fontDescription" name="Skranji" family="Skranji" pointSize="13"/>
-                                        <color key="textColor" red="0.93314381540000002" green="0.93314381540000002" blue="0.93314381540000002" alpha="1" colorSpace="calibratedRGB"/>
-                                        <nil key="highlightedColor"/>
-                                    </label>
-                                </subviews>
-                                <color key="backgroundColor" white="1" alpha="0.0" colorSpace="calibratedWhite"/>
-                            </view>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Username" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="bFy-Yv-plz">
+                                <rect key="frame" x="94" y="127" width="187" height="16"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="187" id="8o0-Hh-cYf"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" type="system" pointSize="13"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Enter a Username" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="hW9-3g-Ic0">
+                                <rect key="frame" x="94" y="146" width="187" height="30"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="187" id="nf4-1h-rUx"/>
+                                </constraints>
+                                <nil key="textColor"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                <textInputTraits key="textInputTraits" returnKeyType="done"/>
+                            </textField>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
                             <constraint firstItem="c34-KZ-8dJ" firstAttribute="centerY" secondItem="mJu-mB-2v4" secondAttribute="centerY" id="5M1-Cv-Lt9"/>
+                            <constraint firstItem="hW9-3g-Ic0" firstAttribute="top" secondItem="bFy-Yv-plz" secondAttribute="bottom" constant="2" id="7Ka-b4-bJJ"/>
                             <constraint firstItem="c34-KZ-8dJ" firstAttribute="centerX" secondItem="mJu-mB-2v4" secondAttribute="centerX" id="9Rb-sK-yLy"/>
                             <constraint firstItem="c34-KZ-8dJ" firstAttribute="width" secondItem="mJu-mB-2v4" secondAttribute="width" id="AKN-TH-REe"/>
+                            <constraint firstItem="bFy-Yv-plz" firstAttribute="top" secondItem="tzs-rC-022" secondAttribute="bottom" constant="127" id="Fek-j0-7YF"/>
+                            <constraint firstItem="hW9-3g-Ic0" firstAttribute="centerX" secondItem="mJu-mB-2v4" secondAttribute="centerX" id="ItX-J8-3iQ"/>
+                            <constraint firstItem="hW9-3g-Ic0" firstAttribute="top" secondItem="bFy-Yv-plz" secondAttribute="bottom" constant="2" id="TnV-Lb-jX7"/>
+                            <constraint firstItem="hW9-3g-Ic0" firstAttribute="top" secondItem="bFy-Yv-plz" secondAttribute="bottom" constant="3" id="ar3-kK-qAF"/>
                             <constraint firstItem="c34-KZ-8dJ" firstAttribute="height" secondItem="mJu-mB-2v4" secondAttribute="height" id="fR8-6F-0cO"/>
+                            <constraint firstItem="bFy-Yv-plz" firstAttribute="centerX" secondItem="mJu-mB-2v4" secondAttribute="centerX" id="seZ-Ii-84D"/>
                         </constraints>
                     </view>
                     <tabBarItem key="tabBarItem" title="Upgrades" id="j7N-8e-jVU"/>
                     <nil key="simulatedStatusBarMetrics"/>
                     <connections>
-                        <outlet property="nameChangeButton" destination="duE-IC-3Xl" id="s71-nm-MFR"/>
-                        <outlet property="nameSizeButton" destination="mal-yu-DOl" id="pnU-lP-2FH"/>
-                        <outlet property="nameSizeCostLabel" destination="trL-4p-9e4" id="EGL-sP-xeP"/>
-                        <outlet property="nameSizeProgressImageView" destination="x8N-1U-aKL" id="pn1-pn-LCc"/>
-                        <outlet property="nameSpeedButton" destination="lJT-fF-vLp" id="iGo-Ed-fYC"/>
-                        <outlet property="nameSpeedCostLabel" destination="G5J-dh-1bM" id="Hzn-hw-1kT"/>
-                        <outlet property="nameSpeedProgressImageView" destination="03S-AP-1rS" id="3Nm-zj-Xqm"/>
+                        <outlet property="usernameTextField" destination="hW9-3g-Ic0" id="XHR-ev-8lH"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Jmu-vs-bMV" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -739,13 +587,8 @@
         </scene>
     </scenes>
     <resources>
-        <image name="NameSizeUpgrade" width="482" height="129"/>
-        <image name="NameSpeedUpgrade" width="481" height="128"/>
         <image name="bg" width="800" height="1675"/>
         <image name="blankBar" width="172" height="47"/>
-        <image name="buyBtn" width="137" height="50"/>
-        <image name="colorPackUpgrade" width="483" height="126"/>
-        <image name="colorPackUpgrade2" width="481" height="125"/>
         <image name="exitBtn" width="44" height="45"/>
         <image name="freeMoneyBanner" width="479" height="524"/>
         <image name="hourglass" width="96" height="123"/>
@@ -753,7 +596,6 @@
         <image name="maskTarget" width="956" height="956"/>
         <image name="maskTarget-solid-border" width="956" height="956"/>
         <image name="moneyBanner" width="236" height="68"/>
-        <image name="nameChangeUpgrade" width="483" height="131"/>
         <image name="profileBtn" width="69" height="71"/>
         <image name="storeBtn" width="69" height="71"/>
     </resources>
