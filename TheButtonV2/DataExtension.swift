@@ -49,6 +49,14 @@ public extension Double {
         return Double.random * (max - min) + min
     }
 }
+
+public extension Int {
+    public static func random(min: Int, max: Int) -> Int {
+        assert(min < max)
+        return Int(arc4random_uniform(UInt32(max - min + 1))) + min
+    }
+}
+
 public extension Float {
     /// Returns a random floating point number between 0.0 and 1.0, inclusive.
     public static var random:Float {

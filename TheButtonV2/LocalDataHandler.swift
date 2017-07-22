@@ -13,6 +13,28 @@ class LocalDataHandler {
     
     static let defaults = UserDefaults.standard
     
+    //gives the reward for acheiving a certain level
+    static func coinRewardFunc(level: Int) -> Int {
+        return (5*level*level) + 10
+    }
+    
+    //gives the tap goal for a certain level
+    static func levelTapGoalFunc(level: Int) -> Int {
+            return (level*level) + 5
+    }
+    
+    static func tapsToGetToLevel(level: Int) -> Int {
+        if level < 0 {
+            return 0
+        }
+        
+        var sum = 0
+        for i in 0...level {
+            sum += levelTapGoalFunc(level: i)
+        }
+        return sum
+    }
+    
     static func setCoins(coins: Int) {
         defaults.set(coins, forKey: "coins")
     }
@@ -20,6 +42,10 @@ class LocalDataHandler {
     static func setUsername(username: String) {
         print("Setting Name to: " + username);
         defaults.set(username, forKey: "username")
+    }
+    
+    static func setLevel(value: Int) {
+        defaults.set(value, forKey: "level")
     }
     
     static func setWinImgId(id: String) {
@@ -151,6 +177,14 @@ class LocalDataHandler {
             return 0
         }
         return taps as! Int
+    }
+    
+    static func getLevel() -> Int {
+        guard let level = defaults.value(forKey: "level") else {
+            setLevel(value: 0)
+            return 0
+        }
+        return level as! Int
     }
     
     

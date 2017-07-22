@@ -24,18 +24,23 @@ class GameController: UIViewController, PNObjectEventListener {
     @IBOutlet weak var winnerButtonImageView: UIImageView!
     @IBOutlet var goalEmojiLabels:[UILabel]?
     @IBOutlet var currentEmojiLabels:[UILabel]?
+    @IBOutlet var clouds:[UIImageView]?
     @IBOutlet weak var highlightBarImageView: UIImageView!
     @IBOutlet weak var tapAnimationsView: UIView!
     @IBOutlet weak var profileButton: UIButton!
     @IBOutlet weak var progressBar: KDCircularProgress!
+    @IBOutlet weak var coinsView: UIView!
+    @IBOutlet weak var coinsTargetLocation: UIView!
     //instance vars
     private var notification: NSObjectProtocol?
     var username = LocalDataHandler.getUsername()
     var shouldResizeHourglass = true;
     var canCollect = false;
     var timeToCollectTimer: Timer!
+    var coinSpawnTimer: Timer?
     var avplayer: AVAudioPlayer!
     var taps = 0
+    var coinsToSpawn = 0
     //reset vars
     var goalEmojiLabelInitFrames: [CGRect] = []
     var currentEmojiLabelInitFrames: [CGRect] = []
@@ -84,6 +89,14 @@ class GameController: UIViewController, PNObjectEventListener {
         }
         highlightBarInitFrame = highlightBarImageView.frame
         
+        //setup clous
+        for cloud in clouds! {
+            animateCloud(cloud: cloud)
+        }
+        
+        //spawn coins
+        
+        
         //reset positions
         GameController.ResetGameState()
         resetGameToMatchState()
@@ -99,29 +112,6 @@ class GameController: UIViewController, PNObjectEventListener {
         resizeHourGlass()
         //update timer text
         timeToCollectTimer = Timer.scheduledTimer(timeInterval: 60, target: self, selector: #selector(updateTimeToCollectTxt), userInfo: nil, repeats: true)
-
-        // Do any additional setup after loading the view, typically from a nib.
-        //Tree test
-        print ("----Tree test----")
-        var tree = ETree()
-        tree.addChildToRoot(node: ETree.Node(value: "1"))
-            .addSibling(node: ETree.Node(value: "2spas"))?
-                .addChild(node: ETree.Node(value: "1"))
-                .addSibling(node: ETree.Node(value: "2"))?
-                .parent?
-            .addSibling(node: ETree.Node(value: "3a"))?
-                .addChild(node: ETree.Node(value: "1"))
-                .addSibling(node: ETree.Node(value: "22"))?
-                    .addChild(node: ETree.Node(value: "1"))
-                    .addSibling(node: ETree.Node(value: "2"))?
-                    .addSibling(node: ETree.Node(value: "3"))?
-                    .parent?
-                .parent?
-            .addSibling(node: ETree.Node(value: "4"))
-        tree.printTree()
-        var recipe = tree.findRecipe(emoji: "2spas")
-        print("recipe: " + (recipe?.value)!)
-        print ("----End Tree test----")
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -241,7 +231,6 @@ class GameController: UIViewController, PNObjectEventListener {
         taps += 1
         //TODO - change this so you keep taps
         if taps == GameController.gs.tapsToNextLevel {
-            taps = 0
             levelUp()
         }
         LocalDataHandler.setTaps(value: taps)
@@ -249,18 +238,33 @@ class GameController: UIViewController, PNObjectEventListener {
     }
     
     func updateTapUI() {
-        let pBarAngle = (Double(taps) / Double(GameController.gs.tapsToNextLevel)) * Double(360)
+//        let pBarAngle = (Double(taps) / Double(GameController.gs.tapsToNextLevel!)) * Double(360)
+        let level = LocalDataHandler.getLevel()
+        let taps = LocalDataHandler.getTaps()
+        let tapsToGetToLevel = LocalDataHandler.tapsToGetToLevel(level: level-1)
+        print("taps: \(taps)")
+        print("level: \(level)")
+        print("tapsToGetToLevel: \(tapsToGetToLevel)")
+        let xp = taps - tapsToGetToLevel
+        let goalXp = LocalDataHandler.levelTapGoalFunc(level: level)
+        print("xp: \(xp)")
+        print("goal xp: \(goalXp)")
+        let pBarAngle = (Double(xp)/Double(goalXp)) * Double(360)
         print("Taps: \(taps)")
         print("Angle:  \(pBarAngle)")
         progressBar.animate(toAngle: pBarAngle, duration: 0.2, completion: nil)
     }
     
     func levelUp() {
-        //TODO - add to level
-        var coins = LocalDataHandler.getCoins()
-        coins += 200
-        LocalDataHandler.setCoins(coins: coins)
-//        var timer = Timer.scheduledTimer(timeInterval: 0.05, target: self, selector: Selector("spawnCoin"),userInfo: nil, repeats: true)
+        //add to level
+        var level = LocalDataHandler.getLevel()
+        level += 1
+        LocalDataHandler.setLevel(value: level)
+        //reward coins
+        coinsToSpawn += LocalDataHandler.coinRewardFunc(level: level)
+        coinSpawnTimer = Timer.scheduledTimer(timeInterval: 0.01, target: self, selector: Selector("spawnCoin"),userInfo: nil, repeats: true)
+        //update tap goal
+        GameController.gs.tapsToNextLevel = LocalDataHandler.tapsToGetToLevel(level: level)//LocalDataHandler.levelTapGoalFunc(level: level)
     }
     
     static func ResetGameState() {
@@ -362,25 +366,62 @@ class GameController: UIViewController, PNObjectEventListener {
         }
     }
     
+    func animateCloud(cloud: UIImageView) {
+        let time = CGFloat.random(min: 9, max: 20)
+        let delay = CGFloat.random(min: 0, max: 2)
+        let initFrame = cloud.frame
+        
+        UIView.animate(withDuration: TimeInterval(time), delay: TimeInterval(delay), options: [.curveLinear], animations: {
+            //targot origin/frame
+            var newFrame = cloud.frame
+            newFrame.origin.x = UIScreen.main.bounds.width + 200
+            cloud.frame = newFrame
+        })  { (finished) in
+            cloud.frame = initFrame
+            cloud.frame.origin.y = CGFloat.random(min: 84, max: 400)
+            self.animateCloud(cloud: cloud)
+        }
+    }
+    
     func spawnCoin() {
+        if (coinsToSpawn <= 0 && coinSpawnTimer != nil) {
+            coinSpawnTimer?.invalidate()
+        }
         //spawn coin
         var animator: UIDynamicAnimator!
         var gravity: UIGravityBehavior!
         let image = UIImage(named: "coinImg.png")
-        let imageView = UIImageView(image: image!)
-        imageView.frame = CGRect(x: theButton.frame.origin.x + (theButton.frame.width/2), y: theButton.frame.origin.y + (theButton.frame.height/2), width: 25, height: 25)
-        tapAnimationsView.addSubview(imageView)
-        animator = UIDynamicAnimator(referenceView: view)
-        gravity = UIGravityBehavior(items: [imageView])
+        var imageView = UIImageView(image: image!)
+        let randX = CGFloat.random(min: 0, max: theButton.frame.width-25)
+        imageView.frame = CGRect(x: theButton.frame.origin.x + randX, y: theButton.frame.origin.y + (theButton.frame.height/2), width: 25, height: 25)
+        coinsView.addSubview(imageView)
+        //GRAVITY ANIMATION
+//        animator = UIDynamicAnimator(referenceView: view)
+//        gravity = UIGravityBehavior(items: [imageView])
+//        
+//        let randAngle = CGFloat.random(min: CGFloat((4*Double.pi)/3), max: CGFloat((5*Double.pi)/3));
+//        let instantaneousPush: UIPushBehavior = UIPushBehavior(items: [imageView], mode: UIPushBehaviorMode.instantaneous)
+//        instantaneousPush.setAngle( randAngle , magnitude: 0.2);
+//        animator.addBehavior(instantaneousPush)
+//        animator.addBehavior(gravity)
+//        
+//        animators.append(animator)
+//        gravityBehaviours.append(gravity)
+        //REGULAR ANIMATION
+        UIView.animate(withDuration: 1.2, animations: {
+            //targot origin/frame
+            imageView.frame = self.coinsTargetLocation.frame
+        })  { (finished) in
+            //remove image
+            imageView.removeFromSuperview()
+            //add to coins
+            var coins = LocalDataHandler.getCoins()
+            coins += 1
+            LocalDataHandler.setCoins(coins: coins)
+            self.updateCoinLabel()
+        }
         
-        let randAngle = CGFloat.random(min: CGFloat((4*Double.pi)/3), max: CGFloat((5*Double.pi)/3));
-        let instantaneousPush: UIPushBehavior = UIPushBehavior(items: [imageView], mode: UIPushBehaviorMode.instantaneous)
-        instantaneousPush.setAngle( randAngle , magnitude: 0.2);
-        animator.addBehavior(instantaneousPush)
-        animator.addBehavior(gravity)
-        
-        animators.append(animator)
-        gravityBehaviours.append(gravity)
+        coinsToSpawn -= 1
     }
 
     @IBAction func OnButtonTouchDown(_ sender: Any) {
@@ -396,7 +437,6 @@ class GameController: UIViewController, PNObjectEventListener {
         UIView.animate(withDuration: 0.02) {
 //            self.progressBar.glowAmount = 0
         }
-        
         if LocalDataHandler.getCoins() > 0 {
             
             //send packet
@@ -460,6 +500,7 @@ class GameController: UIViewController, PNObjectEventListener {
         let dictionary: AnyObject = message.data.message as AnyObject;
         let action: String = dictionary["action"] as! String
         if (action == "button-press") {
+            print("Got a button press")
             //get user's name
             let name: String = dictionary["name"] as! String
             let nameSize: Int = Int(dictionary["name-size"] as! String)!
@@ -529,8 +570,11 @@ class GameState {
     var currentEmojis: [Int] = [0, 0, 0, 0]
     var tier = 0
     var pot = 0
-    var currentLevel = 0
-    var tapsToNextLevel = 5
+    var tapsToNextLevel: Int?
+    
+    init() {
+        tapsToNextLevel = LocalDataHandler.levelTapGoalFunc(level: LocalDataHandler.getLevel())
+    }
     
     func hasWonTier() -> Bool {
         if currentEmojis[tier] == goalEmojis[tier] {
@@ -539,12 +583,6 @@ class GameState {
         } else {
             return false
         }
-    }
-    
-    func calcTapsToLevel(level: Int) -> Int {
-        //TODO - make this better
-        let taps = level * 5
-        return taps
     }
 }
 

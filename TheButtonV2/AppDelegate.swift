@@ -27,6 +27,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 //        LocalDataHandler.setNameSizeUpgradeStatus(status: 0)
 //        LocalDataHandler.setNameSpeedUpgradeStatus(status: 0)
         LocalDataHandler.setCoins(coins: 5000)
+        LocalDataHandler.setLevel(value: 0)
+        LocalDataHandler.setTaps(value: 0)
     }
 
     

@@ -14,16 +14,20 @@ import CloudKit
 class CraftingController: UIViewController, UITextFieldDelegate, UICollectionViewDelegate, UICollectionViewDataSource {
     
     @IBOutlet weak var emojiCollectionView: UICollectionView!
-    
+    @IBOutlet var slots: [UIButton]?
     var selectedEmoji = ""
+    var slot1 = ""
+    var slot2 = ""
+    var slot3 = ""
+    
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
-        
 //        createEmojiButtons()
-
-        //make sure emoji collection view's controller is this view. 
+        
+        print("Recipe: \(Emoji.isRecipeValid(recipe: ["👮🏾‍♀️": 1, "👱🏼‍♀️": 1, "👱🏼": 1]))")
+        
+        //make sure emoji collection view's controller is this view.
         //Functions implemented below
         self.emojiCollectionView.delegate = self
         self.emojiCollectionView.dataSource = self
@@ -100,6 +104,13 @@ class CraftingController: UIViewController, UITextFieldDelegate, UICollectionVie
     @IBAction func slotUpInside(_ sender: UIButton!) {
         if selectedEmoji != "" {
             sender.setTitle(selectedEmoji, for: .normal)
+            if (sender.tag == 0) {
+                slot1 = selectedEmoji
+            } else if (sender.tag == 1) {
+                slot2 = selectedEmoji
+            } else if (sender.tag == 2) {
+                slot3 = selectedEmoji
+            }
         }
         
     }
@@ -108,6 +119,19 @@ class CraftingController: UIViewController, UITextFieldDelegate, UICollectionVie
         dismiss(animated: true, completion: nil)
     }
     
+    @IBAction func craftButtonUpInside(_ sender: Any) {
+        var recipe = [slot1: 1, slot2: 1, slot3: 1]
+        guard let recipeResult = Emoji.isRecipeValid(recipe: recipe) else {
+            return
+        }
+        Emoji.addToMyInventory(emojiInput: recipeResult)
+        for slot in slots! {
+            slot.setTitle("", for: .normal)
+        }
+        //TODO: Change 5 to emoji index
+        var i = IndexPath(row: 5, section: 0)
+        self.emojiCollectionView!.reloadItems(at: [i])
+    }
     
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()

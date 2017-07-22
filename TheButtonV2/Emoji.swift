@@ -57,6 +57,8 @@ class Emoji {
         3
     ]
     
+    static var recipes: [String: [String: Int]] = ["👩🏽‍🎤": ["👮🏾‍♀️": 1, "👱🏼‍♀️": 1, "👱🏼": 1]]
+    
     //Returns current emoji inventory
     static func myInventory() -> [String: Int] {
         return LocalDataHandler.getEmojiInvArray()
@@ -68,6 +70,15 @@ class Emoji {
             return 0
         }
         return count
+    }
+    
+    static func isRecipeValid(recipe: [String: Int]) -> String? {
+        for (e, r) in recipes {
+            if recipe == r {
+                return e
+            }
+        }
+        return nil
     }
     
     //check if I already own an emoji
