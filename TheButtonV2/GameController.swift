@@ -210,7 +210,7 @@ class GameController: UIViewController, PNObjectEventListener {
         }
         
         //match state
-        for i in 0...3 {
+        for i in 1...4 {
             if GameController.gs.currentEmojis[i] == GameController.gs.goalEmojis[i] {
                 currentEmojiLabels?.findByTag(tag: i)?.isHidden = true
             }
@@ -242,16 +242,9 @@ class GameController: UIViewController, PNObjectEventListener {
         let level = LocalDataHandler.getLevel()
         let taps = LocalDataHandler.getTaps()
         let tapsToGetToLevel = LocalDataHandler.tapsToGetToLevel(level: level-1)
-        print("taps: \(taps)")
-        print("level: \(level)")
-        print("tapsToGetToLevel: \(tapsToGetToLevel)")
         let xp = taps - tapsToGetToLevel
         let goalXp = LocalDataHandler.levelTapGoalFunc(level: level)
-        print("xp: \(xp)")
-        print("goal xp: \(goalXp)")
         let pBarAngle = (Double(xp)/Double(goalXp)) * Double(360)
-        print("Taps: \(taps)")
-        print("Angle:  \(pBarAngle)")
         progressBar.animate(toAngle: pBarAngle, duration: 0.2, completion: nil)
     }
     
@@ -268,9 +261,10 @@ class GameController: UIViewController, PNObjectEventListener {
     }
     
     static func ResetGameState() {
-        GameController.gs.tier = 3
-        GameController.gs.pot = 0
-        GameController.gs.currentEmojis = [0, 0, 0, 0]
+//        GameController.gs.tier = 4
+//        GameController.gs.pot = 0
+//        GameController.gs.currentEmojis = [-1, 0, 0, 0, 0]
+        GameController.gs = GameState()
     }
     
     //changes the current emoji, if its the correct one go on to the next tier
@@ -278,24 +272,31 @@ class GameController: UIViewController, PNObjectEventListener {
         for label in currentEmojiLabels! {
             if label.tag == GameController.gs.tier {
                 //found current emoji label
-                var rand = Emoji.randomEmojiInTier(t: GameController.gs.tier+1)
-                while (rand == GameController.gs.currentEmojis[GameController.gs.tier]) {
-                    rand = Emoji.randomEmojiInTier(t: GameController.gs.tier+1)
+                var chance = Int.random(min: 1, max: GameState.tierChances[GameController.gs.tier])
+                print("CHANCE: \(chance)")
+                if (chance == 1) {
+                    GameController.gs.currentEmojis[GameController.gs.tier] = GameController.gs.goalEmojis[GameController.gs.tier]
+                } else {
+                    GameController.gs.currentEmojis[GameController.gs.tier] = Emoji.randomEmojiInTier(t: GameController.gs.tier, not: GameController.gs.goalEmojis[GameController.gs.tier])
                 }
-                GameController.gs.currentEmojis[GameController.gs.tier] = rand
+//                var rand = Emoji.randomEmojiInTier(t: GameController.gs.tier+1)
+//                while (rand == GameController.gs.currentEmojis[GameController.gs.tier]) {
+//                    rand = Emoji.randomEmojiInTier(t: GameController.gs.tier+1)
+//                }
                 updateCurrentEmojiLabels()
                 //check if tier has been won
                 if GameController.gs.hasWonTier() {
                     //this tier has just changed during this call so we may need to use its previous value
                     let tier = GameController.gs.tier
-                    let emoji = Emoji.emojis[GameController.gs.goalEmojis[tier-1]]
+                    let goalEmoji = GameController.gs.goalEmojis[tier+1]
+                    let emoji = Emoji.emojis[goalEmoji]
                     if (GameController.gs.tier == 0) {
                         PubnubHandler.sendMessage(packet: "{\"action\": \"win\", \"uuid\": \"" + GameController.uuid + "\", \"name\":\"" + username! + "\" }");
                     }
                     //attempt to add emoji to inventory
                     Emoji.addToMyInventory(emojiInput: emoji)
                     //TODO - display tier winning animations with coins
-                    tierWonAnimation(prev: GameController.gs.tier, cur: GameController.gs.tier-1)
+                    tierWonAnimation(prev: GameController.gs.tier, cur: GameController.gs.tier+1)
                 }
                 
                 break
@@ -306,7 +307,7 @@ class GameController: UIViewController, PNObjectEventListener {
     //plays animation for tier change
     func tierWonAnimation(prev: Int, cur: Int) {
         let tier = GameController.gs.tier
-        let currentLabel = self.currentEmojiLabels?.findByTag(tag: tier-1)
+        let currentLabel = self.currentEmojiLabels?.findByTag(tag: tier+1)
         UIView.animate(withDuration: 1.5, animations: {
             
             //targot origin/frame
@@ -316,7 +317,7 @@ class GameController: UIViewController, PNObjectEventListener {
         })  { (finished) in
             currentLabel?.isHidden = true
         }
-        
+        print("tier: \(tier)")
         //Animate highlight bar
         UIView.animate(withDuration: 0.5, animations: {
             guard let curGoalLabel = self.goalEmojiLabels?.findByTag(tag: tier) else {
@@ -566,36 +567,30 @@ class GameController: UIViewController, PNObjectEventListener {
 }
 
 class GameState {
-    var goalEmojis: [Int] = [3, 1, 2, 3]
-    var currentEmojis: [Int] = [0, 0, 0, 0]
-    var emojisToUseRange: [Int] = [0, 0, 0, 0]
-    var tier = 3
+    var goalEmojis: [Int] = [-1, 3, 1, 2, 3]
+    var currentEmojis: [Int] = [-1, 0, 0, 0, 0]
+    var tier = 4
     var pot = 0
     var tapsToNextLevel: Int?
+    //const
+    static let tierChances: [Int] = [-1, 20, 10, 5, 2]
     
     init() {
         tapsToNextLevel = LocalDataHandler.levelTapGoalFunc(level: LocalDataHandler.getLevel())
         //tier 4
-        goalEmojis[0] = Emoji.randomEmojiInTier(t: 1)
+        goalEmojis[1] = Emoji.randomEmojiInTier(t: 1, not: -1)
         //tier 3
-        goalEmojis[1] = Emoji.randomEmojiInTier(t: 2)
+        goalEmojis[2] = Emoji.randomEmojiInTier(t: 2, not: -1)
         //tier 2
-        goalEmojis[2] = Emoji.randomEmojiInTier(t: 3)
+        goalEmojis[3] = Emoji.randomEmojiInTier(t: 3, not: -1)
         //tier 1
-        goalEmojis[3] = Emoji.randomEmojiInTier(t: 4)
+        goalEmojis[4] = Emoji.randomEmojiInTier(t: 4, not: -1)
         
-        for i in 0...3 {
-            //update emojis to use range
-            if goalEmojis[i] + 20 < Emoji.emojis.count-1 {
-                emojisToUseRange[i] = goalEmojis[i] + 5
-            } else {
-                emojisToUseRange[i] = goalEmojis[i] - 5
-            }
-            
+        for i in 1...4 {
             //update current emoji
-            currentEmojis[i] = Emoji.randomEmojiInTier(t: i+1)
+            currentEmojis[i] = Emoji.randomEmojiInTier(t: i, not: -1)
             while currentEmojis[i] == goalEmojis[i] {
-                currentEmojis[i] = Emoji.randomEmojiInTier(t: i+1)
+                currentEmojis[i] = Emoji.randomEmojiInTier(t: i, not: -1)
             }
             
         }
@@ -603,7 +598,7 @@ class GameState {
     
     func hasWonTier() -> Bool {
         if currentEmojis[tier] == goalEmojis[tier] {
-            tier += 1
+            tier -= 1
             return true
         } else {
             return false

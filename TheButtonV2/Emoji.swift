@@ -88,7 +88,7 @@ class Emoji {
     }
     
     //get random emoji in tier
-    static func randomEmojiInTier(t: Int) -> Int {
+    static func randomEmojiInTier(t: Int, not: Int) -> Int {
         let min = Emoji.tiers[t]
         var max = 0
         if t+1 > Emoji.tiers.count-1 {
@@ -96,7 +96,10 @@ class Emoji {
         } else {
             max = Emoji.tiers[t+1]
         }
-        let rand = Int.random(min: min, max: max)
+        var rand = Int.random(min: min, max: max)
+        while rand == not {
+            rand = Int.random(min: min, max: max)
+        }
         return rand
     }
     
