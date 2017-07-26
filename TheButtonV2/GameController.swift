@@ -116,15 +116,13 @@ class GameController: UIViewController, PNObjectEventListener {
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated);
-        self.updateCoinLabel()
-        self.updatePotLabel()
         resetGameToMatchState()
         //Get current coin count
     }
     
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
-        
+        print("*****VIEW DID APPEAR*****")
         //change whether the button can be seen according to username
         username = LocalDataHandler.getUsername()
         print("Username: " + String((username == nil)))
@@ -151,6 +149,11 @@ class GameController: UIViewController, PNObjectEventListener {
                 }
             }
         }
+        
+        self.updateCoinLabel()
+        self.updatePotLabel()
+        self.updateCurrentEmojiLabels()
+        self.updateGoalEmojiLabels()
         
         resetGameToMatchState()
     }
@@ -196,6 +199,8 @@ class GameController: UIViewController, PNObjectEventListener {
         let tier = GameController.gs.tier
         var i = 0
         for emoji in currentEmojiLabels! {
+//            print("Resetting emoji label...")
+//            print(currentEmojiLabelInitFrames[i])
             emoji.frame = currentEmojiLabelInitFrames[i]
             emoji.isHidden = false
             emoji.transform = CGAffineTransform(scaleX: 1, y: 1);
@@ -320,8 +325,8 @@ class GameController: UIViewController, PNObjectEventListener {
         print("tier: \(tier)")
         //Animate highlight bar
         UIView.animate(withDuration: 0.5, animations: {
-            guard let curGoalLabel = self.goalEmojiLabels?.findByTag(tag: tier) else {
-                print ("ERROR - Couldnt show animation, couldnt find label")
+            guard let curGoalLabel = self.goalEmojiLabels?.findByTag(tag: tier+1) else {
+                print ("ERROR - Couldnt show animation, couldn't find label")
                 return
             }
             self.highlightBarImageView.frame.origin.y = curGoalLabel.frame.origin.y
@@ -560,6 +565,8 @@ class GameController: UIViewController, PNObjectEventListener {
             }
             potLabel.text = "$0";
             GameController.winnerName = dictionary["name"] as! String;
+            GameController.gs = GameState()
+            resetGameToMatchState()
             performSegue(withIdentifier: "ShowWinScreenSegue", sender: self)
         }
     }
@@ -573,7 +580,7 @@ class GameState {
     var pot = 0
     var tapsToNextLevel: Int?
     //const
-    static let tierChances: [Int] = [-1, 20, 10, 5, 2]
+    static let tierChances: [Int] = [-1, 2, 2, 2, 2]
     
     init() {
         tapsToNextLevel = LocalDataHandler.levelTapGoalFunc(level: LocalDataHandler.getLevel())

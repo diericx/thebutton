@@ -234,7 +234,6 @@ class WinScreenController: UIViewController, PNObjectEventListener, AVCapturePho
                 timer.invalidate()
                 //TODO: Segue to main scene
                 //performSegue(withIdentifier: "ShowGameScreen", sender: self)
-                GameController.ResetGameState()
                 dismiss(animated: true, completion: nil)
             }
 
@@ -279,6 +278,10 @@ class WinScreenController: UIViewController, PNObjectEventListener, AVCapturePho
                 }
             )
         }
+    }
+    
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        print("PREPARING FOR SEGUE")
     }
     
     override func viewWillAppear(_ animated: Bool) {
