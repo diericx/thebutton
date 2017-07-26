@@ -10,7 +10,7 @@
 		1106D5A11EF9D8D700046D9B /* CraftingController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1106D5A01EF9D8D700046D9B /* CraftingController.swift */; };
 		11139C991F217B4000FD8E88 /* ProfileController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 11139C981F217B4000FD8E88 /* ProfileController.swift */; };
 		11139C9B1F217DE300FD8E88 /* CollectViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 11139C9A1F217DE300FD8E88 /* CollectViewController.swift */; };
-		11246B621F1835D800312035 /* ETree.swift in Sources */ = {isa = PBXBuildFile; fileRef = 11246B611F1835D800312035 /* ETree.swift */; };
+		11246B621F1835D800312035 /* Emoji.swift in Sources */ = {isa = PBXBuildFile; fileRef = 11246B611F1835D800312035 /* Emoji.swift */; };
 		114FC93D1F16C70900D6F1E0 /* EmojiCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 114FC93C1F16C70900D6F1E0 /* EmojiCollectionViewCell.swift */; };
 		116BBD301EFD7F0500AB16A8 /* AveriaSansLibre-LightItalic.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 116BBD2F1EFD7F0500AB16A8 /* AveriaSansLibre-LightItalic.ttf */; };
 		116BBD321EFD81E900AB16A8 /* Skranji-Regular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 116BBD311EFD81DA00AB16A8 /* Skranji-Regular.ttf */; };
@@ -18,7 +18,9 @@
 		116BBD381EFDED8E00AB16A8 /* coins.wav in Resources */ = {isa = PBXBuildFile; fileRef = 116BBD371EFDED8E00AB16A8 /* coins.wav */; };
 		116BBD3A1F0447BE00AB16A8 /* CKHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = 116BBD391F0447BE00AB16A8 /* CKHandler.swift */; };
 		118FE0571EFB37CE000A629B /* GoldShopController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 118FE0561EFB37CE000A629B /* GoldShopController.swift */; };
-		11E914981F1358B4002D4D74 /* Emoji.swift in Sources */ = {isa = PBXBuildFile; fileRef = 11E914971F1358B4002D4D74 /* Emoji.swift */; };
+		11A68E4E1F26C68A001EFB1E /* PassThroughView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 11A68E4D1F26C68A001EFB1E /* PassThroughView.swift */; };
+		11A68E501F273CDC001EFB1E /* emojiTree.json in Resources */ = {isa = PBXBuildFile; fileRef = 11A68E4F1F273CDC001EFB1E /* emojiTree.json */; };
+		11E914981F1358B4002D4D74 /* EmojiOld.swift in Sources */ = {isa = PBXBuildFile; fileRef = 11E914971F1358B4002D4D74 /* EmojiOld.swift */; };
 		11E9149A1F135936002D4D74 /* PubnubHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = 11E914991F135936002D4D74 /* PubnubHandler.swift */; };
 		11EB28FF1EE641A9002BEF42 /* LocalDataHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = 11EB28FE1EE641A9002BEF42 /* LocalDataHandler.swift */; };
 		11EB528E1EE3652700A5312F /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 11EB528D1EE3652700A5312F /* AppDelegate.swift */; };
@@ -56,7 +58,7 @@
 		1106D5A01EF9D8D700046D9B /* CraftingController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CraftingController.swift; sourceTree = "<group>"; };
 		11139C981F217B4000FD8E88 /* ProfileController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ProfileController.swift; sourceTree = "<group>"; };
 		11139C9A1F217DE300FD8E88 /* CollectViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CollectViewController.swift; sourceTree = "<group>"; };
-		11246B611F1835D800312035 /* ETree.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ETree.swift; sourceTree = "<group>"; };
+		11246B611F1835D800312035 /* Emoji.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Emoji.swift; sourceTree = "<group>"; };
 		114FC93C1F16C70900D6F1E0 /* EmojiCollectionViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EmojiCollectionViewCell.swift; sourceTree = "<group>"; };
 		116BBD2F1EFD7F0500AB16A8 /* AveriaSansLibre-LightItalic.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; name = "AveriaSansLibre-LightItalic.ttf"; path = "../../../../../Downloads/averia_sans_libre/AveriaSansLibre-LightItalic.ttf"; sourceTree = "<group>"; };
 		116BBD311EFD81DA00AB16A8 /* Skranji-Regular.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Skranji-Regular.ttf"; sourceTree = "<group>"; };
@@ -64,7 +66,9 @@
 		116BBD371EFDED8E00AB16A8 /* coins.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; name = coins.wav; path = TheButtonV2/Assets.xcassets/coins.dataset/coins.wav; sourceTree = "<group>"; };
 		116BBD391F0447BE00AB16A8 /* CKHandler.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CKHandler.swift; sourceTree = "<group>"; };
 		118FE0561EFB37CE000A629B /* GoldShopController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GoldShopController.swift; sourceTree = "<group>"; };
-		11E914971F1358B4002D4D74 /* Emoji.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Emoji.swift; sourceTree = "<group>"; };
+		11A68E4D1F26C68A001EFB1E /* PassThroughView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PassThroughView.swift; sourceTree = "<group>"; };
+		11A68E4F1F273CDC001EFB1E /* emojiTree.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = emojiTree.json; sourceTree = "<group>"; };
+		11E914971F1358B4002D4D74 /* EmojiOld.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EmojiOld.swift; sourceTree = "<group>"; };
 		11E914991F135936002D4D74 /* PubnubHandler.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PubnubHandler.swift; sourceTree = "<group>"; };
 		11EB28FE1EE641A9002BEF42 /* LocalDataHandler.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LocalDataHandler.swift; sourceTree = "<group>"; };
 		11EB528A1EE3652700A5312F /* TheButtonV2.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = TheButtonV2.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -132,6 +136,7 @@
 				11139C981F217B4000FD8E88 /* ProfileController.swift */,
 				11139C9A1F217DE300FD8E88 /* CollectViewController.swift */,
 				118FE0561EFB37CE000A629B /* GoldShopController.swift */,
+				11A68E4D1F26C68A001EFB1E /* PassThroughView.swift */,
 			);
 			name = ViewControllers;
 			sourceTree = "<group>";
@@ -143,8 +148,8 @@
 				11EB28FE1EE641A9002BEF42 /* LocalDataHandler.swift */,
 				116BBD391F0447BE00AB16A8 /* CKHandler.swift */,
 				11E914991F135936002D4D74 /* PubnubHandler.swift */,
-				11E914971F1358B4002D4D74 /* Emoji.swift */,
-				11246B611F1835D800312035 /* ETree.swift */,
+				11E914971F1358B4002D4D74 /* EmojiOld.swift */,
+				11246B611F1835D800312035 /* Emoji.swift */,
 			);
 			name = CustomClasses;
 			sourceTree = "<group>";
@@ -153,6 +158,7 @@
 			isa = PBXGroup;
 			children = (
 				116BBD371EFDED8E00AB16A8 /* coins.wav */,
+				11A68E4F1F273CDC001EFB1E /* emojiTree.json */,
 				11EB52BB1EE3661200A5312F /* Podfile */,
 				11EB528C1EE3652700A5312F /* TheButtonV2 */,
 				11EB52A11EE3652700A5312F /* TheButtonV2Tests */,
@@ -350,6 +356,7 @@
 			files = (
 				116BBD381EFDED8E00AB16A8 /* coins.wav in Resources */,
 				11EB52981EE3652700A5312F /* LaunchScreen.storyboard in Resources */,
+				11A68E501F273CDC001EFB1E /* emojiTree.json in Resources */,
 				11EB52BC1EE3661200A5312F /* Podfile in Resources */,
 				11EB52931EE3652700A5312F /* Main.storyboard in Resources */,
 				116BBD321EFD81E900AB16A8 /* Skranji-Regular.ttf in Resources */,
@@ -427,7 +434,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				11E914981F1358B4002D4D74 /* Emoji.swift in Sources */,
+				11E914981F1358B4002D4D74 /* EmojiOld.swift in Sources */,
 				11139C9B1F217DE300FD8E88 /* CollectViewController.swift in Sources */,
 				11EB52BE1EE38A9800A5312F /* WinScreenController.swift in Sources */,
 				11EB28FF1EE641A9002BEF42 /* LocalDataHandler.swift in Sources */,
@@ -438,7 +445,8 @@
 				116BBD3A1F0447BE00AB16A8 /* CKHandler.swift in Sources */,
 				118FE0571EFB37CE000A629B /* GoldShopController.swift in Sources */,
 				11EB52901EE3652700A5312F /* GameController.swift in Sources */,
-				11246B621F1835D800312035 /* ETree.swift in Sources */,
+				11246B621F1835D800312035 /* Emoji.swift in Sources */,
+				11A68E4E1F26C68A001EFB1E /* PassThroughView.swift in Sources */,
 				11EB528E1EE3652700A5312F /* AppDelegate.swift in Sources */,
 				1106D5A11EF9D8D700046D9B /* CraftingController.swift in Sources */,
 			);

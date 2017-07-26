@@ -22,6 +22,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         //Set up pubnub
         PubnubHandler.instance = PubnubHandler()
         PubnubHandler.subscribeToGlobal()
+        //Emoji Tree Setup
+        Emoji.instance = Emoji()
         //DEBUG
         //TODO: Remove this
 //        LocalDataHandler.setNameSizeUpgradeStatus(status: 0)

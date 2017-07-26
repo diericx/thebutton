@@ -25,7 +25,7 @@ class CraftingController: UIViewController, UITextFieldDelegate, UICollectionVie
         super.viewDidLoad()
 //        createEmojiButtons()
         
-        print("Recipe: \(Emoji.isRecipeValid(recipe: ["👮🏾‍♀️": 1, "👱🏼‍♀️": 1, "👱🏼": 1]))")
+//        print("Recipe: \(Emoji.isRecipeValid(recipe: ["👮🏾‍♀️": 1, "👱🏼‍♀️": 1, "👱🏼": 1]))")
         
         //make sure emoji collection view's controller is this view.
         //Functions implemented below
@@ -34,6 +34,9 @@ class CraftingController: UIViewController, UITextFieldDelegate, UICollectionVie
         //set it to clear background
         self.emojiCollectionView.backgroundColor = UIColor.clear;
         self.emojiCollectionView.backgroundView?.backgroundColor = UIColor.clear;
+        
+        
+//        ETree.getDTree().printTree()
     }
     
     //remove status bar
@@ -120,8 +123,8 @@ class CraftingController: UIViewController, UITextFieldDelegate, UICollectionVie
     }
     
     @IBAction func craftButtonUpInside(_ sender: Any) {
-        var recipe = [slot1: 1, slot2: 1, slot3: 1]
-        guard let recipeResult = Emoji.isRecipeValid(recipe: recipe) else {
+        let recipe = [slot1: 1, slot2: 1, slot3: 1]
+        guard let recipeResult = Emoji.isRecipeValid(recipeInput: recipe) else {
             return
         }
         Emoji.addToMyInventory(emojiInput: recipeResult)
@@ -129,7 +132,7 @@ class CraftingController: UIViewController, UITextFieldDelegate, UICollectionVie
             slot.setTitle("", for: .normal)
         }
         //TODO: Change 5 to emoji index
-        var i = IndexPath(row: 5, section: 0)
+        let i = IndexPath(row: 5, section: 0)
         self.emojiCollectionView!.reloadItems(at: [i])
     }
     

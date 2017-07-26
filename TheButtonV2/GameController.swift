@@ -78,7 +78,7 @@ class GameController: UIViewController, PNObjectEventListener {
         //TODO - get this info from pubnub
         //Set GameState defaults
         //TODO - make this more interesting
-        GameController.gs.currentEmojis = [0, 0, 0, 0]
+//        GameController.gs.currentEmojis = [0, 0, 0, 0]
         
         //collect initial positions
         for emoji in goalEmojiLabels! {
@@ -98,7 +98,7 @@ class GameController: UIViewController, PNObjectEventListener {
         
         
         //reset positions
-        GameController.ResetGameState()
+//        GameController.ResetGameState()
         resetGameToMatchState()
         
         //update ttc text
@@ -268,7 +268,7 @@ class GameController: UIViewController, PNObjectEventListener {
     }
     
     static func ResetGameState() {
-        GameController.gs.tier = 0
+        GameController.gs.tier = 3
         GameController.gs.pot = 0
         GameController.gs.currentEmojis = [0, 0, 0, 0]
     }
@@ -278,9 +278,9 @@ class GameController: UIViewController, PNObjectEventListener {
         for label in currentEmojiLabels! {
             if label.tag == GameController.gs.tier {
                 //found current emoji label
-                var rand = Int(arc4random_uniform(UInt32(Emoji.tiers[GameController.gs.tier]+1)))
+                var rand = Emoji.randomEmojiInTier(t: GameController.gs.tier+1)
                 while (rand == GameController.gs.currentEmojis[GameController.gs.tier]) {
-                    rand = Int(arc4random_uniform(UInt32(Emoji.tiers[GameController.gs.tier]+1)))
+                    rand = Emoji.randomEmojiInTier(t: GameController.gs.tier+1)
                 }
                 GameController.gs.currentEmojis[GameController.gs.tier] = rand
                 updateCurrentEmojiLabels()
@@ -289,7 +289,7 @@ class GameController: UIViewController, PNObjectEventListener {
                     //this tier has just changed during this call so we may need to use its previous value
                     let tier = GameController.gs.tier
                     let emoji = Emoji.emojis[GameController.gs.goalEmojis[tier-1]]
-                    if (GameController.gs.tier == 4) {
+                    if (GameController.gs.tier == 0) {
                         PubnubHandler.sendMessage(packet: "{\"action\": \"win\", \"uuid\": \"" + GameController.uuid + "\", \"name\":\"" + username! + "\" }");
                     }
                     //attempt to add emoji to inventory
@@ -568,12 +568,37 @@ class GameController: UIViewController, PNObjectEventListener {
 class GameState {
     var goalEmojis: [Int] = [3, 1, 2, 3]
     var currentEmojis: [Int] = [0, 0, 0, 0]
-    var tier = 0
+    var emojisToUseRange: [Int] = [0, 0, 0, 0]
+    var tier = 3
     var pot = 0
     var tapsToNextLevel: Int?
     
     init() {
         tapsToNextLevel = LocalDataHandler.levelTapGoalFunc(level: LocalDataHandler.getLevel())
+        //tier 4
+        goalEmojis[0] = Emoji.randomEmojiInTier(t: 1)
+        //tier 3
+        goalEmojis[1] = Emoji.randomEmojiInTier(t: 2)
+        //tier 2
+        goalEmojis[2] = Emoji.randomEmojiInTier(t: 3)
+        //tier 1
+        goalEmojis[3] = Emoji.randomEmojiInTier(t: 4)
+        
+        for i in 0...3 {
+            //update emojis to use range
+            if goalEmojis[i] + 20 < Emoji.emojis.count-1 {
+                emojisToUseRange[i] = goalEmojis[i] + 5
+            } else {
+                emojisToUseRange[i] = goalEmojis[i] - 5
+            }
+            
+            //update current emoji
+            currentEmojis[i] = Emoji.randomEmojiInTier(t: i+1)
+            while currentEmojis[i] == goalEmojis[i] {
+                currentEmojis[i] = Emoji.randomEmojiInTier(t: i+1)
+            }
+            
+        }
     }
     
     func hasWonTier() -> Bool {
