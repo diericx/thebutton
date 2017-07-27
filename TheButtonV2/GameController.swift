@@ -104,10 +104,6 @@ class GameController: UIViewController, PNObjectEventListener {
         //update ttc text
         updateTimeToCollectTxt()
         
-        //update goal and current emojis to show what the current goal/current selected emoji is
-        updateGoalEmojiLabels()
-        updateCurrentEmojiLabels()
-        
         //resize hourglass
         resizeHourGlass()
         //update timer text
@@ -167,6 +163,16 @@ class GameController: UIViewController, PNObjectEventListener {
         return true
     }
     
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?)
+    {
+        
+        if segue.identifier == "ShowWinScreenSegue"
+        {
+            let vc = segue.destination as! WinScreenController
+            vc.delegate = self
+        }
+    }
+    
     func updateTimeToCollectTxt() {
         var lastLootCollect = LocalDataHandler.getLastLootCollectTime()
         let interval = Date().timeIntervalSince(lastLootCollect)
@@ -196,40 +202,46 @@ class GameController: UIViewController, PNObjectEventListener {
     
     //reset all emoji labels
     func resetGameToMatchState() {
-        let tier = GameController.gs.tier
-        var i = 0
-        for emoji in currentEmojiLabels! {
-//            print("Resetting emoji label...")
-//            print(currentEmojiLabelInitFrames[i])
-            emoji.frame = currentEmojiLabelInitFrames[i]
-            emoji.isHidden = false
-            emoji.transform = CGAffineTransform(scaleX: 1, y: 1);
-            i+=1
-        }
-        i=0
-        for emoji in goalEmojiLabels! {
-            emoji.frame = goalEmojiLabelInitFrames[i]
-            emoji.isHidden = false
-            emoji.transform = CGAffineTransform(scaleX: 1, y: 1);
-            i+=1
-        }
+        DispatchQueue.main.async {
+            let tier = GameController.gs.tier
         
-        //match state
-        for i in 1...4 {
-            if GameController.gs.currentEmojis[i] == GameController.gs.goalEmojis[i] {
-                currentEmojiLabels?.findByTag(tag: i)?.isHidden = true
+            var i = 0
+            for emoji in self.currentEmojiLabels! {
+                emoji.transform = CGAffineTransform(scaleX: 1, y: 1)
+                emoji.frame = self.currentEmojiLabelInitFrames[i]
+                emoji.isHidden = false
+                i+=1
             }
+        
+            i=0
+            for emoji in self.goalEmojiLabels! {
+                emoji.transform = CGAffineTransform(scaleX: 1, y: 1)
+                emoji.frame = self.goalEmojiLabelInitFrames[i]
+                emoji.isHidden = false
+                i+=1
+            }
+        
+            //match state
+            for i in 1...4 {
+                if GameController.gs.currentEmojis[i] == GameController.gs.goalEmojis[i] {
+                    self.currentEmojiLabels?.findByTag(tag: i)?.isHidden = true
+                }
+            }
+            
+            //reset highlight
+            let f = self.highlightBarInitFrame
+            let currentLabel = self.goalEmojiLabels?.findByTag(tag: tier)
+            let newSize = CGRect(x: f.origin.x, y: (currentLabel?.frame.origin.y)!, width: f.width, height: (currentLabel?.frame.height)! )
+            self.highlightBarImageView.frame = newSize
+            
+            //update taps
+            self.updateTapUI()
+            
+            //update goal and current emojis to show what the current goal/current selected emoji is
+            self.updateGoalEmojiLabels()
+            self.updateCurrentEmojiLabels()
+            
         }
-        
-        //reset highlight
-        //highlightBarImageView.frame = highlightBarInitFrame
-        let f = highlightBarInitFrame
-        let currentLabel = self.currentEmojiLabels?.findByTag(tag: tier)
-        let newSize = CGRect(x: f.origin.x, y: (currentLabel?.frame.origin.y)!, width: f.width, height: (currentLabel?.frame.height)! )
-        highlightBarImageView.frame = newSize
-        
-        //update taps
-        updateTapUI()
     }
     
     func increaseTapCount() {
@@ -266,9 +278,6 @@ class GameController: UIViewController, PNObjectEventListener {
     }
     
     static func ResetGameState() {
-//        GameController.gs.tier = 4
-//        GameController.gs.pot = 0
-//        GameController.gs.currentEmojis = [-1, 0, 0, 0, 0]
         GameController.gs = GameState()
     }
     
@@ -301,7 +310,7 @@ class GameController: UIViewController, PNObjectEventListener {
                     //attempt to add emoji to inventory
                     Emoji.addToMyInventory(emojiInput: emoji)
                     //TODO - display tier winning animations with coins
-                    tierWonAnimation(prev: GameController.gs.tier, cur: GameController.gs.tier+1)
+                    tierWonAnimation()
                 }
                 
                 break
@@ -310,22 +319,19 @@ class GameController: UIViewController, PNObjectEventListener {
     }
     
     //plays animation for tier change
-    func tierWonAnimation(prev: Int, cur: Int) {
+    func tierWonAnimation() {
         let tier = GameController.gs.tier
-        let currentLabel = self.currentEmojiLabels?.findByTag(tag: tier+1)
+        let prevLabel = self.currentEmojiLabels?.findByTag(tag: tier+1)
         UIView.animate(withDuration: 1.5, animations: {
-            
-            //targot origin/frame
             let newFrame = self.profileButton.frame
-            currentLabel?.frame = newFrame
-            currentLabel?.transform = CGAffineTransform(scaleX: 0.1, y: 0.1);
+            prevLabel?.frame = newFrame
+            prevLabel?.transform = CGAffineTransform(scaleX: 0.1, y: 0.1);
         })  { (finished) in
-            currentLabel?.isHidden = true
+            prevLabel?.isHidden = true
         }
-        print("tier: \(tier)")
         //Animate highlight bar
         UIView.animate(withDuration: 0.5, animations: {
-            guard let curGoalLabel = self.goalEmojiLabels?.findByTag(tag: tier+1) else {
+            guard let curGoalLabel = self.goalEmojiLabels?.findByTag(tag: tier) else {
                 print ("ERROR - Couldnt show animation, couldn't find label")
                 return
             }
@@ -466,6 +472,7 @@ class GameController: UIViewController, PNObjectEventListener {
             LocalDataHandler.setLastLootCollectTime(status: Date())
             self.updateTimeToCollectTxt()
             performSegue(withIdentifier: "ShowCollectionScreen", sender: self)
+            
             canCollect = false
         }
     }
@@ -565,8 +572,6 @@ class GameController: UIViewController, PNObjectEventListener {
             }
             potLabel.text = "$0";
             GameController.winnerName = dictionary["name"] as! String;
-            GameController.gs = GameState()
-            resetGameToMatchState()
             performSegue(withIdentifier: "ShowWinScreenSegue", sender: self)
         }
     }

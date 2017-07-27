@@ -34,6 +34,8 @@ class WinScreenController: UIViewController, PNObjectEventListener, AVCapturePho
     var potCountUpTimerWaitTime = 0.3
     var currentPotCount = 0
     
+    var delegate:GameController?
+    
     //Making sure we are always subscribed when a user tabs out
     private var notification: NSObjectProtocol?
     
@@ -232,9 +234,19 @@ class WinScreenController: UIViewController, PNObjectEventListener, AVCapturePho
                 potCountUpTimer = Timer.scheduledTimer(timeInterval: potCountUpTimerWaitTime, target: self, selector: #selector(potCountUp), userInfo: nil, repeats: true)
             } else {
                 timer.invalidate()
-                //TODO: Segue to main scene
-                //performSegue(withIdentifier: "ShowGameScreen", sender: self)
-                dismiss(animated: true, completion: nil)
+              
+                GameController.gs = GameState()
+                guard let d = self.delegate else {
+                    return
+                }
+                d.resetGameToMatchState()
+                
+                dismiss(animated: true, completion: {
+                    print("Modal dismiss completed")
+//                    GameController.gs = GameState()
+//                    self.delegate?.resetGameToMatchState()
+                })
+                
             }
 
         }
@@ -278,10 +290,6 @@ class WinScreenController: UIViewController, PNObjectEventListener, AVCapturePho
                 }
             )
         }
-    }
-    
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        print("PREPARING FOR SEGUE")
     }
     
     override func viewWillAppear(_ animated: Bool) {
