@@ -76,7 +76,11 @@ class Emoji {
                 }
                 //create new entry in recipe from child node
                 let nChildEmoji = node["name"] as? String
-                recipe[nChildEmoji!] = 1
+                var recipeValue = 0
+                if recipe[nChildEmoji!] != nil {
+                    recipeValue = recipe[nChildEmoji!]!
+                }
+                recipe[nChildEmoji!] = recipeValue + 1
                 node["tier"] = (tier! as Int + 1) as AnyObject
                 //queue up child node
                 q.enqueue(node)

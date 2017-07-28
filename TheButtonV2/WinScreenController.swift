@@ -235,7 +235,7 @@ class WinScreenController: UIViewController, PNObjectEventListener, AVCapturePho
             } else {
                 timer.invalidate()
               
-                GameController.gs = GameState()
+                GameController.gs.resetGameState()
                 guard let d = self.delegate else {
                     return
                 }

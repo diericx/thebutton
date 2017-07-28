@@ -123,7 +123,19 @@ class CraftingController: UIViewController, UITextFieldDelegate, UICollectionVie
     }
     
     @IBAction func craftButtonUpInside(_ sender: Any) {
-        let recipe = [slot1: 1, slot2: 1, slot3: 1]
+        var recipe = [String: Int]()
+        
+        //initialize each recipe slot
+        recipe[slot1] = 0
+        recipe[slot2] = 0
+        recipe[slot3] = 0
+        
+        recipe[slot1] = recipe[slot1]! + 1
+        recipe[slot2] = recipe[slot2]! + 1
+        recipe[slot3] = recipe[slot3]! + 1
+        
+        print(recipe)
+        
         guard let recipeResult = Emoji.isRecipeValid(recipeInput: recipe) else {
             return
         }

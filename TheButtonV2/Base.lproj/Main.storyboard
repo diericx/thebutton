@@ -255,9 +255,19 @@
                             </imageView>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="RMU-1j-X8b" customClass="KDCircularProgress" customModule="KDCircularProgress">
                                 <rect key="frame" x="86" y="474" width="202" height="202"/>
+                                <subviews>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="100" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="lAa-hZ-FY7" userLabel="LevelLabel">
+                                        <rect key="frame" x="93" y="19" width="16.5" height="11"/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="9"/>
+                                        <color key="textColor" red="1" green="0.89736357600319461" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                </subviews>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <constraints>
+                                    <constraint firstItem="lAa-hZ-FY7" firstAttribute="top" secondItem="RMU-1j-X8b" secondAttribute="top" constant="19" id="4HQ-cV-rFl"/>
                                     <constraint firstAttribute="height" constant="202" id="8zE-Vf-dmC"/>
+                                    <constraint firstItem="lAa-hZ-FY7" firstAttribute="centerX" secondItem="RMU-1j-X8b" secondAttribute="centerX" id="RkS-vY-il1"/>
                                     <constraint firstAttribute="width" constant="202" id="wtg-mh-oeI"/>
                                 </constraints>
                                 <userDefinedRuntimeAttributes>
@@ -306,6 +316,7 @@
                         <outlet property="coinsView" destination="YKD-Tr-sTO" id="mTc-io-iHf"/>
                         <outlet property="highlightBarImageView" destination="kw5-xw-Nrt" id="gsG-R0-hbk"/>
                         <outlet property="hourGlassImageView" destination="pol-hn-hJh" id="WnY-Mr-CTi"/>
+                        <outlet property="levelLabel" destination="lAa-hZ-FY7" id="K5l-YZ-pIW"/>
                         <outlet property="potLabel" destination="Wa8-FW-ztG" id="cme-gL-IOr"/>
                         <outlet property="profileButton" destination="vJA-K4-Wbk" id="LmC-wF-Tu4"/>
                         <outlet property="progressBar" destination="RMU-1j-X8b" id="oPz-cw-3Ma"/>
