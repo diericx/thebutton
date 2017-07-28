@@ -133,9 +133,7 @@ class CraftingController: UIViewController, UITextFieldDelegate, UICollectionVie
         recipe[slot1] = recipe[slot1]! + 1
         recipe[slot2] = recipe[slot2]! + 1
         recipe[slot3] = recipe[slot3]! + 1
-        
-        print(recipe)
-        
+                
         guard let recipeResult = Emoji.isRecipeValid(recipeInput: recipe) else {
             return
         }

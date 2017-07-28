@@ -13,6 +13,7 @@ class PubnubHandler {
     
     var client: PubNub?
     static var instance: PubnubHandler?
+    static let uuid = UIDevice.current.identifierForVendor!.uuidString
     
     init() {
         //instance = PubnubHandler()
@@ -25,6 +26,7 @@ class PubnubHandler {
         }
         
         let configuration = PNConfiguration(publishKey: "pub-c-9598bf00-2785-41d4-ad2f-d2362b2738d9", subscribeKey: "sub-c-8a0a7138-e751-11e6-94bb-0619f8945a4f")
+        configuration.uuid = uuid
         configuration.presenceHeartbeatInterval = 15
         configuration.presenceHeartbeatValue = 30
         instance.client = PubNub.clientWithConfiguration(configuration)

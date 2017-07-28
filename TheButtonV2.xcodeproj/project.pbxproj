@@ -24,6 +24,7 @@
 		11A68E581F2B333B001EFB1E /* woodblock-4.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 11A68E551F2B333B001EFB1E /* woodblock-4.mp3 */; };
 		11A68E591F2B333B001EFB1E /* woodblock-6.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 11A68E561F2B333B001EFB1E /* woodblock-6.mp3 */; };
 		11A68E5B1F2B3465001EFB1E /* woodblock-0.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 11A68E5A1F2B3465001EFB1E /* woodblock-0.mp3 */; };
+		11A68E5D1F2BBC7A001EFB1E /* AppLovinSDK.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 11A68E5C1F2BBC7A001EFB1E /* AppLovinSDK.framework */; };
 		11E914981F1358B4002D4D74 /* EmojiOld.swift in Sources */ = {isa = PBXBuildFile; fileRef = 11E914971F1358B4002D4D74 /* EmojiOld.swift */; };
 		11E9149A1F135936002D4D74 /* PubnubHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = 11E914991F135936002D4D74 /* PubnubHandler.swift */; };
 		11EB28FF1EE641A9002BEF42 /* LocalDataHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = 11EB28FE1EE641A9002BEF42 /* LocalDataHandler.swift */; };
@@ -76,6 +77,7 @@
 		11A68E551F2B333B001EFB1E /* woodblock-4.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = "woodblock-4.mp3"; sourceTree = "<group>"; };
 		11A68E561F2B333B001EFB1E /* woodblock-6.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = "woodblock-6.mp3"; sourceTree = "<group>"; };
 		11A68E5A1F2B3465001EFB1E /* woodblock-0.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = "woodblock-0.mp3"; sourceTree = "<group>"; };
+		11A68E5C1F2BBC7A001EFB1E /* AppLovinSDK.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = AppLovinSDK.framework; sourceTree = "<group>"; };
 		11E914971F1358B4002D4D74 /* EmojiOld.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EmojiOld.swift; sourceTree = "<group>"; };
 		11E914991F135936002D4D74 /* PubnubHandler.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PubnubHandler.swift; sourceTree = "<group>"; };
 		11EB28FE1EE641A9002BEF42 /* LocalDataHandler.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LocalDataHandler.swift; sourceTree = "<group>"; };
@@ -107,6 +109,7 @@
 			files = (
 				475AE09944986636DD054D65 /* Pods_TheButtonV2.framework in Frameworks */,
 				11EB52C31EE3B7FF00A5312F /* CloudKit.framework in Frameworks */,
+				11A68E5D1F2BBC7A001EFB1E /* AppLovinSDK.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -247,6 +250,7 @@
 		6F82AE19C40C32F3CD1B0A8F /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				11A68E5C1F2BBC7A001EFB1E /* AppLovinSDK.framework */,
 				11EB52C21EE3B7FF00A5312F /* CloudKit.framework */,
 				29776B2A315281BAD52BF208 /* Pods_TheButtonV2.framework */,
 			);
@@ -627,6 +631,10 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_ENTITLEMENTS = TheButtonV2/TheButtonV2.entitlements;
 				DEVELOPMENT_TEAM = 5PJ639S4VT;
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)",
+				);
 				INFOPLIST_FILE = TheButtonV2/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.diericx.TheButtonV3;
@@ -642,6 +650,10 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_ENTITLEMENTS = TheButtonV2/TheButtonV2.entitlements;
 				DEVELOPMENT_TEAM = 5PJ639S4VT;
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)",
+				);
 				INFOPLIST_FILE = TheButtonV2/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.diericx.TheButtonV3;

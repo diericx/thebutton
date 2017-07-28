@@ -52,7 +52,6 @@ class GameController: UIViewController, PNObjectEventListener {
     static var winner = false
     static var winnerName = ""
     static var winnerImg: UIImage?
-    static let uuid = UIDevice.current.identifierForVendor!.uuidString
     static var gs = GameState()
     
     //testing gravity
@@ -308,7 +307,7 @@ class GameController: UIViewController, PNObjectEventListener {
                     let goalEmoji = GameController.gs.goalEmojis[tier+1]
                     let emoji = Emoji.emojis[goalEmoji]
                     if (GameController.gs.tier == 0) {
-                        PubnubHandler.sendMessage(packet: "{\"action\": \"win\", \"uuid\": \"" + GameController.uuid + "\", \"name\":\"" + username! + "\" }");
+                        PubnubHandler.sendMessage(packet: "{\"action\": \"win\", \"userid\": \"\(PubnubHandler.uuid)\", \"name\":\"" + username! + "\" }");
                     }
                     //attempt to add emoji to inventory
                     Emoji.addToMyInventory(emojiInput: emoji)
@@ -447,7 +446,7 @@ class GameController: UIViewController, PNObjectEventListener {
             let nameSpeed = String(LocalDataHandler.getNameSpeedUpgradeStatus()!)
             print("nameSizeOnTap: " + nameSize)
             //send packet to pubnub
-            PubnubHandler.sendMessage(packet: "{\"action\": \"button-press\", \"uuid\": \"" + GameController.uuid + "\", \"name\":\"" + username! + "\", \"name-size\": \"" + nameSize + "\", \"name-speed\": \"" + nameSpeed + "\" }");
+            PubnubHandler.sendMessage(packet: "{\"action\": \"button-press\", \"userid\": \"\(PubnubHandler.uuid)\", \"name\":\"" + username! + "\", \"name-size\": \"" + nameSize + "\", \"name-speed\": \"" + nameSpeed + "\" }");
         } else {
             //TODO: warn user that they are broke
             print("Out of funds!");
@@ -518,10 +517,10 @@ class GameController: UIViewController, PNObjectEventListener {
             let name: String = dictionary["name"] as! String
             let nameSize: Int = Int(dictionary["name-size"] as! String)!
             let nameSpeed: Int = Int(dictionary["name-speed"] as! String)!
-            let uuid: String = dictionary["uuid"] as! String
+            let uuid: String = dictionary["userid"] as! String
             
             //only deduct coins if the tap goes through
-            if (uuid == GameController.uuid) {
+            if (uuid == PubnubHandler.uuid) {
                 //update coins
                 LocalDataHandler.setCoins(coins: LocalDataHandler.getCoins() - 1)
                 
@@ -562,8 +561,8 @@ class GameController: UIViewController, PNObjectEventListener {
                 label.alpha = 0
             })
         } else if (action == "win") {
-            let uuid = dictionary["uuid"] as! String;
-            if uuid == GameController.uuid {
+            let uuid = dictionary["userid"] as! String;
+            if uuid == PubnubHandler.uuid {
                 GameController.winner = true
                 //update local userData coin value
                 LocalDataHandler.setCoins(coins: LocalDataHandler.getCoins() + GameController.gs.pot)
