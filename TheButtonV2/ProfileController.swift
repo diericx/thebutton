@@ -13,6 +13,7 @@ import AVFoundation
 
 class ProfileController: UIViewController, UITextFieldDelegate {
     @IBOutlet weak var usernameTextField: UITextField!
+    @IBOutlet weak var totalTapsLabel: UILabel!
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -23,6 +24,8 @@ class ProfileController: UIViewController, UITextFieldDelegate {
         if (LocalDataHandler.getUsername() != nil) {
             usernameTextField.text = LocalDataHandler.getUsername()!
         }
+        
+        totalTapsLabel.text = String(LocalDataHandler.getTaps())
         
         updateUsernameChangeView()
         
