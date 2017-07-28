@@ -498,10 +498,10 @@
                                 <size key="shadowOffset" width="2" height="3"/>
                             </label>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Eig-wB-46t">
-                                <rect key="frame" x="0.0" y="146" width="375" height="375"/>
+                                <rect key="frame" x="25" y="171" width="325" height="325"/>
                                 <subviews>
                                     <imageView userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="zGX-Sa-xaQ">
-                                        <rect key="frame" x="0.0" y="0.0" width="375" height="375"/>
+                                        <rect key="frame" x="0.0" y="0.0" width="325" height="325"/>
                                     </imageView>
                                 </subviews>
                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
@@ -514,7 +514,7 @@
                                 </constraints>
                             </view>
                             <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="maskTarget" translatesAutoresizingMaskIntoConstraints="NO" id="H6O-wA-Niv">
-                                <rect key="frame" x="0.0" y="146" width="375" height="375"/>
+                                <rect key="frame" x="25" y="171" width="325" height="325"/>
                                 <constraints>
                                     <constraint firstAttribute="width" secondItem="H6O-wA-Niv" secondAttribute="height" multiplier="1:1" id="dOZ-K7-V0t"/>
                                 </constraints>
@@ -543,9 +543,9 @@
                             <constraint firstItem="Eig-wB-46t" firstAttribute="centerX" secondItem="73X-On-oh1" secondAttribute="centerX" id="29v-IL-T5u"/>
                             <constraint firstItem="H6O-wA-Niv" firstAttribute="centerY" secondItem="73X-On-oh1" secondAttribute="centerY" id="6h4-1h-HfY"/>
                             <constraint firstItem="bWZ-Wy-npt" firstAttribute="width" secondItem="73X-On-oh1" secondAttribute="width" id="88K-zt-j2z"/>
-                            <constraint firstItem="H6O-wA-Niv" firstAttribute="width" secondItem="73X-On-oh1" secondAttribute="width" id="DDt-1L-oay"/>
+                            <constraint firstItem="H6O-wA-Niv" firstAttribute="width" secondItem="73X-On-oh1" secondAttribute="width" constant="-50" id="DDt-1L-oay"/>
                             <constraint firstItem="bWZ-Wy-npt" firstAttribute="height" secondItem="73X-On-oh1" secondAttribute="height" id="FPY-WF-qN3"/>
-                            <constraint firstItem="Eig-wB-46t" firstAttribute="width" secondItem="73X-On-oh1" secondAttribute="width" id="Iq3-BK-BYv"/>
+                            <constraint firstItem="Eig-wB-46t" firstAttribute="width" secondItem="73X-On-oh1" secondAttribute="width" constant="-50" id="Iq3-BK-BYv"/>
                             <constraint firstItem="bWZ-Wy-npt" firstAttribute="centerY" secondItem="73X-On-oh1" secondAttribute="centerY" id="VNZ-Uh-Zze"/>
                             <constraint firstItem="Eig-wB-46t" firstAttribute="centerY" secondItem="73X-On-oh1" secondAttribute="centerY" id="gE3-mK-FsE"/>
                             <constraint firstItem="H6O-wA-Niv" firstAttribute="centerX" secondItem="73X-On-oh1" secondAttribute="centerX" id="jii-FI-ogx"/>

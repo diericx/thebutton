@@ -98,7 +98,6 @@ class GameController: UIViewController, PNObjectEventListener {
         
         
         //reset positions
-//        GameController.ResetGameState()
         resetGameToMatchState()
         
         //update ttc text
@@ -130,7 +129,19 @@ class GameController: UIViewController, PNObjectEventListener {
             usernameWarningLabel.isHidden = true
         }
         
-        //set winner button
+        //get the latest winner image
+        getLastWinnerImg()
+        
+        self.updateCoinLabel()
+        self.updatePotLabel()
+        self.updateCurrentEmojiLabels()
+        self.updateGoalEmojiLabels()
+        
+        resetGameToMatchState()
+    }
+    
+    //set winner button
+    func getLastWinnerImg() {
         if GameController.winnerImg != nil {
             print("Found a winner button image!")
             winnerButtonImageView.image = GameController.winnerImg
@@ -145,13 +156,6 @@ class GameController: UIViewController, PNObjectEventListener {
                 }
             }
         }
-        
-        self.updateCoinLabel()
-        self.updatePotLabel()
-        self.updateCurrentEmojiLabels()
-        self.updateGoalEmojiLabels()
-        
-        resetGameToMatchState()
     }
 
     override func didReceiveMemoryWarning() {
@@ -240,6 +244,9 @@ class GameController: UIViewController, PNObjectEventListener {
             //update goal and current emojis to show what the current goal/current selected emoji is
             self.updateGoalEmojiLabels()
             self.updateCurrentEmojiLabels()
+            
+            //update winner image ui
+            self.getLastWinnerImg()
             
         }
     }
