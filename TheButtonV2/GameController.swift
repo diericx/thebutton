@@ -513,7 +513,12 @@ class GameController: UIViewController, PNObjectEventListener {
         let dictionary: AnyObject = message.data.message as AnyObject;
         let action: String = dictionary["action"] as! String
         if (action == "button-press") {
-            print("Got a button press")
+            let sound = Int.random(min: 0, max: 3) * 2
+            let soundFile = "woodblock-\(sound)"
+            print(soundFile)
+            //play sound
+            playSound(name: soundFile, type: "mp3")
+            
             //get user's name
             let name: String = dictionary["name"] as! String
             let nameSize: Int = Int(dictionary["name-size"] as! String)!
@@ -585,7 +590,7 @@ class GameState {
     var pot = 0
     var tapsToNextLevel: Int?
     //const
-    static let tierChances: [Int] = [-1, 2, 2, 2, 2]
+    static let tierChances: [Int] = [-1, 8, 8, 8, 8]
     
     init() {
         tapsToNextLevel = LocalDataHandler.levelTapGoalFunc(level: LocalDataHandler.getLevel())
