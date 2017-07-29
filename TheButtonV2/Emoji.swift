@@ -132,6 +132,17 @@ class Emoji {
         return true
     }
     
+    //remove an item from inventory
+    static func removeFromMyInventory(emojiInput: String) {
+        var emojis = myInventory()
+        if(doIOwn(emojiInput: emojiInput)) {
+            emojis[emojiInput]! -= 1
+            if emojis[emojiInput]! == 0 {
+                emojis[emojiInput]! = 0
+            }
+        }
+    }
+    
     //Returns current emoji inventory
     static func myInventory() -> [String: Int] {
         return LocalDataHandler.getEmojiInvArray()
