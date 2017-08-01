@@ -32,6 +32,7 @@ class GameController: UIViewController, PNObjectEventListener {
     @IBOutlet weak var coinsView: UIView!
     @IBOutlet weak var coinsTargetLocation: UIView!
     @IBOutlet weak var levelLabel: UILabel!
+    @IBOutlet weak var collectButton: UIButton!
     
     //instance vars
     private var notification: NSObjectProtocol?
@@ -275,7 +276,7 @@ class GameController: UIViewController, PNObjectEventListener {
         LocalDataHandler.setLevel(value: level)
         //reward coins
         coinsToSpawn += LocalDataHandler.coinRewardFunc(level: level)
-        coinSpawnTimer = Timer.scheduledTimer(timeInterval: 0.01, target: self, selector: Selector("spawnCoin"),userInfo: nil, repeats: true)
+        coinSpawnTimer = Timer.scheduledTimer(timeInterval: 0.01, target: self, selector: Selector("spawnCoinOnButton"),userInfo: nil, repeats: true)
         //update tap goal
         GameController.gs.tapsToNextLevel = LocalDataHandler.tapsToGetToLevel(level: level)
         //update label
@@ -397,20 +398,26 @@ class GameController: UIViewController, PNObjectEventListener {
         }
     }
     
-    func spawnCoin() {
+    func spawnCoinOnButton() {
+        spawnCoin(targetFrame: theButton.frame, speed: 1.2)
+    }
+    
+    func spawnCoinOnCollect() {
+        spawnCoin(targetFrame: collectButton.frame, speed: 0.5)
+    }
+    
+    func spawnCoin(targetFrame: CGRect, speed: TimeInterval) {
         if (coinsToSpawn <= 0 && coinSpawnTimer != nil) {
             coinSpawnTimer?.invalidate()
         }
         //spawn coin
-        var animator: UIDynamicAnimator!
-        var gravity: UIGravityBehavior!
         let image = UIImage(named: "coinImg.png")
-        var imageView = UIImageView(image: image!)
+        let imageView = UIImageView(image: image!)
         let randX = CGFloat.random(min: 0, max: theButton.frame.width-25)
-        imageView.frame = CGRect(x: theButton.frame.origin.x + randX, y: theButton.frame.origin.y + (theButton.frame.height/2), width: 25, height: 25)
+        imageView.frame = CGRect(x: targetFrame.origin.x + randX, y: targetFrame.origin.y + (targetFrame.height/2), width: 25, height: 25)
         coinsView.addSubview(imageView)
         //REGULAR ANIMATION
-        UIView.animate(withDuration: 1.2, animations: {
+        UIView.animate(withDuration: speed, animations: {
             //targot origin/frame
             imageView.frame = self.coinsTargetLocation.frame
         })  { (finished) in
@@ -456,12 +463,10 @@ class GameController: UIViewController, PNObjectEventListener {
     @IBAction func onCollectBtnTap(_ sender: Any) {
         if (canCollect) {
             playSound(name: "coins", type: "wav")
-            var coins = LocalDataHandler.getCoins()
-            LocalDataHandler.setCoins(coins: coins+100)
-            self.updateCoinLabel()
-            LocalDataHandler.setLastLootCollectTime(status: Date())
+//            LocalDataHandler.setLastLootCollectTime(status: Date())
             self.updateTimeToCollectTxt()
-            performSegue(withIdentifier: "ShowCollectionScreen", sender: self)
+            coinsToSpawn += 100
+            coinSpawnTimer = Timer.scheduledTimer(timeInterval: 0.01, target: self, selector: #selector(GameController.spawnCoinOnCollect),userInfo: nil, repeats: true)
             
             canCollect = false
         }

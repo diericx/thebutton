@@ -314,6 +314,7 @@
                     <connections>
                         <outlet property="coinsTargetLocation" destination="YaC-sy-rRh" id="NIf-zj-kRc"/>
                         <outlet property="coinsView" destination="YKD-Tr-sTO" id="mTc-io-iHf"/>
+                        <outlet property="collectButton" destination="zvQ-7i-cKl" id="VjG-Nw-CBR"/>
                         <outlet property="highlightBarImageView" destination="kw5-xw-Nrt" id="gsG-R0-hbk"/>
                         <outlet property="hourGlassImageView" destination="pol-hn-hJh" id="WnY-Mr-CTi"/>
                         <outlet property="levelLabel" destination="lAa-hZ-FY7" id="K5l-YZ-pIW"/>

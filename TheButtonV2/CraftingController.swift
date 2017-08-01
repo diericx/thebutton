@@ -137,10 +137,15 @@ class CraftingController: UIViewController, UITextFieldDelegate, UICollectionVie
         guard let recipeResult = Emoji.isRecipeValid(recipeInput: recipe) else {
             return
         }
+        
         Emoji.addToMyInventory(emojiInput: recipeResult)
+        Emoji.removeFromMyInventory(emojiInput: Emoji.emojis[recipe[slot1]!] )
+        Emoji.removeFromMyInventory(emojiInput: Emoji.emojis[recipe[slot2]!] )
+        Emoji.removeFromMyInventory(emojiInput: Emoji.emojis[recipe[slot3]!] )
         for slot in slots! {
             slot.setTitle("", for: .normal)
         }
+        
         //TODO: Change 5 to emoji index
         let i = IndexPath(row: 5, section: 0)
         self.emojiCollectionView!.reloadItems(at: [i])

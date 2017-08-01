@@ -27,9 +27,9 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         
         //DEBUG
         //TODO: Remove this
-//        LocalDataHandler.setCoins(coins: 5000)
-//        LocalDataHandler.setLevel(value: 0)
-//        LocalDataHandler.setTaps(value: 0)
+        LocalDataHandler.setCoins(coins: 100)
+        LocalDataHandler.setLevel(value: 0)
+        LocalDataHandler.setTaps(value: 0)
     }
 
     
