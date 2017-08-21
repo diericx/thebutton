@@ -469,6 +469,8 @@ class GameController: UIViewController, PNObjectEventListener {
             coinSpawnTimer = Timer.scheduledTimer(timeInterval: 0.01, target: self, selector: #selector(GameController.spawnCoinOnCollect),userInfo: nil, repeats: true)
             
             canCollect = false
+        } else {
+            performSegue(withIdentifier: "ShowCollectShopScreen", sender: self)
         }
     }
     

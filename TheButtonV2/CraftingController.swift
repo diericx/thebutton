@@ -44,6 +44,12 @@ class CraftingController: UIViewController, UITextFieldDelegate, UICollectionVie
         return true
     }
     
+    override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
+        var touch = touches.first
+        let location = touch?.location(in: emojiCollectionView)
+        print(location)
+    }
+    
     func emojiButtonAction(sender: UIButton!) {
         print("Button tapped")
     }
@@ -90,12 +96,22 @@ class CraftingController: UIViewController, UITextFieldDelegate, UICollectionVie
         } else {
             cell.amountText.text = "x" + String(count)
         }
+        
+//        GESTURE
+        cell.isUserInteractionEnabled = true
+        
         cell.emojiButton.addTarget(self, action: "emojiButtonUp:", for: .touchUpInside)
+//        cell.emojiButton.addTarget(self, action: "emojiButtonDrag:", for: .touchDragEnter)
 
         return cell
     }
     
+    func emojiButtonDrag(_ sender: AnyObject?) {
+        
+    }
+    
     func emojiButtonUp(_ sender: AnyObject?) {
+        print("emoji Button up inside..")
         var emoji = Emoji.emojis[(sender?.tag)!]
         if Emoji.doIOwn(emojiInput: emoji) {
             selectedEmoji = Emoji.emojis[(sender?.tag)!]
@@ -105,6 +121,7 @@ class CraftingController: UIViewController, UITextFieldDelegate, UICollectionVie
     }
     
     @IBAction func slotUpInside(_ sender: UIButton!) {
+        print("Slot up inside..")
         if selectedEmoji != "" {
             sender.setTitle(selectedEmoji, for: .normal)
             if (sender.tag == 0) {

@@ -339,7 +339,7 @@
                         <outletCollection property="clouds" destination="zEm-fp-xCR" collectionClass="NSMutableArray" id="iji-Of-Koy"/>
                         <outletCollection property="clouds" destination="LVb-d0-dfO" collectionClass="NSMutableArray" id="Hdy-FV-xkL"/>
                         <segue destination="9sc-Jc-dQH" kind="presentation" identifier="ShowWinScreenSegue" modalPresentationStyle="overCurrentContext" modalTransitionStyle="crossDissolve" id="Rdr-SI-Qy9"/>
-                        <segue destination="5mf-Cz-URS" kind="presentation" identifier="ShowCollectionScreen" modalPresentationStyle="overCurrentContext" modalTransitionStyle="crossDissolve" id="HKd-ns-UKZ"/>
+                        <segue destination="5mf-Cz-URS" kind="presentation" identifier="ShowCollectShopScreen" modalPresentationStyle="overCurrentContext" modalTransitionStyle="crossDissolve" id="HKd-ns-UKZ"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
@@ -416,41 +416,69 @@
                                     <action selector="onSaveButtonPress:" destination="ekc-x2-F9Q" eventType="touchUpInside" id="5fC-k9-oOO"/>
                                 </connections>
                             </button>
-                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="M6Z-oT-ktY" userLabel="slot1">
-                                <rect key="frame" x="16" y="287" width="80" height="80"/>
+                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" hasAttributedTitle="YES" translatesAutoresizingMaskIntoConstraints="NO" id="M6Z-oT-ktY" userLabel="slot1">
+                                <rect key="frame" x="15" y="266" width="82" height="93"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <color key="backgroundColor" red="0.56245094191349709" green="1" blue="0.54694091428578873" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="53"/>
+                                <state key="normal" backgroundImage="emojiSlot">
+                                    <attributedString key="attributedTitle"/>
+                                </state>
                                 <connections>
                                     <action selector="slotUpInside:" destination="ekc-x2-F9Q" eventType="touchUpInside" id="57F-Wn-n0d"/>
                                 </connections>
                             </button>
-                            <button opaque="NO" tag="1" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="sbp-61-Vih" userLabel="slot2">
-                                <rect key="frame" x="147" y="287" width="80" height="80"/>
+                            <button opaque="NO" tag="1" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" hasAttributedTitle="YES" translatesAutoresizingMaskIntoConstraints="NO" id="sbp-61-Vih" userLabel="slot2">
+                                <rect key="frame" x="146" y="266" width="82" height="93"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <color key="backgroundColor" red="0.52950698656898099" green="1" blue="0.52243507349547824" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="53"/>
+                                <state key="normal" backgroundImage="emojiSlot">
+                                    <attributedString key="attributedTitle"/>
+                                </state>
                                 <connections>
                                     <action selector="slotUpInside:" destination="ekc-x2-F9Q" eventType="touchUpInside" id="siw-8K-QvU"/>
                                 </connections>
                             </button>
-                            <button opaque="NO" tag="2" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="JNs-fl-BVl" userLabel="slot3">
-                                <rect key="frame" x="279" y="287" width="80" height="80"/>
+                            <button opaque="NO" tag="2" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" hasAttributedTitle="YES" translatesAutoresizingMaskIntoConstraints="NO" id="JNs-fl-BVl" userLabel="slot3">
+                                <rect key="frame" x="278" y="266" width="82" height="93"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <color key="backgroundColor" red="0.49851767321203899" green="1" blue="0.48570787063226328" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="53"/>
+                                <state key="normal" backgroundImage="emojiSlot">
+                                    <attributedString key="attributedTitle"/>
+                                </state>
                                 <connections>
                                     <action selector="slotUpInside:" destination="ekc-x2-F9Q" eventType="touchUpInside" id="vcX-Am-Sj2"/>
                                 </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="re1-q1-YNg">
-                                <rect key="frame" x="163" y="228" width="48" height="30"/>
+                                <rect key="frame" x="163" y="217" width="48" height="30"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <state key="normal" title="CRAFT"/>
                                 <connections>
                                     <action selector="craftButtonUpInside:" destination="ekc-x2-F9Q" eventType="touchUpInside" id="GUN-EY-s7R"/>
                                 </connections>
                             </button>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Slot 1" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="mbL-fC-Nt2">
+                                <rect key="frame" x="15" y="359" width="81" height="13"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <fontDescription key="fontDescription" name="Skranji" family="Skranji" pointSize="12"/>
+                                <color key="textColor" red="1" green="1" blue="1" alpha="0.54280369718309862" colorSpace="custom" customColorSpace="sRGB"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Slot 2" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ZY1-2p-dCr">
+                                <rect key="frame" x="147" y="359" width="81" height="13"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <fontDescription key="fontDescription" name="Skranji" family="Skranji" pointSize="12"/>
+                                <color key="textColor" red="1" green="1" blue="1" alpha="0.54280369719999999" colorSpace="custom" customColorSpace="sRGB"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Slot 3" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="QON-Of-1RR">
+                                <rect key="frame" x="278" y="359" width="81" height="13"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <fontDescription key="fontDescription" name="Skranji" family="Skranji" pointSize="12"/>
+                                <color key="textColor" red="1" green="1" blue="1" alpha="0.54280369719999999" colorSpace="custom" customColorSpace="sRGB"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <imageView hidden="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="craftedBackground" translatesAutoresizingMaskIntoConstraints="NO" id="IbU-0z-v1D">
+                                <rect key="frame" x="61" y="-8" width="254" height="246"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                            </imageView>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
@@ -473,7 +501,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Giz-3Y-pk0" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-159" y="-853"/>
+            <point key="canvasLocation" x="-159.19999999999999" y="-853.22338830584715"/>
         </scene>
         <!--Win Screen Controller-->
         <scene sceneID="ZS9-dF-Muq">
@@ -686,6 +714,8 @@
         <image name="bg-nocloud" width="800" height="1675"/>
         <image name="blankBar" width="172" height="47"/>
         <image name="cloud" width="990" height="347"/>
+        <image name="craftedBackground" width="1863" height="1846"/>
+        <image name="emojiSlot" width="82" height="93"/>
         <image name="exitBtn" width="44" height="45"/>
         <image name="freeMoneyBanner" width="479" height="524"/>
         <image name="hourglass" width="96" height="123"/>
