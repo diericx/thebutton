@@ -52,7 +52,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="67e-uX-wrl" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-1002.4" y="-112.89355322338831"/>
+            <point key="canvasLocation" x="-1230" y="46"/>
         </scene>
         <!--Game Controller-->
         <scene sceneID="tne-QT-ifu">
@@ -416,32 +416,29 @@
                                     <action selector="onSaveButtonPress:" destination="ekc-x2-F9Q" eventType="touchUpInside" id="5fC-k9-oOO"/>
                                 </connections>
                             </button>
-                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" hasAttributedTitle="YES" translatesAutoresizingMaskIntoConstraints="NO" id="M6Z-oT-ktY" userLabel="slot1">
+                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="M6Z-oT-ktY" userLabel="slot1">
                                 <rect key="frame" x="15" y="266" width="82" height="93"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <state key="normal" backgroundImage="emojiSlot">
-                                    <attributedString key="attributedTitle"/>
-                                </state>
+                                <fontDescription key="fontDescription" type="system" pointSize="46"/>
+                                <state key="normal" title="" backgroundImage="emojiSlot"/>
                                 <connections>
                                     <action selector="slotUpInside:" destination="ekc-x2-F9Q" eventType="touchUpInside" id="57F-Wn-n0d"/>
                                 </connections>
                             </button>
-                            <button opaque="NO" tag="1" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" hasAttributedTitle="YES" translatesAutoresizingMaskIntoConstraints="NO" id="sbp-61-Vih" userLabel="slot2">
+                            <button opaque="NO" tag="1" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="sbp-61-Vih" userLabel="slot2">
                                 <rect key="frame" x="146" y="266" width="82" height="93"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <state key="normal" backgroundImage="emojiSlot">
-                                    <attributedString key="attributedTitle"/>
-                                </state>
+                                <fontDescription key="fontDescription" type="system" pointSize="46"/>
+                                <state key="normal" title="" backgroundImage="emojiSlot"/>
                                 <connections>
                                     <action selector="slotUpInside:" destination="ekc-x2-F9Q" eventType="touchUpInside" id="siw-8K-QvU"/>
                                 </connections>
                             </button>
-                            <button opaque="NO" tag="2" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" hasAttributedTitle="YES" translatesAutoresizingMaskIntoConstraints="NO" id="JNs-fl-BVl" userLabel="slot3">
+                            <button opaque="NO" tag="2" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="JNs-fl-BVl" userLabel="slot3">
                                 <rect key="frame" x="278" y="266" width="82" height="93"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <state key="normal" backgroundImage="emojiSlot">
-                                    <attributedString key="attributedTitle"/>
-                                </state>
+                                <fontDescription key="fontDescription" type="system" pointSize="46"/>
+                                <state key="normal" title="" backgroundImage="emojiSlot"/>
                                 <connections>
                                     <action selector="slotUpInside:" destination="ekc-x2-F9Q" eventType="touchUpInside" id="vcX-Am-Sj2"/>
                                 </connections>
@@ -493,6 +490,7 @@
                     </view>
                     <connections>
                         <outlet property="emojiCollectionView" destination="kek-Mz-fqq" id="OZw-9H-Nth"/>
+                        <outlet property="successRaysImage" destination="IbU-0z-v1D" id="3qx-64-Nhv"/>
                         <outletCollection property="slots" destination="M6Z-oT-ktY" collectionClass="NSMutableArray" id="Zkh-Fy-pHF"/>
                         <outletCollection property="slots" destination="sbp-61-Vih" collectionClass="NSMutableArray" id="osg-bE-AmY"/>
                         <outletCollection property="slots" destination="JNs-fl-BVl" collectionClass="NSMutableArray" id="nup-EI-l1P"/>
@@ -501,7 +499,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Giz-3Y-pk0" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-159.19999999999999" y="-853.22338830584715"/>
+            <point key="canvasLocation" x="-135" y="-853"/>
         </scene>
         <!--Win Screen Controller-->
         <scene sceneID="ZS9-dF-Muq">
@@ -604,7 +602,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="DVE-Ab-isq" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="791" y="48"/>
+            <point key="canvasLocation" x="854" y="47"/>
         </scene>
         <!--Upgrades-->
         <scene sceneID="zGM-ia-h9q">
@@ -706,7 +704,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Jmu-vs-bMV" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="864.79999999999995" y="-825.33733133433293"/>
+            <point key="canvasLocation" x="854" y="-853"/>
         </scene>
     </scenes>
     <resources>

@@ -13,6 +13,7 @@ import CloudKit
 
 class CraftingController: UIViewController, UITextFieldDelegate, UICollectionViewDelegate, UICollectionViewDataSource {
     
+    @IBOutlet weak var successRaysImage: UIImageView!
     @IBOutlet weak var emojiCollectionView: UICollectionView!
     @IBOutlet var slots: [UIButton]?
     var selectedEmoji = ""
@@ -20,12 +21,10 @@ class CraftingController: UIViewController, UITextFieldDelegate, UICollectionVie
     var slot2 = ""
     var slot3 = ""
     
-    
     override func viewDidLoad() {
         super.viewDidLoad()
-//        createEmojiButtons()
         
-//        print("Recipe: \(Emoji.isRecipeValid(recipe: ["👮🏾‍♀️": 1, "👱🏼‍♀️": 1, "👱🏼": 1]))")
+//        createEmojiButtons()
         
         //make sure emoji collection view's controller is this view.
         //Functions implemented below
@@ -35,8 +34,20 @@ class CraftingController: UIViewController, UITextFieldDelegate, UICollectionVie
         self.emojiCollectionView.backgroundColor = UIColor.clear;
         self.emojiCollectionView.backgroundView?.backgroundColor = UIColor.clear;
         
+        }
+    
+    override func viewDidAppear(_ animated: Bool) {
         
-//        ETree.getDTree().printTree()
+        UIView.animate(withDuration: 1.5, delay: 0, options: [.repeat, .curveLinear], animations: {
+            self.successRaysImage.transform = CGAffineTransform(rotationAngle: CGFloat(Double.pi))
+        })  { (finished) in
+            UIView.animate(withDuration: 1.5, delay: 0, options: [.curveLinear], animations: {
+                self.successRaysImage.transform = CGAffineTransform(rotationAngle: CGFloat(2*Double.pi))
+            })  { (finished) in
+                
+            }
+        }
+        
     }
     
     //remove status bar
