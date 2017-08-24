@@ -472,23 +472,41 @@
                                 <color key="textColor" red="1" green="1" blue="1" alpha="0.54280369719999999" colorSpace="custom" customColorSpace="sRGB"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <imageView hidden="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="craftedBackground" translatesAutoresizingMaskIntoConstraints="NO" id="IbU-0z-v1D">
-                                <rect key="frame" x="61" y="-8" width="254" height="246"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                            <imageView hidden="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="craftedBackground" translatesAutoresizingMaskIntoConstraints="NO" id="IbU-0z-v1D">
+                                <rect key="frame" x="61" y="-7" width="254" height="246"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="254" id="A8E-13-5lz"/>
+                                    <constraint firstAttribute="height" constant="246" id="cpm-yh-7N5"/>
+                                </constraints>
                             </imageView>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="foR-r8-T7H" userLabel="CraftedEmojiLabel">
+                                <rect key="frame" x="137" y="78" width="100" height="100"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="100" id="1AV-JT-FWj"/>
+                                    <constraint firstAttribute="width" constant="100" id="LAR-NE-2Of"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" type="system" pointSize="90"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
                             <constraint firstItem="ujj-Pg-0PT" firstAttribute="centerX" secondItem="CAy-Xh-KB3" secondAttribute="centerX" id="1Qy-iX-Qtc"/>
                             <constraint firstItem="Xva-rb-Rfv" firstAttribute="centerY" secondItem="CAy-Xh-KB3" secondAttribute="centerY" id="55W-YA-hnV"/>
+                            <constraint firstItem="foR-r8-T7H" firstAttribute="top" secondItem="YGf-Hf-AAK" secondAttribute="bottom" constant="58" id="A5l-wf-2Ls"/>
+                            <constraint firstItem="IbU-0z-v1D" firstAttribute="centerX" secondItem="CAy-Xh-KB3" secondAttribute="centerX" id="NxV-XB-esQ"/>
                             <constraint firstItem="Xva-rb-Rfv" firstAttribute="width" secondItem="CAy-Xh-KB3" secondAttribute="width" id="Xol-NJ-HG1"/>
+                            <constraint firstItem="IbU-0z-v1D" firstAttribute="top" secondItem="CAy-Xh-KB3" secondAttribute="top" constant="-7" id="gui-0E-8ue"/>
                             <constraint firstAttribute="bottom" secondItem="ujj-Pg-0PT" secondAttribute="bottom" constant="-65" id="krx-SE-vJl"/>
                             <constraint firstItem="Xva-rb-Rfv" firstAttribute="centerX" secondItem="CAy-Xh-KB3" secondAttribute="centerX" id="oNI-kt-3E5"/>
                             <constraint firstItem="Xva-rb-Rfv" firstAttribute="height" secondItem="CAy-Xh-KB3" secondAttribute="height" id="qFH-qi-Ata"/>
                             <constraint firstItem="ujj-Pg-0PT" firstAttribute="width" secondItem="CAy-Xh-KB3" secondAttribute="width" id="qiv-3T-oRW"/>
+                            <constraint firstItem="foR-r8-T7H" firstAttribute="centerX" secondItem="CAy-Xh-KB3" secondAttribute="centerX" id="vZI-UD-HMF"/>
                         </constraints>
                     </view>
                     <connections>
+                        <outlet property="craftedEmojiLabel" destination="foR-r8-T7H" id="M9Q-oN-8kf"/>
                         <outlet property="emojiCollectionView" destination="kek-Mz-fqq" id="OZw-9H-Nth"/>
                         <outlet property="successRaysImage" destination="IbU-0z-v1D" id="3qx-64-Nhv"/>
                         <outletCollection property="slots" destination="M6Z-oT-ktY" collectionClass="NSMutableArray" id="Zkh-Fy-pHF"/>
@@ -499,7 +517,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Giz-3Y-pk0" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-135" y="-853"/>
+            <point key="canvasLocation" x="-135.19999999999999" y="-853.22338830584715"/>
         </scene>
         <!--Win Screen Controller-->
         <scene sceneID="ZS9-dF-Muq">

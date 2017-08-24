@@ -127,7 +127,7 @@ class Emoji {
             return false
         }
         //add emoji to inventory
-        emojis[emojiInput] = 0
+        emojis[emojiInput] = 1
         LocalDataHandler.setEmojiInvArray(status: emojis)
         return true
     }

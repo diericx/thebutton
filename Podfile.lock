@@ -4,17 +4,20 @@ PODS:
   - PubNub (4.5.11):
     - PubNub/Core (= 4.5.11)
   - PubNub/Core (4.5.11)
+  - SwiftyStoreKit (0.6.1)
 
 DEPENDENCIES:
   - GzipSwift
   - KDCircularProgress
   - PubNub (~> 4)
+  - SwiftyStoreKit
 
 SPEC CHECKSUMS:
   GzipSwift: 86700e6530b3aa5e782ed7107cde2deea6b16688
   KDCircularProgress: 12f677b2deb02409ab48c6cae1898d146b8ad549
   PubNub: bf767a13b65f0492f8a2f141d6af27d1e8746f2b
+  SwiftyStoreKit: 956408606f43ec3df3386b56e65615bb19bee85e
 
-PODFILE CHECKSUM: a8c0ea7ee2d9655ced8118705b4978bfccc36232
+PODFILE CHECKSUM: 7846ba542acbf76bf583a10bc71830da5331f8e2
 
-COCOAPODS: 1.2.0
+COCOAPODS: 1.3.1

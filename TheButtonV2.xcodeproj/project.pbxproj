@@ -25,6 +25,8 @@
 		11A68E591F2B333B001EFB1E /* woodblock-6.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 11A68E561F2B333B001EFB1E /* woodblock-6.mp3 */; };
 		11A68E5B1F2B3465001EFB1E /* woodblock-0.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 11A68E5A1F2B3465001EFB1E /* woodblock-0.mp3 */; };
 		11A68E5D1F2BBC7A001EFB1E /* AppLovinSDK.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 11A68E5C1F2BBC7A001EFB1E /* AppLovinSDK.framework */; };
+		11C6317B1F4CD6400069EED0 /* StoreKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 11C6317A1F4CD6400069EED0 /* StoreKit.framework */; };
+		11C632311F4DF2780069EED0 /* IAPHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = 11C632301F4DF2780069EED0 /* IAPHandler.swift */; };
 		11E914981F1358B4002D4D74 /* EmojiOld.swift in Sources */ = {isa = PBXBuildFile; fileRef = 11E914971F1358B4002D4D74 /* EmojiOld.swift */; };
 		11E9149A1F135936002D4D74 /* PubnubHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = 11E914991F135936002D4D74 /* PubnubHandler.swift */; };
 		11EB28FF1EE641A9002BEF42 /* LocalDataHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = 11EB28FE1EE641A9002BEF42 /* LocalDataHandler.swift */; };
@@ -78,6 +80,8 @@
 		11A68E561F2B333B001EFB1E /* woodblock-6.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = "woodblock-6.mp3"; sourceTree = "<group>"; };
 		11A68E5A1F2B3465001EFB1E /* woodblock-0.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = "woodblock-0.mp3"; sourceTree = "<group>"; };
 		11A68E5C1F2BBC7A001EFB1E /* AppLovinSDK.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = AppLovinSDK.framework; sourceTree = "<group>"; };
+		11C6317A1F4CD6400069EED0 /* StoreKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = StoreKit.framework; path = System/Library/Frameworks/StoreKit.framework; sourceTree = SDKROOT; };
+		11C632301F4DF2780069EED0 /* IAPHandler.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = IAPHandler.swift; sourceTree = "<group>"; };
 		11E914971F1358B4002D4D74 /* EmojiOld.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EmojiOld.swift; sourceTree = "<group>"; };
 		11E914991F135936002D4D74 /* PubnubHandler.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PubnubHandler.swift; sourceTree = "<group>"; };
 		11EB28FE1EE641A9002BEF42 /* LocalDataHandler.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LocalDataHandler.swift; sourceTree = "<group>"; };
@@ -110,6 +114,7 @@
 				475AE09944986636DD054D65 /* Pods_TheButtonV2.framework in Frameworks */,
 				11EB52C31EE3B7FF00A5312F /* CloudKit.framework in Frameworks */,
 				11A68E5D1F2BBC7A001EFB1E /* AppLovinSDK.framework in Frameworks */,
+				11C6317B1F4CD6400069EED0 /* StoreKit.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -161,6 +166,7 @@
 				11E914991F135936002D4D74 /* PubnubHandler.swift */,
 				11E914971F1358B4002D4D74 /* EmojiOld.swift */,
 				11246B611F1835D800312035 /* Emoji.swift */,
+				11C632301F4DF2780069EED0 /* IAPHandler.swift */,
 			);
 			name = CustomClasses;
 			sourceTree = "<group>";
@@ -250,6 +256,7 @@
 		6F82AE19C40C32F3CD1B0A8F /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				11C6317A1F4CD6400069EED0 /* StoreKit.framework */,
 				11A68E5C1F2BBC7A001EFB1E /* AppLovinSDK.framework */,
 				11EB52C21EE3B7FF00A5312F /* CloudKit.framework */,
 				29776B2A315281BAD52BF208 /* Pods_TheButtonV2.framework */,
@@ -331,6 +338,9 @@
 						DevelopmentTeam = 5PJ639S4VT;
 						ProvisioningStyle = Automatic;
 						SystemCapabilities = {
+							com.apple.InAppPurchase = {
+								enabled = 1;
+							};
 							com.apple.Push = {
 								enabled = 1;
 							};
@@ -431,13 +441,16 @@
 			files = (
 			);
 			inputPaths = (
+				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
+				"${PODS_ROOT}/Manifest.lock",
 			);
 			name = "[CP] Check Pods Manifest.lock";
 			outputPaths = (
+				"$(DERIVED_FILE_DIR)/Pods-TheButtonV2-checkManifestLockResult.txt",
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "diff \"${PODS_ROOT}/../Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n";
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
 			showEnvVarsInLog = 0;
 		};
 		99F6ABE4DE260043605CEBE0 /* [CP] Embed Pods Frameworks */ = {
@@ -446,9 +459,18 @@
 			files = (
 			);
 			inputPaths = (
+				"${SRCROOT}/Pods/Target Support Files/Pods-TheButtonV2/Pods-TheButtonV2-frameworks.sh",
+				"${BUILT_PRODUCTS_DIR}/GzipSwift/Gzip.framework",
+				"${BUILT_PRODUCTS_DIR}/KDCircularProgress/KDCircularProgress.framework",
+				"${BUILT_PRODUCTS_DIR}/PubNub/PubNub.framework",
+				"${BUILT_PRODUCTS_DIR}/SwiftyStoreKit/SwiftyStoreKit.framework",
 			);
 			name = "[CP] Embed Pods Frameworks";
 			outputPaths = (
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Gzip.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/KDCircularProgress.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/PubNub.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/SwiftyStoreKit.framework",
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
@@ -465,6 +487,7 @@
 				11E914981F1358B4002D4D74 /* EmojiOld.swift in Sources */,
 				11139C9B1F217DE300FD8E88 /* CollectViewController.swift in Sources */,
 				11EB52BE1EE38A9800A5312F /* WinScreenController.swift in Sources */,
+				11C632311F4DF2780069EED0 /* IAPHandler.swift in Sources */,
 				11EB28FF1EE641A9002BEF42 /* LocalDataHandler.swift in Sources */,
 				11EB52C01EE3ADC900A5312F /* DataExtension.swift in Sources */,
 				11E9149A1F135936002D4D74 /* PubnubHandler.swift in Sources */,

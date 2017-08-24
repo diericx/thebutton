@@ -13,6 +13,7 @@ import CloudKit
 
 class CraftingController: UIViewController, UITextFieldDelegate, UICollectionViewDelegate, UICollectionViewDataSource {
     
+    @IBOutlet weak var craftedEmojiLabel: UILabel!
     @IBOutlet weak var successRaysImage: UIImageView!
     @IBOutlet weak var emojiCollectionView: UICollectionView!
     @IBOutlet var slots: [UIButton]?
@@ -24,8 +25,6 @@ class CraftingController: UIViewController, UITextFieldDelegate, UICollectionVie
     override func viewDidLoad() {
         super.viewDidLoad()
         
-//        createEmojiButtons()
-        
         //make sure emoji collection view's controller is this view.
         //Functions implemented below
         self.emojiCollectionView.delegate = self
@@ -34,7 +33,7 @@ class CraftingController: UIViewController, UITextFieldDelegate, UICollectionVie
         self.emojiCollectionView.backgroundColor = UIColor.clear;
         self.emojiCollectionView.backgroundView?.backgroundColor = UIColor.clear;
         
-        }
+    }
     
     override func viewDidAppear(_ animated: Bool) {
         
@@ -102,6 +101,7 @@ class CraftingController: UIViewController, UITextFieldDelegate, UICollectionVie
         cell.emojiButton.tag = indexPath.row
         //edit amount text
         let count = Emoji.howManyDoIOwn(emojiInput: Emoji.emojis[indexPath.row])
+        
         if count == 0 {
             cell.amountText.text = ""
         } else {
@@ -166,17 +166,23 @@ class CraftingController: UIViewController, UITextFieldDelegate, UICollectionVie
             return
         }
         
-        Emoji.addToMyInventory(emojiInput: recipeResult)
-        Emoji.removeFromMyInventory(emojiInput: Emoji.emojis[recipe[slot1]!] )
-        Emoji.removeFromMyInventory(emojiInput: Emoji.emojis[recipe[slot2]!] )
-        Emoji.removeFromMyInventory(emojiInput: Emoji.emojis[recipe[slot3]!] )
-        for slot in slots! {
-            slot.setTitle("", for: .normal)
-        }
+        //Show animation
+        successRaysImage.isHidden = false
+        craftedEmojiLabel.text = recipeResult
         
-        //TODO: Change 5 to emoji index
-        let i = IndexPath(row: 5, section: 0)
-        self.emojiCollectionView!.reloadItems(at: [i])
+//        //TODO - change inventory items
+//        Emoji.addToMyInventory(emojiInput: recipeResult)
+//        Emoji.removeFromMyInventory(emojiInput: Emoji.emojis[recipe[slot1]!] )
+//        Emoji.removeFromMyInventory(emojiInput: Emoji.emojis[recipe[slot2]!] )
+//        Emoji.removeFromMyInventory(emojiInput: Emoji.emojis[recipe[slot3]!] )
+//        
+//        for slot in slots! {
+//            slot.setTitle("", for: .normal)
+//        }
+//        
+//        //TODO: Change 5 to emoji index and update all affected emoji
+//        let i = IndexPath(row: 5, section: 0)
+//        self.emojiCollectionView!.reloadItems(at: [i])
     }
     
     override func didReceiveMemoryWarning() {
