@@ -11,6 +11,7 @@
 		11139C991F217B4000FD8E88 /* ProfileController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 11139C981F217B4000FD8E88 /* ProfileController.swift */; };
 		11139C9B1F217DE300FD8E88 /* CollectViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 11139C9A1F217DE300FD8E88 /* CollectViewController.swift */; };
 		11246B621F1835D800312035 /* Emoji.swift in Sources */ = {isa = PBXBuildFile; fileRef = 11246B611F1835D800312035 /* Emoji.swift */; };
+		112D12281F54AAEE00B4533F /* IAPViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 112D12271F54AAEE00B4533F /* IAPViewController.swift */; };
 		114FC93D1F16C70900D6F1E0 /* EmojiCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 114FC93C1F16C70900D6F1E0 /* EmojiCollectionViewCell.swift */; };
 		116BBD301EFD7F0500AB16A8 /* AveriaSansLibre-LightItalic.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 116BBD2F1EFD7F0500AB16A8 /* AveriaSansLibre-LightItalic.ttf */; };
 		116BBD321EFD81E900AB16A8 /* Skranji-Regular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 116BBD311EFD81DA00AB16A8 /* Skranji-Regular.ttf */; };
@@ -26,7 +27,6 @@
 		11A68E5B1F2B3465001EFB1E /* woodblock-0.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 11A68E5A1F2B3465001EFB1E /* woodblock-0.mp3 */; };
 		11A68E5D1F2BBC7A001EFB1E /* AppLovinSDK.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 11A68E5C1F2BBC7A001EFB1E /* AppLovinSDK.framework */; };
 		11C6317B1F4CD6400069EED0 /* StoreKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 11C6317A1F4CD6400069EED0 /* StoreKit.framework */; };
-		11C632311F4DF2780069EED0 /* IAPHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = 11C632301F4DF2780069EED0 /* IAPHandler.swift */; };
 		11E914981F1358B4002D4D74 /* EmojiOld.swift in Sources */ = {isa = PBXBuildFile; fileRef = 11E914971F1358B4002D4D74 /* EmojiOld.swift */; };
 		11E9149A1F135936002D4D74 /* PubnubHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = 11E914991F135936002D4D74 /* PubnubHandler.swift */; };
 		11EB28FF1EE641A9002BEF42 /* LocalDataHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = 11EB28FE1EE641A9002BEF42 /* LocalDataHandler.swift */; };
@@ -66,6 +66,7 @@
 		11139C981F217B4000FD8E88 /* ProfileController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ProfileController.swift; sourceTree = "<group>"; };
 		11139C9A1F217DE300FD8E88 /* CollectViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CollectViewController.swift; sourceTree = "<group>"; };
 		11246B611F1835D800312035 /* Emoji.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Emoji.swift; sourceTree = "<group>"; };
+		112D12271F54AAEE00B4533F /* IAPViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = IAPViewController.swift; sourceTree = "<group>"; };
 		114FC93C1F16C70900D6F1E0 /* EmojiCollectionViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EmojiCollectionViewCell.swift; sourceTree = "<group>"; };
 		116BBD2F1EFD7F0500AB16A8 /* AveriaSansLibre-LightItalic.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; name = "AveriaSansLibre-LightItalic.ttf"; path = "../../../../../Downloads/averia_sans_libre/AveriaSansLibre-LightItalic.ttf"; sourceTree = "<group>"; };
 		116BBD311EFD81DA00AB16A8 /* Skranji-Regular.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Skranji-Regular.ttf"; sourceTree = "<group>"; };
@@ -81,7 +82,6 @@
 		11A68E5A1F2B3465001EFB1E /* woodblock-0.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = "woodblock-0.mp3"; sourceTree = "<group>"; };
 		11A68E5C1F2BBC7A001EFB1E /* AppLovinSDK.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = AppLovinSDK.framework; sourceTree = "<group>"; };
 		11C6317A1F4CD6400069EED0 /* StoreKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = StoreKit.framework; path = System/Library/Frameworks/StoreKit.framework; sourceTree = SDKROOT; };
-		11C632301F4DF2780069EED0 /* IAPHandler.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = IAPHandler.swift; sourceTree = "<group>"; };
 		11E914971F1358B4002D4D74 /* EmojiOld.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EmojiOld.swift; sourceTree = "<group>"; };
 		11E914991F135936002D4D74 /* PubnubHandler.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PubnubHandler.swift; sourceTree = "<group>"; };
 		11EB28FE1EE641A9002BEF42 /* LocalDataHandler.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LocalDataHandler.swift; sourceTree = "<group>"; };
@@ -153,6 +153,7 @@
 				11139C9A1F217DE300FD8E88 /* CollectViewController.swift */,
 				118FE0561EFB37CE000A629B /* GoldShopController.swift */,
 				11A68E4D1F26C68A001EFB1E /* PassThroughView.swift */,
+				112D12271F54AAEE00B4533F /* IAPViewController.swift */,
 			);
 			name = ViewControllers;
 			sourceTree = "<group>";
@@ -166,7 +167,6 @@
 				11E914991F135936002D4D74 /* PubnubHandler.swift */,
 				11E914971F1358B4002D4D74 /* EmojiOld.swift */,
 				11246B611F1835D800312035 /* Emoji.swift */,
-				11C632301F4DF2780069EED0 /* IAPHandler.swift */,
 			);
 			name = CustomClasses;
 			sourceTree = "<group>";
@@ -487,7 +487,6 @@
 				11E914981F1358B4002D4D74 /* EmojiOld.swift in Sources */,
 				11139C9B1F217DE300FD8E88 /* CollectViewController.swift in Sources */,
 				11EB52BE1EE38A9800A5312F /* WinScreenController.swift in Sources */,
-				11C632311F4DF2780069EED0 /* IAPHandler.swift in Sources */,
 				11EB28FF1EE641A9002BEF42 /* LocalDataHandler.swift in Sources */,
 				11EB52C01EE3ADC900A5312F /* DataExtension.swift in Sources */,
 				11E9149A1F135936002D4D74 /* PubnubHandler.swift in Sources */,
@@ -498,6 +497,7 @@
 				11EB52901EE3652700A5312F /* GameController.swift in Sources */,
 				11246B621F1835D800312035 /* Emoji.swift in Sources */,
 				11A68E4E1F26C68A001EFB1E /* PassThroughView.swift in Sources */,
+				112D12281F54AAEE00B4533F /* IAPViewController.swift in Sources */,
 				11EB528E1EE3652700A5312F /* AppDelegate.swift in Sources */,
 				1106D5A11EF9D8D700046D9B /* CraftingController.swift in Sources */,
 			);
