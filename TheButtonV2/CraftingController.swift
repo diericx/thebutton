@@ -124,11 +124,11 @@ class CraftingController: UIViewController, UITextFieldDelegate, UICollectionVie
     func emojiButtonUp(_ sender: AnyObject?) {
         print("emoji Button up inside..")
         var emoji = Emoji.emojis[(sender?.tag)!]
-        if Emoji.doIOwn(emojiInput: emoji) {
+        //if Emoji.doIOwn(emojiInput: emoji) {
             selectedEmoji = Emoji.emojis[(sender?.tag)!]
-        } else {
-            selectedEmoji = "";
-        }
+        //} else {
+        //    selectedEmoji = "";
+        //}
     }
     
     @IBAction func slotUpInside(_ sender: UIButton!) {
@@ -171,7 +171,7 @@ class CraftingController: UIViewController, UITextFieldDelegate, UICollectionVie
         craftedEmojiLabel.text = recipeResult
         
 //        //TODO - change inventory items
-//        Emoji.addToMyInventory(emojiInput: recipeResult)
+        Emoji.addToMyInventory(emojiInput: recipeResult)
 //        Emoji.removeFromMyInventory(emojiInput: Emoji.emojis[recipe[slot1]!] )
 //        Emoji.removeFromMyInventory(emojiInput: Emoji.emojis[recipe[slot2]!] )
 //        Emoji.removeFromMyInventory(emojiInput: Emoji.emojis[recipe[slot3]!] )
@@ -181,8 +181,17 @@ class CraftingController: UIViewController, UITextFieldDelegate, UICollectionVie
 //        }
 //        
 //        //TODO: Change 5 to emoji index and update all affected emoji
-//        let i = IndexPath(row: 5, section: 0)
-//        self.emojiCollectionView!.reloadItems(at: [i])
+        let s1Index = Emoji.getIndexForEmoji(emoji: slot1)
+        let s2Index = Emoji.getIndexForEmoji(emoji: slot2)
+        let s3Index = Emoji.getIndexForEmoji(emoji: slot3)
+        let resultIndex = Emoji.getIndexForEmoji(emoji: recipeResult)
+        
+        self.emojiCollectionView!.reloadItems(at: [
+            IndexPath(row: s1Index, section: 0),
+            IndexPath(row: s2Index, section: 0),
+            IndexPath(row: s3Index, section: 0),
+            IndexPath(row: resultIndex, section: 0)
+            ])
     }
     
     override func didReceiveMemoryWarning() {

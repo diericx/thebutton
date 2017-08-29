@@ -165,6 +165,17 @@ class Emoji {
         return nil
     }
     
+    static func getIndexForEmoji(emoji: String) -> Int {
+        var i = 0
+        for e in emojis {
+            if e == emoji {
+                return i
+            }
+            i+=1
+        }
+        return -1
+    }
+    
 //    static func isRecipeValid(recipeInput: [String: Int], n: [String: AnyObject]) -> String? {
 //        //get node's emoji
 //        let nEmoji = n["name"] as? String
