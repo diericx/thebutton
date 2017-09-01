@@ -84,6 +84,10 @@ class LocalDataHandler {
         defaults.set(value, forKey: "taps")
     }
     
+    static func setEquippedEmoji(value: String) {
+        defaults.set(value, forKey: "equippedEmoji")
+    }
+    
     static func setColorPackIStatus() -> Bool? {
         let status = defaults.bool(forKey: "colorPackIStatus")
         return status
@@ -185,6 +189,14 @@ class LocalDataHandler {
             return 0
         }
         return level as! Int
+    }
+    
+    static func getEquippedEmoji() -> String {
+        guard let emoji = defaults.value(forKey: "equippedEmoji") else {
+            setEquippedEmoji(value: "")
+            return ""
+        }
+        return emoji as! String
     }
     
     

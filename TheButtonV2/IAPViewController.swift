@@ -20,12 +20,24 @@ enum RegisteredPurchase : String {
     case gCoinPack = "giantCoinPack"
 }
 
+enum RegisteredPurchaseAmounts : Int {
+    case sCoinPack = 5500
+    case mCoinPack = 30000
+    case lCoinPack = 75000
+    case hCoinPack = 120500
+    case gCoinPack = 1000000
+}
+
 class IAPViewController: UIViewController {
     
     let bundleID = "com.diericx.TheButtonV3"
     
+    @IBOutlet weak var moneyLabel: UILabel!
+    
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        moneyLabel.text = String(LocalDataHandler.getCoins())
 
         // Do any additional setup after loading the view.
     }
@@ -45,9 +57,23 @@ class IAPViewController: UIViewController {
         purchase(purchase: RegisteredPurchase.mCoinPack)
     }
     
+    
+    @IBAction func largePackUpInside(_ sender: Any) {
+        purchase(purchase: RegisteredPurchase.lCoinPack)
+    }
+    
+    @IBAction func hugePackUpInside(_ sender: Any) {
+        purchase(purchase: RegisteredPurchase.hCoinPack)
+    }
+    
+    @IBAction func giantPackUpInside(_ sender: Any) {
+        purchase(purchase: RegisteredPurchase.gCoinPack)
+    }
+    
     @IBAction func backUpInside(_ sender: Any) {
         dismiss(animated: true, completion: nil)
     }
+
     
     func getInfo(purchase: RegisteredPurchase) {
         NetworkActivityManager.NetworkOperationStarted()
@@ -69,6 +95,21 @@ class IAPViewController: UIViewController {
             
             if case .success(let product) = result {
                 
+                
+                
+                if product.productId == self.bundleID + "." + RegisteredPurchase.sCoinPack.rawValue {
+                    //Purchased small coin pack
+                    self.updateCoins(value: RegisteredPurchaseAmounts.sCoinPack.rawValue)
+                } else if product.productId == self.bundleID + "." + RegisteredPurchase.mCoinPack.rawValue {
+                    self.updateCoins(value: RegisteredPurchaseAmounts.mCoinPack.rawValue)
+                } else if product.productId == self.bundleID + "." + RegisteredPurchase.lCoinPack.rawValue {
+                    self.updateCoins(value: RegisteredPurchaseAmounts.lCoinPack.rawValue)
+                } else if product.productId == self.bundleID + "." + RegisteredPurchase.hCoinPack.rawValue {
+                    self.updateCoins(value: RegisteredPurchaseAmounts.hCoinPack.rawValue)
+                } else if product.productId == self.bundleID + "." + RegisteredPurchase.gCoinPack.rawValue {
+                    self.updateCoins(value: RegisteredPurchaseAmounts.gCoinPack.rawValue)
+                }
+                
                 if product.needsFinishTransaction {
                     SwiftyStoreKit.finishTransaction(product.transaction)
                 }
@@ -76,9 +117,17 @@ class IAPViewController: UIViewController {
                 
             } else if case .error(let error) = result {
                 print("There was an error! \(error)")
+                
             }
             
         }
+    }
+    
+    func updateCoins(value: Int) {
+        var coins = LocalDataHandler.getCoins()
+        coins += RegisteredPurchaseAmounts.sCoinPack.rawValue
+        LocalDataHandler.setCoins(coins: coins)
+        moneyLabel.text = String(coins)
     }
     
     func restorePurcahses() {

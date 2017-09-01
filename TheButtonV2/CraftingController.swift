@@ -16,6 +16,8 @@ class CraftingController: UIViewController, UITextFieldDelegate, UICollectionVie
     @IBOutlet weak var craftedEmojiLabel: UILabel!
     @IBOutlet weak var successRaysImage: UIImageView!
     @IBOutlet weak var emojiCollectionView: UICollectionView!
+    @IBOutlet weak var equipSlotButton: UIButton!
+    
     @IBOutlet var slots: [UIButton]?
     var selectedEmoji = ""
     var slot1 = ""
@@ -32,6 +34,8 @@ class CraftingController: UIViewController, UITextFieldDelegate, UICollectionVie
         //set it to clear background
         self.emojiCollectionView.backgroundColor = UIColor.clear;
         self.emojiCollectionView.backgroundView?.backgroundColor = UIColor.clear;
+        
+        equipSlotButton.setTitle(LocalDataHandler.getEquippedEmoji(), for: .normal)
         
     }
     
@@ -146,6 +150,13 @@ class CraftingController: UIViewController, UITextFieldDelegate, UICollectionVie
         
     }
     
+    @IBAction func equipSlotUpInside(_ sender: UIButton!) {
+        if selectedEmoji != "" {
+            sender.setTitle(selectedEmoji, for: .normal)
+            LocalDataHandler.setEquippedEmoji(value: selectedEmoji)
+        }
+    }
+    
     @IBAction func onSaveButtonPress(_ sender: Any) {
         dismiss(animated: true, completion: nil)
     }
@@ -192,6 +203,15 @@ class CraftingController: UIViewController, UITextFieldDelegate, UICollectionVie
             IndexPath(row: s3Index, section: 0),
             IndexPath(row: resultIndex, section: 0)
             ])
+    }
+    
+    @IBAction func handlePan(recognizer:UIPanGestureRecognizer) {
+        let translation = recognizer.translation(in: self.view)
+        if let view = recognizer.view {
+            view.center = CGPoint(x:view.center.x + translation.x,
+                                  y:view.center.y + translation.y)
+        }
+        recognizer.setTranslation(CGPoint.zero, in: self.view)
     }
     
     override func didReceiveMemoryWarning() {

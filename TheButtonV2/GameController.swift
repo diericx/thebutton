@@ -34,6 +34,10 @@ class GameController: UIViewController, PNObjectEventListener {
     @IBOutlet weak var levelLabel: UILabel!
     @IBOutlet weak var collectButton: UIButton!
     
+    @IBOutlet var tierPersonCountLabels:[UILabel]?
+    
+    @IBOutlet var recentAdvLabels:[UILabel]?
+    
     //instance vars
     private var notification: NSObjectProtocol?
     var username = LocalDataHandler.getUsername()
@@ -48,6 +52,7 @@ class GameController: UIViewController, PNObjectEventListener {
     var goalEmojiLabelInitFrames: [CGRect] = []
     var currentEmojiLabelInitFrames: [CGRect] = []
     var highlightBarInitFrame: CGRect = CGRect()
+    var userTiers: [String: Int] = [:]
     
     //static vars
     static var winner = false
@@ -293,7 +298,7 @@ class GameController: UIViewController, PNObjectEventListener {
             if label.tag == GameController.gs.tier {
                 //found current emoji label
                 var chance = Int.random(min: 1, max: GameState.tierChances[GameController.gs.tier])
-                print("CHANCE: \(chance)")
+                
                 if (chance == 1) {
                     GameController.gs.currentEmojis[GameController.gs.tier] = GameController.gs.goalEmojis[GameController.gs.tier]
                 } else {
@@ -436,17 +441,14 @@ class GameController: UIViewController, PNObjectEventListener {
 
     @IBAction func OnButtonTouchDown(_ sender: Any) {
         //shrink button
-        UIView.animate(withDuration: 0.02,
-                       animations: {
-//                        self.progressBar.glowAmount = 1
-        })
+
     }
     
     @IBAction func OnButtonTap(_ sender: Any) {
-        print("touch up")
-        UIView.animate(withDuration: 0.02) {
-//            self.progressBar.glowAmount = 0
-        }
+        
+        let generator = UIImpactFeedbackGenerator(style: .medium)
+        generator.impactOccurred()
+
         if LocalDataHandler.getCoins() > 0 {
             
             //send packet
@@ -454,7 +456,7 @@ class GameController: UIViewController, PNObjectEventListener {
             let nameSpeed = String(LocalDataHandler.getNameSpeedUpgradeStatus()!)
             print("nameSizeOnTap: " + nameSize)
             //send packet to pubnub
-            PubnubHandler.sendMessage(packet: "{\"action\": \"button-press\", \"userid\": \"\(PubnubHandler.uuid)\", \"name\":\"" + username! + "\", \"name-size\": \"" + nameSize + "\", \"name-speed\": \"" + nameSpeed + "\" }");
+            PubnubHandler.sendMessage(packet: "{\"action\": \"button-press\", \"userid\": \"\(PubnubHandler.uuid)\", \"name\":\"" + username! + "\", \"name-size\": \"" + nameSize + "\", \"name-speed\": \"" + nameSpeed + "\", \"tier\": \(GameController.gs.tier) }");
         } else {
             //TODO: warn user that they are broke
             print("Out of funds!");
@@ -486,16 +488,42 @@ class GameController: UIViewController, PNObjectEventListener {
 //        
 //    }
     
+    
     func updateCoinLabel() {
         self.walletLabel.text = String(LocalDataHandler.getCoins())
     }
     
     func updateLevelLabel() {
-        levelLabel.text = String(LocalDataHandler.getLevel())
+        levelLabel.text = "Level " + String(LocalDataHandler.getLevel())
     }
     
     func updatePotLabel() {
         self.potLabel.text = "$" + String(GameController.gs.pot)
+    }
+    
+    func updateTierLabels() {
+        var tierCounts = [0, 0, 0, 0]
+        
+        for (_, v) in userTiers {
+            tierCounts[v-1] += 1
+        }
+        
+        for label in tierPersonCountLabels! {
+            var tail = "person"
+            if tierCounts[label.tag] == 1 {
+                tail = "people"
+            }
+            label.text = "\(tierCounts[label.tag]) \(tail)"
+        }
+    }
+    
+    func playerTierAdvanceAnimation(name: String, tier: Int) {
+        recentAdvLabels?[tier-1].text = "\(name) Got to Tier \(tier)"
+        recentAdvLabels?[tier-1].alpha = 1
+        self.view.layoutIfNeeded()
+        UIView.animate(withDuration: 3, animations: {
+            self.recentAdvLabels?[tier-1].alpha = 0
+        })
     }
     
     // Handle new message from one of channels on which client has been subscribed.
@@ -517,15 +545,23 @@ class GameController: UIViewController, PNObjectEventListener {
         if (action == "button-press") {
             let sound = Int.random(min: 0, max: 3) * 2
             let soundFile = "woodblock-\(sound)"
-            print(soundFile)
             //play sound
-            playSound(name: soundFile, type: "mp3")
+            //playSound(name: soundFile, type: "mp3")
             
             //get user's name
             let name: String = dictionary["name"] as! String
             let nameSize: Int = Int(dictionary["name-size"] as! String)!
             let nameSpeed: Int = Int(dictionary["name-speed"] as! String)!
+            let tier: Int = dictionary["tier"] as! Int
             let uuid: String = dictionary["userid"] as! String
+            
+            //deal with current user and their tier value
+            if userTiers[uuid] == nil || userTiers[uuid] != tier {
+                //update their tier data
+                userTiers[uuid] = tier
+                updateTierLabels()
+                playerTierAdvanceAnimation(name: name, tier: tier)
+            }
             
             //only deduct coins if the tap goes through
             if (uuid == PubnubHandler.uuid) {
